@@ -47,18 +47,10 @@ while [[ $A -lt $2 ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 
-
-
 A=$(($A+$((1))))
 done
 echo done setting primaries
-sudo wget https://github.com/druble81/cybershield/archive/refs/tags/current.zip
-sudo unzip -o  current.zip -d /tmp/
-sudo cp -a /tmp/cybershield-current/. /home/pi/Desktop
-sudo chmod +x /home/pi/Desktop/fixpermissions.sh
-sudo bash /home/pi/Desktop/fixpermissions.sh
-sudo rm current.zip
- printf "\n"    >> /tmp/ramdisk/SG3.TXT
+printf "\n"    >> /tmp/ramdisk/SG3.TXT
 A=900
 exit
 
