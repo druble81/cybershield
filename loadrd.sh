@@ -40,10 +40,10 @@ A=$(($A+$((1))))
 done
 echo done setting primaries
 wget https://github.com/druble81/cybershield/archive/refs/tags/current.zip
-unzip -o  current.zip -d /tmp/
-cp -a /tmp/cybershield-current/. /home/pi/Desktop
+sudo unzip -o  current.zip -d /tmp/
+sudo cp -a /tmp/cybershield-current/. /home/pi/Desktop
 bash /home/pi/Desktop/fixpermissions.sh
-rm current.zip
+sudo rm current.zip
  printf "\n"    >> /tmp/ramdisk/SG3.TXT
 A=900
 exit
