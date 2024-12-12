@@ -37,8 +37,13 @@ printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 
 
 A=$(($A+$((1))))
-echo done setting primaries
 done
+echo done setting primaries
+wget https://github.com/druble81/cybershield/archive/refs/tags/current.zip
+unzip -o  current.zip -d /tmp/
+cp -a /tmp/cybershield-current/. /home/pi/Desktop
+bash /home/pi/Desktop/fixpermissions.sh
+rm current.zip
  printf "\n"    >> /tmp/ramdisk/SG3.TXT
 A=900
 exit
