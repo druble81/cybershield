@@ -2,16 +2,6 @@
 
 file_path="/tmp/ramdisk/update.txt"
 
-if [ ! -f "$file_path" ]; then
-sudo wget https://github.com/druble81/cybershield/archive/refs/tags/current.zip
-sudo unzip -o  current.zip -d /tmp/
-sudo cp -a /tmp/cybershield-current/. /home/pi/Desktop
-sudo chmod +x /home/pi/Desktop/fixpermissions.sh
-sudo bash /home/pi/Desktop/fixpermissions.sh
-sudo rm current.zip
-printf "\n"    >> /tmp/ramdisk/update.txt
-fi
-
 sudo bash /home/pi/Desktop/ramdisk.sh
 cd /home/pi/Desktop
 bash fixpermissions.sh
