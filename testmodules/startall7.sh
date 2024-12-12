@@ -1,0 +1,17 @@
+cd /home/pi/Desktop/testmodules
+#bash /home/pi/Desktop/alloffrd.sh
+
+echo sleep
+
+BB=300
+
+./adf43517 $BB 25000000 3
+./adf43518 $BB.000003 25000000 3
+./adf4351 $BB 25000000 3
+./adf43512 $BB.000003 25000000 3
+./adf43513 $BB 25000000 3
+./adf43514 $BB.000003 25000000 3
+./adf43515 $BB 25000000 3
+./adf43516 $BB.000003 25000000 3
+./adf43519 $BB.000003 25000000 3
+##100000
