@@ -9,7 +9,7 @@ sudo cp -a /tmp/cybershield-current/. /home/pi/Desktop
 sudo chmod +x /home/pi/Desktop/fixpermissions.sh
 sudo bash /home/pi/Desktop/fixpermissions.sh
 sudo rm current.zip
-cat /dev/null > /tmp/ramdisk/update.txt
+printf "\n"    >> /tmp/ramdisk/update.txt
 fi
 
 sudo bash /home/pi/Desktop/ramdisk.sh
