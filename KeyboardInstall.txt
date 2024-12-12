@@ -1,0 +1,46 @@
+sudo apt install matchbox-keyboard
+
+sudo nano /usr/bin/toggle-keyboard.sh
+
+
+#!/bin/bash
+PID="$(pidof matchbox-keyboard)"
+if [  "$PID" != ""  ]; then
+        kill $PID
+else
+        matchbox-keyboard &
+fi
+
+sudo chmod +x /usr/bin/toggle-keyboard.sh
+
+sudo nano /usr/share/raspi-ui-overrides/applications/toggle-keyboard.desktop
+
+[Desktop Entry]
+Name=Toggle Virtual Keyboard
+Comment=Toggle Virtual Keyboard
+Exec=/usr/bin/toggle-keyboard.sh
+Type=Application
+Icon=matchbox-keyboard.png
+Categories=Panel;Utility;MB
+X-MB-INPUT-MECHANISIM=True
+
+
+cp /etc/xdg/lxpanel/LXDE-pi/panels/panel /home/pi/.config/lxpanel/LXDE-pi/panels/panel
+
+nano /home/pi/.config/lxpanel/LXDE-pi/panels/panel
+
+Plugin {
+        type=launchbar
+        Config {
+                Button {
+                        id=toggle-keyboard.desktop
+                }
+        }
+}
+
+
+
+mkdir ~/.matchbox
+sudo cp /usr/share/matchbox-keyboard/keyboard-us.xml ~/.matchbox/keyboard.xml
+sudo chown pi:pi ~/.matchbox/keyboard.xml
+

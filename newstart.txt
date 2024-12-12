@@ -1,0 +1,11 @@
+
+
+sudo mkdir ~/.config/lxsession
+sudo mkdir ~/.config/lxsession/LXDE-pi
+
+sudo nano ~/.config/lxsession/LXDE-pi/autostart
+
+
+@lxpanel --profile LXDE-pi
+@pacmanfm --desktop --profile LXDE-pi
+@lxterminal -e /home/pi/Desktop/I3/interface3
