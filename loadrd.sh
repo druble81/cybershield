@@ -1,7 +1,4 @@
 #!/bin/bash
-
-file_path="/tmp/ramdisk/update.txt"
-
 sudo bash /home/pi/Desktop/ramdisk.sh
 cd /home/pi/Desktop
 bash fixpermissions.sh
@@ -37,10 +34,12 @@ while [[ $A -lt $2 ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 
+
+
 A=$(($A+$((1))))
-done
 echo done setting primaries
-printf "\n"    >> /tmp/ramdisk/SG3.TXT
+done
+ printf "\n"    >> /tmp/ramdisk/SG3.TXT
 A=900
 exit
 

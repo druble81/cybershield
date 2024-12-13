@@ -1,3 +1,4 @@
+cd /home/pi/Desktop/testmodules
 echo  **********----------WAKE- RUNNING----------**********
 echo  **********----------WAKE- RUNNING----------**********
 echo  **********----------WAKE- RUNNING----------**********
@@ -19,78 +20,75 @@ echo  **********----------WAKE- RUNNING----------**********
 echo  **********----------WAKE- RUNNING----------**********
 echo  **********----------WAKE- RUNNING----------**********
 
-
-BB=120
-BB1=241
-BB2=272
-BB3=293
-
-A=0
-C=0
-D=350
+SEED=$(od -An -N2 -i /dev/urandom)
+RANDOM=$SEED
 
 
-if [ -z "$1" ]
-then
-echo "nothing"
-else
-D=$1
-fi
+
+two=300
+one=35
+
 
 while :
 do
 
-while [[ "$A" -lt "$D" ]] 
+BB=$(($RANDOM%$(($two-$one)) + $one))
+
+C=0
+
+for (( i=1; i<=27; i++ ))
 do
-
-
-
-A=$(($A+1))
-echo $A"hz Entrainment"
-
-if [[ "$A" -lt "100" ]]
-then
-
-/home/pi/Desktop/testmodules/adf4351 280 25000000 $C&
-/home/pi/Desktop/testmodules/adf43512 280.0000$A 25000000 $C&
-/home/pi/Desktop/testmodules/adf43519 280.010000 25000000 $C
-
-
-/home/pi/Desktop/testmodules/adf43513 200 25000000 $C&
-/home/pi/Desktop/testmodules/adf43514 200.0000$A 25000000 $C&
-fi
-
-if [[ "$A" -gt "90" ]]
-then
-
-/home/pi/Desktop/testmodules/adf4351 280 25000000 $C&
-/home/pi/Desktop/testmodules/adf43512 280.000$A 25000000 $C&
-/home/pi/Desktop/testmodules/adf43519 280.010000 25000000 $C
-
-/home/pi/Desktop/testmodules/adf43513 200 25000000 $C&
-/home/pi/Desktop/testmodules/adf43514 200.000$A 25000000 $C&
-fi
-if [ -z "$1" ]
-then
-sleep 0.2
-else
-
-sleep $2
-fi
-done
+offset=$(($offset + RANDOM % 900000))
 done
 
+#echo $offset
 
 
 
-sleep 0.7
+BB1=$(($BB))
+BB2=$(($BB))
+BB3=$(($BB))
 
 
-exit
+hz1=60
+hz2=80
+hz3=80
+hz4=80
+
+
+#echo $BB1.$offset
+#echo $BB1.$(($offset+$hz1))
+
+
+
+BB44=$(($RANDOM%3+1))
 
 
 
 
+
+./adf4351 $BB.$offset 25000000 $C&
+./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
+##100000
+
+./adf43513 $BB1.$(($offset+$hz2)) 25000000 $C&
+./adf43514 $BB1.$offset 25000000 $C&
+##110000
+
+####################10000
+
+./adf43515 $BB2.$offset 25000000 $C&
+./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
+#echo ./adf43516 $BB".210001" 25000000 $C&
+##210001
+
+./adf43517 $BB3.$(($offset+$hz4)) 25000000 $C&
+./adf43518 $BB3.$offset 25000000 $C
+##200003
+
+####################10001
+
+#10000 - 100001 = 1hz#
+sleep 0.$BB44
 
 done
-
