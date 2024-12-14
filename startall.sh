@@ -5,6 +5,8 @@ myarray=(1 2 3 4 5 6 7 8 9)
 
 #shuf -e ${myarray[@]}
 
+/tmp/ramdisk/adf43513 1000 25000000 $C&
+
 while :
 do
 
