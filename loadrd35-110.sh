@@ -2,6 +2,9 @@
 sudo bash /home/pi/Desktop/ramdisk.sh
 cd /home/pi/Desktop
 bash fixpermissions.sh
+
+./update_gui
+
 cp 10k/adf4351 /tmp/ramdisk/adf43512s
 cp 10k/adf43512 /tmp/ramdisk/adf435122
 cp 10k/adf43513 /tmp/ramdisk/adf435132
