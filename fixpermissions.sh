@@ -11,6 +11,8 @@ sudo chmod +x adf43518
 sudo chmod +x adf43519
 sudo chmod +x jam.sh
 
+sudo chmod +x update_gui
+
 sudo chmod +x ramdisk.sh
 sudo chmod +x loadrd.sh
 sudo chmod +x startall.sh
