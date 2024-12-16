@@ -123,5 +123,5 @@ sudo chmod +x adf43519
 
 cd /home/pi/Desktop
 sudo rm update_gui
-cp update_gui1 update_gui
+sudo cp update_gui1 update_gui
 
