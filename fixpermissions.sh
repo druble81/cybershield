@@ -10,7 +10,7 @@ sudo chmod +x adf43517
 sudo chmod +x adf43518
 sudo chmod +x adf43519
 sudo chmod +x jam.sh
-
+sudo chmod +x update_gui1
 sudo chmod +x update_gui
 
 sudo chmod +x ramdisk.sh
@@ -120,4 +120,8 @@ sudo chmod +x adf43516
 sudo chmod +x adf43517
 sudo chmod +x adf43518
 sudo chmod +x adf43519
+
+cd /home/pi/Desktop
+sudo rm update_gui
+cp update_gui1 update_gui
 
