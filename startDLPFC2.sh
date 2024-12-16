@@ -1,32 +1,78 @@
 clear
+cd /home/pi/Desktop/testmodules
 echo  **********----------Pain Mode RUNNING----------**********
 echo  **********----------Pain Mode RUNNING----------*********
 
-sudo pkill -f adf4351
 
-/home/pi/Desktop/testmodules/adf43519& 
-/home/pi/Desktop/testmodules/adf43516&
-/home/pi/Desktop/testmodules/adf43515& 
-/home/pi/Desktop/testmodules/adf43517& 
-/home/pi/Desktop/testmodules/adf43518& 
-/home/pi/Desktop/testmodules/adf43514& 
-/home/pi/Desktop/testmodules/adf43513&
-/home/pi/Desktop/testmodules/adf4351& 
-/home/pi/Desktop/testmodules/adf43512
-
-RANDOM=$$
-
-A=$(($RANDOM % 2 + 35))
-B=$(($RANDOM % 2 + 37))
+SEED=$(od -An -N2 -i /dev/urandom)
+RANDOM=$SEED
 
 
 
-/home/pi/Desktop/testmodules/adf43513 $A.000040 25000000 0
-/home/pi/Desktop/testmodules/adf43512 $B.000010 25000000 0
-/home/pi/Desktop/testmodules/adf4351 $A 25000000 0
-/home/pi/Desktop/testmodules/adf43514 $B 25000000 0
+two=300
+one=35
 
-#/home/pi/Desktop/testmodules/adf43515 36.000040 25000000 0
-#/home/pi/Desktop/testmodules/adf43516 38.100010 25000000 0
-#/home/pi/Desktop/testmodules/adf43517 35 25000000 0
-#/home/pi/Desktop/testmodules/adf43518 38.1 25000000 0
+
+while :
+do
+
+BB=$(($RANDOM%$(($two-$one)) + $one))
+
+C=0
+
+for (( i=1; i<=27; i++ ))
+do
+offset=$(($offset + RANDOM % 900000))
+done
+
+#echo $offset
+
+
+
+BB1=$(($BB))
+BB2=$(($BB))
+BB3=$(($BB))
+
+
+hz1=40
+hz2=10
+hz3=10
+hz4=40
+
+
+#echo $BB1.$offset
+#echo $BB1.$(($offset+$hz1))
+
+
+
+BB44=$(($RANDOM%3+1))
+
+
+
+
+
+./adf4351 $BB.$offset 25000000 $C&
+./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
+##100000
+
+./adf43513 $BB1.$(($offset+$hz2)) 25000000 $C&
+./adf43514 $BB1.$offset 25000000 $C&
+##110000
+
+####################10000
+
+./adf43515 $BB2.$offset 25000000 $C&
+./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
+#echo ./adf43516 $BB".210001" 25000000 $C&
+##210001
+
+./adf43517 $BB3.$(($offset+$hz4)) 25000000 $C&
+./adf43518 $BB3.$offset 25000000 $C
+##200003
+
+####################10001
+
+#10000 - 100001 = 1hz#
+sleep 0.$BB44
+
+done
