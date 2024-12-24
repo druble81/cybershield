@@ -8,7 +8,7 @@ RANDOM=$SEED
 
 
 
-two=300
+two=800
 one=35
 
 
@@ -34,7 +34,7 @@ BB3=$(($BB))
 
 
 hz1=12
-hz2=666
+hz2=5
 hz3=1
 hz4=3
 
