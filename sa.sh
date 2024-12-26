@@ -12,7 +12,7 @@ myarray=(1 2 3 4 5 6 7 8 9)
 while :
 do
 RANDOM=$$
-A=0.5
+A=1
 #A=1
 echo $A
 
@@ -47,8 +47,6 @@ sleep $A
 
 sudo pkill -f adf4351
 
-A=$(($RANDOM % 3 + 1))
-A=1
 
 echo "10k" 
 /tmp/ramdisk/adf43512s 3000 25000000 $C ${myarray[1]}&
