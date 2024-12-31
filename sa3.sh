@@ -18,9 +18,6 @@ sudo pkill -f adf4351
 sudo pkill -f startall
 
 
-sleep 1
-
-
 A=$(($RANDOM % 5))
 
 if [[ $A == 0 ]]
