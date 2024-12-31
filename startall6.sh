@@ -25,7 +25,7 @@ RANDOM=$SEED
 
 
 
-two=300
+two=40
 one=35
 
 
@@ -50,10 +50,10 @@ BB2=$(($BB))
 BB3=$(($BB))
 
 
-hz1=60
-hz2=80
-hz3=80
-hz4=80
+hz1=64
+hz2=63
+hz3=62
+hz4=61
 
 
 #echo $BB1.$offset
