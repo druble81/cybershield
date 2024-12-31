@@ -51,9 +51,9 @@ BB3=$(($BB))
 
 
 hz1=62
-hz2=62
-hz3=62
-hz4=62
+hz2=20000
+hz3=23000
+hz4=284
 
 
 #echo $BB1.$offset
