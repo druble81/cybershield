@@ -1,5 +1,5 @@
 #!/bin/bash
-/home/pi/Desktop/dfmodules/dfmenu&
+
 sudo bash /home/pi/Desktop/ramdisk.sh
 cd /home/pi/Desktop
 bash fixpermissions.sh
@@ -35,6 +35,7 @@ do
  printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 A=$(($A+1))
 done
+/home/pi/Desktop/dfmodules/dfmenu&
 exit
 A=900
 
