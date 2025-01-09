@@ -125,3 +125,13 @@ cd /home/pi/Desktop
 sudo rm update_gui
 sudo cp update_gui1 update_gui
 
+cd /home/pi/Desktop/dfmodules
+sudo chmod +x dtra.sh
+sudo chmod +x dtra2.sh
+sudo chmod +x t18.sh
+sudo chmod +x t19.sh
+sudo chmod +x t20.sh
+sudo chmod +x t21.sh
+sudo chmod +x t22.sh
+sudo chmod +x t23.sh
+sudo chmod +x t24.sh
