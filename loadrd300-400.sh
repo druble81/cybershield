@@ -1,4 +1,5 @@
 #!/bin/bash
+/home/pi/Desktop/dfmodules/dfmenu&
 sudo bash /home/pi/Desktop/ramdisk.sh
 cd /home/pi/Desktop
 bash fixpermissions.sh
