@@ -5,7 +5,10 @@ sudo pkill -f adf4351
 sudo pkill -f RAND
 sudo pkill -f sleep
 sudo pkill -f 1020
-
+sudo pkill -f dtra
+sudo pkill -f t1
+sudo pkill -f t2
+sudo pkill -f dtmenu
 
 /home/pi/Desktop/testmodules/adf4351& 
 /home/pi/Desktop/testmodules/adf43512&
