@@ -30,7 +30,7 @@ echo "......................RESISTANCE MODE......................$D"
 /home/pi/Desktop/1020/adf43518 3000 25000000 $C& 2>/dev/null
 /home/pi/Desktop/1020/adf43519 3000 25000000 $C& 2>/dev/null
 
-sleep 20
+sleep 5
 sudo pkill -f adf4351
 
 
