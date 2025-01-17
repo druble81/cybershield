@@ -23,31 +23,31 @@ A=$(($RANDOM % 5))
 if [[ $A == 0 ]]
 then
 bash sa2.sh&
-sleep 0.6
+sleep 2
 fi
 
 if [[ $A == 1 ]]
 then
 bash startall2.sh&
-sleep 0.6
+sleep 2
 fi
 
 if [[ $A == 2 ]]
 then
 bash startDLPFC.sh&
-sleep 0.6
+sleep 2
 fi
 
 if [[ $A == 3 ]]
 then
 bash startPTSD.sh&
-sleep 0.6
+sleep 2
 fi
 
 if [[ $A == 4 ]]
 then
 bash /home/pi/Desktop/testmodules/startall2.sh&
-sleep 0.6
+sleep 2
 fi
 
 
