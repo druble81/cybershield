@@ -26,8 +26,8 @@ RANDOM=$SEED
 
 
 
-two=300
-one=35
+two=400
+one=290
 
 
 while :
