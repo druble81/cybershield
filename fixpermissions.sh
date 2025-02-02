@@ -136,3 +136,6 @@ sudo chmod +x t22.sh
 sudo chmod +x t23.sh
 sudo chmod +x t24.sh
 sudo chmod +x dfmenu
+
+sudo chown -R pi:pi /home/pi/Desktop
+
