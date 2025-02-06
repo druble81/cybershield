@@ -137,4 +137,5 @@ sudo chmod +x t24.sh
 sudo chmod +x dfmenu
 
 sudo chown -R pi:pi /home/pi/Desktop
+sudo chown -R pi:pi /tmp/ramdisk
 
