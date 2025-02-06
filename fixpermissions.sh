@@ -16,7 +16,6 @@ sudo chmod +x update_gui
 sudo chmod +x ramdisk.sh
 sudo chmod +x loadrd.sh
 sudo chmod +x startall.sh
-sudo chmod +x pishutdown.py
 sudo chmod +x alloffrd.sh
 sudo chmod +x startPTSD.sh
 sudo chmod +x startDLPFC.sh
