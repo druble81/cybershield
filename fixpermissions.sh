@@ -14,6 +14,7 @@ sudo chmod +x update_gui1
 sudo chmod +x update_gui
 
 sudo chmod +x ramdisk.sh
+sudo chmod +x loadrdDEW.sh
 sudo chmod +x loadrd.sh
 sudo chmod +x startall.sh
 sudo chmod +x alloffrd.sh
