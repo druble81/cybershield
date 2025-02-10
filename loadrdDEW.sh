@@ -28,17 +28,28 @@ cp loadrd.sh /tmp/ramdisk/loadrd.sh
 cat /dev/null > /tmp/ramdisk/SG3.TXT
 
 
-A=$1
+A=35
 
-while [[ $A -lt $2 ]]
+while [[ 35 -lt 162 ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
-
-
-
 A=$(($A+$((1))))
-echo done setting primaries
 done
+A=225
+while [[ 225 -lt 401 ]]
+do
+printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
+A=$(($A+$((1))))
+done
+A=600
+while [[ 600 -lt 1901 ]]
+do
+printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
+A=$(($A+$((1))))
+done
+
+
+echo done setting primaries
 printf "\n"    >> /tmp/ramdisk/SG3.TXT
 A=900
 exit
