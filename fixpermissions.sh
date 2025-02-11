@@ -27,6 +27,18 @@ sudo chmod +x startPTSD2.sh
 sudo chmod +x startDLPFC2.sh
 sudo chmod +x 1020.sh
 
+cd /home/pi/Desktop/JAM
+sudo chmod +x adf4351
+sudo chmod +x adf43512
+sudo chmod +x adf43513
+sudo chmod +x adf43514
+sudo chmod +x adf43515
+sudo chmod +x adf43516
+sudo chmod +x adf43517
+sudo chmod +x adf43518
+sudo chmod +x adf43519
+sudo chmod +x jammer_gui.py
+
 cd /home/pi/Desktop/1020
 sudo chmod +x adf4351
 sudo chmod +x adf43512
