@@ -1,0 +1,110 @@
+[
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "35",
+    "sweep_end": "160",
+    "sweep_step": "0.25",
+    "sweep_dwell": "100",
+    "sweep_dir": "forward",
+    "mod": "fm"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "225",
+    "sweep_end": "400",
+    "sweep_step": "0.25",
+    "sweep_dwell": "100",
+    "sweep_dir": "forward",
+    "mod": "fm"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "600",
+    "sweep_end": "1900",
+    "sweep_step": "0.25",
+    "sweep_dwell": "100",
+    "sweep_dir": "forward",
+    "mod": "fm"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "35",
+    "sweep_end": "160",
+    "sweep_step": "0.25",
+    "sweep_dwell": "100",
+    "sweep_dir": "backward",
+    "mod": "qam"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "225",
+    "sweep_end": "400",
+    "sweep_step": "0.25",
+    "sweep_dwell": "100",
+    "sweep_dir": "backward",
+    "mod": "qam"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "600",
+    "sweep_end": "1900",
+    "sweep_step": "0.25",
+    "sweep_dwell": "100",
+    "sweep_dir": "backward",
+    "mod": "qam"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "35",
+    "sweep_end": "160",
+    "sweep_step": "0.5",
+    "sweep_dwell": "200",
+    "sweep_dir": "backward",
+    "mod": "pam"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "225",
+    "sweep_end": "400",
+    "sweep_step": "0.5",
+    "sweep_dwell": "200",
+    "sweep_dir": "forward",
+    "mod": "pam"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "600",
+    "sweep_end": "1900",
+    "sweep_step": "0.5",
+    "sweep_dwell": "200",
+    "sweep_dir": "backward",
+    "mod": "pam"
+  }
+]
