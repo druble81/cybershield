@@ -2,14 +2,13 @@
 """
 jammer_gui.py
 
-A tabbed GUI to control multiple jamming modules.
-Features:
-  - Start/Stop/Off per module
-  - Start All / Stop All buttons (global)
-  - Save State / Load State to/from a JSON file
-  - Hard-coded module binaries in /home/pi/Desktop/JAM
-  - File dialogs (Save/Load) start in /home/pi/Desktop/JAM
-  - Supports "pam" modulation in addition to off/am/fm/qam
+GUI to control multiple jamming modules, each on its own tab.
+Now includes:
+  - Start All / Stop All buttons in the top bar.
+  - Save State / Load State buttons to export/import module settings.
+  - 'pam' added to the Modulation combobox (from previous example).
+
+Requires each jamming module binary in the same directory or in PATH.
 """
 
 import tkinter as tk
@@ -48,52 +47,52 @@ class JammerGUI(tk.Tk):
     def __init__(self, module_binaries):
         super().__init__()
         self.title("Multi-Module Jammer Control (Tabbed)")
-        self.geometry("900x650")  # Adjust window size as needed
+        self.geometry("900x650")  # Adjust as needed
 
-        # Top Frame for global controls
+        # 1) Top frame for global controls (Start All, Stop All, Save, Load)
         top_frame = ttk.Frame(self)
         top_frame.pack(side="top", fill="x", padx=5, pady=5)
 
-        # "Start All" / "Stop All"
+        # a) Start All
         start_all_btn = ttk.Button(top_frame, text="Start All", command=self.start_all_modules)
         start_all_btn.pack(side="left", padx=(0, 5))
 
+        # b) Stop All
         stop_all_btn = ttk.Button(top_frame, text="Stop All", command=self.stop_all_modules)
         stop_all_btn.pack(side="left", padx=(0, 20))
 
-        # "Save State" / "Load State"
+        # c) Save State
         save_btn = ttk.Button(top_frame, text="Save State", command=self.save_state_to_file)
         save_btn.pack(side="left", padx=(0, 5))
 
+        # d) Load State
         load_btn = ttk.Button(top_frame, text="Load State", command=self.load_state_from_file)
         load_btn.pack(side="left")
 
-        # Notebook for each module
+        # 2) Notebook for multiple modules
         self.notebook = ttk.Notebook(self)
         self.notebook.pack(fill="both", expand=True)
 
         self.controllers = []
-        self.module_frames = []
+        self.module_frames = []  # Store references to each tab's tk variables
 
-        # Create one tab per module
         for i, binary in enumerate(module_binaries):
             controller = JammerModuleController(binary)
             self.controllers.append(controller)
 
+            # Create a frame (tab) for this module
             tab_frame = ttk.Frame(self.notebook)
             self.notebook.add(tab_frame, text=f"Module {i+1}")
 
+            # Build the UI and store its variables
             vars_dict = self.build_module_ui(tab_frame, i, binary)
             self.module_frames.append(vars_dict)
 
-        # The path where we store our JSON (and possibly load from)
-        self.initial_path = "/home/pi/Desktop/JAM"
-
     def build_module_ui(self, parent, index, binary):
         """
-        Returns a dict of the tk variables for saving/loading and for building cmd args.
+        Create controls on the tab for module <index>.
+        Returns a dict of the tkinter variables (for saving/loading and Start All).
         """
-        # Show the binary path
         bin_label = ttk.Label(parent, text=f"Binary: {binary}")
         bin_label.grid(row=0, column=0, columnspan=2, pady=(10,5), padx=5, sticky="w")
 
@@ -121,27 +120,24 @@ class JammerGUI(tk.Tk):
         )
         mode_combo.grid(row=4, column=1, padx=5, pady=5)
 
-        # Sweep Start
+        # Sweep Controls
         ttk.Label(parent, text="Sweep Start (MHz):").grid(row=5, column=0, padx=5, pady=5, sticky="e")
         sweep_start_var = tk.StringVar(value="900.0")
         ttk.Entry(parent, textvariable=sweep_start_var, width=10).grid(row=5, column=1, padx=5, pady=5)
 
-        # Sweep End
         ttk.Label(parent, text="Sweep End (MHz):").grid(row=6, column=0, padx=5, pady=5, sticky="e")
         sweep_end_var = tk.StringVar(value="1000.0")
         ttk.Entry(parent, textvariable=sweep_end_var, width=10).grid(row=6, column=1, padx=5, pady=5)
 
-        # Sweep Step
         ttk.Label(parent, text="Sweep Step (MHz):").grid(row=7, column=0, padx=5, pady=5, sticky="e")
         sweep_step_var = tk.StringVar(value="1.0")
         ttk.Entry(parent, textvariable=sweep_step_var, width=10).grid(row=7, column=1, padx=5, pady=5)
 
-        # Dwell
         ttk.Label(parent, text="Dwell (ms):").grid(row=8, column=0, padx=5, pady=5, sticky="e")
         sweep_dwell_var = tk.StringVar(value="100")
         ttk.Entry(parent, textvariable=sweep_dwell_var, width=10).grid(row=8, column=1, padx=5, pady=5)
 
-        # Direction
+        # Sweep Direction
         ttk.Label(parent, text="Sweep Dir:").grid(row=9, column=0, padx=5, pady=5, sticky="e")
         sweep_dir_var = tk.StringVar(value="forward")
         ttk.Combobox(
@@ -149,7 +145,7 @@ class JammerGUI(tk.Tk):
             values=["forward", "backward"], width=10
         ).grid(row=9, column=1, padx=5, pady=5)
 
-        # Modulation (includes "pam")
+        # Modulation (including 'pam')
         ttk.Label(parent, text="Modulation:").grid(row=10, column=0, padx=5, pady=5, sticky="e")
         mod_var = tk.StringVar(value="off")
         ttk.Combobox(
@@ -157,18 +153,28 @@ class JammerGUI(tk.Tk):
             values=["off", "am", "fm", "qam", "pam"], width=10
         ).grid(row=10, column=1, padx=5, pady=5)
 
-        # Buttons
-        start_btn = ttk.Button(parent, text="Start", command=lambda: self.start_module(index))
+        # Start/Stop/Off buttons
+        start_btn = ttk.Button(
+            parent, text="Start",
+            command=lambda: self.start_module(index)
+        )
         start_btn.grid(row=11, column=0, padx=5, pady=5, sticky="e")
 
-        stop_btn = ttk.Button(parent, text="Stop", command=lambda: self.stop_module(index))
+        stop_btn = ttk.Button(
+            parent, text="Stop",
+            command=lambda: self.stop_module(index)
+        )
         stop_btn.grid(row=11, column=1, padx=5, pady=5, sticky="w")
 
-        off_btn = ttk.Button(parent, text="Off", command=lambda: self.off_module(index))
+        off_btn = ttk.Button(
+            parent, text="Off",
+            command=lambda: self.off_module(index)
+        )
         off_btn.grid(row=12, column=0, columnspan=2, padx=5, pady=5, sticky="ew")
 
         parent.grid_columnconfigure(1, weight=1)
 
+        # Return references
         return {
             "freq_var": freq_var,
             "ref_var": ref_var,
@@ -182,10 +188,10 @@ class JammerGUI(tk.Tk):
             "mod_var": mod_var
         }
 
-    # ----------------------------
-    # Command Arg Builder
-    # ----------------------------
     def get_cmd_args_for_module(self, idx):
+        """
+        Build the command line arguments for module <idx> based on current GUI values.
+        """
         vars_dict = self.module_frames[idx]
         freq  = vars_dict["freq_var"].get()
         ref   = vars_dict["ref_var"].get()
@@ -228,45 +234,48 @@ class JammerGUI(tk.Tk):
                 "--dir",   direc,
                 "--mod",   mod
             ]
+
         return cmd_args
 
-    # ----------------------------
-    # Single Module Control
-    # ----------------------------
+    # ----------------------
+    # Start/Stop/Off Single Module
+    # ----------------------
     def start_module(self, idx):
+        """Start a single module process based on current GUI values."""
         cmd_args = self.get_cmd_args_for_module(idx)
         self.controllers[idx].start(cmd_args)
 
     def stop_module(self, idx):
+        """Stop the module's running process."""
         self.controllers[idx].stop()
 
     def off_module(self, idx):
+        """Send --off to power down hardware, then optionally stop afterward."""
         self.controllers[idx].stop()
         self.controllers[idx].start(["--off"])
         # optionally kill the process after a short delay:
         # self.after(500, lambda: self.controllers[idx].stop())
 
-    # ----------------------------
-    # Start/Stop All
-    # ----------------------------
+    # ----------------------
+    # Start All / Stop All
+    # ----------------------
     def start_all_modules(self):
+        """Gather settings for each module and start all in sequence."""
         for i in range(len(self.controllers)):
             cmd_args = self.get_cmd_args_for_module(i)
+            # Stop first to ensure clean start
             self.controllers[i].stop()
             self.controllers[i].start(cmd_args)
 
     def stop_all_modules(self):
+        """Stop every module."""
         for i in range(len(self.controllers)):
             self.stop_module(i)
 
-    # ----------------------------
+    # ----------------------
     # Save/Load State
-    # ----------------------------
+    # ----------------------
     def save_state_to_file(self):
-        """
-        Saves the current settings of all modules as a JSON array of dicts.
-        The file dialog starts in /home/pi/Desktop/JAM.
-        """
         all_data = []
         for i, vars_dict in enumerate(self.module_frames):
             mod_data = {
@@ -284,7 +293,6 @@ class JammerGUI(tk.Tk):
             all_data.append(mod_data)
 
         file_path = filedialog.asksaveasfilename(
-            initialdir=self.initial_path,
             defaultextension=".json",
             filetypes=[("JSON Files", "*.json"), ("All Files", "*.*")]
         )
@@ -299,12 +307,7 @@ class JammerGUI(tk.Tk):
             print(f"Error saving settings: {e}")
 
     def load_state_from_file(self):
-        """
-        Loads module settings from a JSON file.
-        The file dialog starts in /home/pi/Desktop/JAM.
-        """
         file_path = filedialog.askopenfilename(
-            initialdir=self.initial_path,
             defaultextension=".json",
             filetypes=[("JSON Files", "*.json"), ("All Files", "*.*")]
         )
@@ -318,6 +321,7 @@ class JammerGUI(tk.Tk):
             print(f"Error loading file: {e}")
             return
 
+        # all_data should be a list of dicts, one per module
         if not isinstance(all_data, list) or len(all_data) != len(self.module_frames):
             print("Error: loaded data does not match number of modules.")
             return
@@ -340,20 +344,17 @@ class JammerGUI(tk.Tk):
 
 
 if __name__ == "__main__":
-    # Hard-code the path for the module binaries
-    BASE_PATH = "/home/pi/Desktop/JAM"
-
+    # Example: 9 module binaries
     module_binaries = [
-        os.path.join(BASE_PATH, "adf4351"),
-        os.path.join(BASE_PATH, "adf43512"),
-        os.path.join(BASE_PATH, "adf43513"),
-        os.path.join(BASE_PATH, "adf43514"),
-        os.path.join(BASE_PATH, "adf43515"),
-        os.path.join(BASE_PATH, "adf43516"),
-        os.path.join(BASE_PATH, "adf43517"),
-        os.path.join(BASE_PATH, "adf43518"),
-        os.path.join(BASE_PATH, "adf43519"),
+        "./adf4351",
+        "./adf43512",
+        "./adf43513",
+        "./adf43514",
+        "./adf43515",
+        "./adf43516",
+        "./adf43517",
+        "./adf43518",
+        "./adf43519"
     ]
-
     app = JammerGUI(module_binaries)
     app.mainloop()

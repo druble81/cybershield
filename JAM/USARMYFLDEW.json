@@ -9,7 +9,7 @@
     "sweep_step": "0.25",
     "sweep_dwell": "50",
     "sweep_dir": "forward",
-    "mod": "fm"
+    "mod": "off"
   },
   {
     "freq": "1000.0",
@@ -21,7 +21,7 @@
     "sweep_step": "0.25",
     "sweep_dwell": "50",
     "sweep_dir": "forward",
-    "mod": "fm"
+    "mod": "off"
   },
   {
     "freq": "1000.0",
@@ -33,7 +33,7 @@
     "sweep_step": "0.25",
     "sweep_dwell": "50",
     "sweep_dir": "forward",
-    "mod": "fm"
+    "mod": "off"
   },
   {
     "freq": "1000.0",
@@ -45,7 +45,7 @@
     "sweep_step": "0.25",
     "sweep_dwell": "50",
     "sweep_dir": "backward",
-    "mod": "qam"
+    "mod": "off"
   },
   {
     "freq": "1000.0",
@@ -57,7 +57,7 @@
     "sweep_step": "0.25",
     "sweep_dwell": "50",
     "sweep_dir": "backward",
-    "mod": "qam"
+    "mod": "off"
   },
   {
     "freq": "1000.0",
@@ -69,7 +69,7 @@
     "sweep_step": "0.25",
     "sweep_dwell": "50",
     "sweep_dir": "backward",
-    "mod": "qam"
+    "mod": "off"
   },
   {
     "freq": "1000.0",
@@ -79,9 +79,9 @@
     "sweep_start": "35",
     "sweep_end": "160",
     "sweep_step": "0.5",
-    "sweep_dwell": "10",
+    "sweep_dwell": "50",
     "sweep_dir": "backward",
-    "mod": "pam"
+    "mod": "off"
   },
   {
     "freq": "1000.0",
@@ -91,9 +91,9 @@
     "sweep_start": "225",
     "sweep_end": "400",
     "sweep_step": "0.5",
-    "sweep_dwell": "10",
+    "sweep_dwell": "50",
     "sweep_dir": "forward",
-    "mod": "pam"
+    "mod": "off"
   },
   {
     "freq": "1000.0",
@@ -103,8 +103,8 @@
     "sweep_start": "600",
     "sweep_end": "1900",
     "sweep_step": "0.5",
-    "sweep_dwell": "10",
+    "sweep_dwell": "50",
     "sweep_dir": "backward",
-    "mod": "pam"
+    "mod": "off"
   }
 ]
