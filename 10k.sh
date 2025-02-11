@@ -32,7 +32,7 @@ echo "......................FULL 10K MODE......................$D"
 /tmp/ramdisk/adf435182 3000 25000000 $C ${myarray[8]}&
 /tmp/ramdisk/adf435192 3000 25000000 $C ${myarray[9]}&
 
-sleep 10
+sleep 3
 sudo pkill -f adf4351
 
 done
