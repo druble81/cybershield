@@ -50,9 +50,7 @@ BB44=$(($RANDOM%3+1))
 
 
 
-./adf4351 $BB.$offset 25000000 $C&
-./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
-##100000
+
 
 ./adf43513 $BB1.$(($offset+$hz2)) 25000000 $C&
 ./adf43514 $BB1.$offset 25000000 $C&
@@ -68,13 +66,17 @@ BB44=$(($RANDOM%3+1))
 ./adf43517 $BB3.$(($offset+$hz4)) 25000000 $C&
 ./adf43518 $BB3.$offset 25000000 $C
 ##200003
-
+./adf4351 $BB.$offset 25000000 $C&
+./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
+##100000
+sleep 0.2
+./adf43512 off
+./adf4351 off
 ####################10001
 
 #10000 - 100001 = 1hz#
 ##sleep 0.$BB44
-sleep 0.2
-./adf4351 off
+
 done
 
 
