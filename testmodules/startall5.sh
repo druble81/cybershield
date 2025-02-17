@@ -69,7 +69,7 @@ BB44=$(($RANDOM%3+1))
 ./adf4351 $BB.$offset 25000000 $C&
 ./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
 ##100000
-sleep 0.2
+sleep 0.3
 ./adf43512 off
 ./adf4351 off
 ####################10001
