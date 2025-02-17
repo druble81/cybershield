@@ -8,7 +8,7 @@ RANDOM=$SEED
 
 
 
-two=800
+two=400
 one=35
 
 
