@@ -8,7 +8,7 @@ RANDOM=$$
 myarray=(1 2 3 4 5 6 7 8 9)
 #shuf -e ${myarray[@]}
 
-/home/pi/Desktop/loadrdDEW.sh
+sudo /home/pi/Desktop/loadrdDEW.sh
 
 
 while :
