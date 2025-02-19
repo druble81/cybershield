@@ -24,7 +24,7 @@ echo $A
 ##then
 
 
-C=0
+C=1.5
 #C=$(($RANDOM % 4 + 1))
 echo "Normal Burst"
 /tmp/ramdisk/adf4351 1000 25000000 $C ${myarray[1]}&
@@ -45,7 +45,7 @@ echo "......................10K BURST MODE......................"
 echo "......................10K BURST MODE......................"
 echo "......................10K BURST MODE......................"
 
-sleep 20
+sleep $C
 
 sudo pkill -f adf4351
 
@@ -68,7 +68,7 @@ echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 
-sleep 20
+sleep $C
 
 sudo pkill -f adf4351
 
