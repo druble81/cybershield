@@ -29,20 +29,21 @@ sudo pkill -f adf4351
 C=0
 echo "C is " $C
 
+A=300
+B=130
 
 
+/tmp/ramdisk/adf4351 1000 25000000 $C $B&
+/tmp/ramdisk/adf43512 1000 25000000 $C $B&
+/tmp/ramdisk/adf43513 1000 25000000 $C $A&
+/tmp/ramdisk/adf43514 1000 25000000 $C $B&
+/tmp/ramdisk/adf43515 1000 25000000 $C $B&
+/tmp/ramdisk/adf43516 1000 25000000 $C $B&
+/tmp/ramdisk/adf43517 1000 25000000 $C $B&
+/tmp/ramdisk/adf43518 1000 25000000 $C $B&
+/tmp/ramdisk/adf43519 1000 25000000 $C $B&
 
-/tmp/ramdisk/adf4351 1000 25000000 $C&
-/tmp/ramdisk/adf43512 1000 25000000 $C&
-/tmp/ramdisk/adf43513 1000 25000000 $C&
-/tmp/ramdisk/adf43514 1000 25000000 $C&
-/tmp/ramdisk/adf43515 1000 25000000 $C&
-/tmp/ramdisk/adf43516 1000 25000000 $C&
-/tmp/ramdisk/adf43517 1000 25000000 $C&
-/tmp/ramdisk/adf43518 1000 25000000 $C&
-/tmp/ramdisk/adf43519 1000 25000000 $C&
-
-sleep 120
+sleep 15
 
 
 done
