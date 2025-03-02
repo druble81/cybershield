@@ -21,10 +21,8 @@ C=0
 offset=100000
 #echo $offset
 
-for (( i=1; i<=27; i++ ))
-do
-offset=$(($offset + RANDOM % 900000))
-done
+
+offset=0
 
 #echo $offset
 
@@ -75,7 +73,7 @@ BB44=$(($RANDOM%3+1))
 ####################10001
 
 #10000 - 100001 = 1hz#
-sleep 0.5
+sleep 1
 
 done
 
