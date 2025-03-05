@@ -27,7 +27,7 @@ C=0
 #C=$(($RANDOM % 4 + 1))
 
 D=130
-B=400
+B=20
 
 ##ALWAYS ON
 

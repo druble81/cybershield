@@ -29,7 +29,7 @@ C2=0
 #C=$(($RANDOM % 4 + 1))
 echo "Normal Burst"
 A=300
-B=130
+B=35
 
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $B&
@@ -54,7 +54,7 @@ sleep $C.$C2
 
 sudo pkill -f adf4351
 
-B=-20
+B=10
 A=300
 
 echo "10k" 
