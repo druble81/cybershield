@@ -10,8 +10,8 @@ do
 #shuf -e ${myarray[@]}
 
 
-B=1000
-A=5000
+B=400
+A=1600
 
 
 D=$(($RANDOM % 30 + 1))
