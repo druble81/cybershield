@@ -26,8 +26,8 @@ sudo pkill -f adf4351
 C=0
 #C=$(($RANDOM % 4 + 1))
 
-D=40
-B=5
+D=5000
+B=1300
 
 ##ALWAYS ON
 
