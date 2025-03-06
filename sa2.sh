@@ -26,8 +26,8 @@ sudo pkill -f adf4351
 C=0
 #C=$(($RANDOM % 4 + 1))
 
-D=130
-B=60
+D=40
+B=5
 
 ##ALWAYS ON
 
@@ -132,7 +132,7 @@ fi
 echo "......................Full Coverage MODE......................"
 
 
-sleep 1.5
+sleep 2
 
 
 

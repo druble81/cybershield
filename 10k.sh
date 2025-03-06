@@ -10,8 +10,8 @@ do
 #shuf -e ${myarray[@]}
 
 
-B=50
-A=50
+B=10
+A=40
 
 
 D=$(($RANDOM % 30 + 1))
@@ -32,7 +32,7 @@ echo "......................FULL 10K MODE......................$D"
 /tmp/ramdisk/adf435182 3000 25000000 $C $B&
 /tmp/ramdisk/adf435192 3000 25000000 $C $B&
 
-sleep 120
+sleep 15
 sudo pkill -f adf4351
 
 done
