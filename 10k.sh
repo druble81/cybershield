@@ -10,7 +10,7 @@ do
 #shuf -e ${myarray[@]}
 
 
-B=10
+B=50
 A=50
 
 
