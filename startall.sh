@@ -30,7 +30,7 @@ C=0
 echo "C is " $C
 
 A=300
-B=20
+B=40
 
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $B&
