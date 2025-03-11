@@ -21,10 +21,6 @@ C=0
 offset=100000
 #echo $offset
 
-
-offset=0
-
-
 #echo $offset
 
 
@@ -74,7 +70,7 @@ BB44=$(($RANDOM%3+1))
 ####################10001
 
 #10000 - 100001 = 1hz#
-sleep 4
+sleep 10
 
 done
 
