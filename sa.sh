@@ -8,7 +8,7 @@ RANDOM=$$
 myarray=(1 2 3 4 5 6 7 8 9)
 #shuf -e ${myarray[@]}
 
-sudo /home/pi/Desktop/loadrdDEW.sh
+#sudo /home/pi/Desktop/loadrdDEW.sh
 
 
 while :
@@ -27,8 +27,8 @@ echo $A
 C=1
 
 echo "Normal Burst"
-A=225
-B=75
+A=18000
+B=6000
 
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $B&
@@ -53,8 +53,8 @@ sleep 2
 
 sudo pkill -f adf4351
 
-B=81
-A=240
+B=9000
+A=27000
 
 echo "10k" 
 /tmp/ramdisk/adf43512s 3000 25000000 $C $B&
