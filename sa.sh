@@ -26,9 +26,9 @@ echo $A
 
 C=1
 
-echo "Normal Burst"
-A=1200
-B=5000
+echo "Normal Burst" 
+A=20
+B=10
 
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $B&
@@ -49,12 +49,12 @@ echo "......................10K BURST MODE......................"
 echo "......................10K BURST MODE......................"
 echo "......................10K BURST MODE......................"
 
-sleep 2
+sleep 0.5
 
 sudo pkill -f adf4351
 
-B=700
-A=4000
+B=15
+A=30
 
 echo "10k" 
 /tmp/ramdisk/adf43512s 3000 25000000 $C $B&
@@ -74,7 +74,7 @@ echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 
-sleep 2
+sleep 0.4
 
 sudo pkill -f adf4351
 
