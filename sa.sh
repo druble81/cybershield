@@ -27,8 +27,8 @@ echo $A
 C=1
 
 echo "Normal Burst" 
-A=20
-B=10
+A=50000
+B=16666
 
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $B&
@@ -53,8 +53,8 @@ sleep 0.5
 
 sudo pkill -f adf4351
 
-B=15
-A=30
+B=25000
+A=75000
 
 echo "10k" 
 /tmp/ramdisk/adf43512s 3000 25000000 $C $B&

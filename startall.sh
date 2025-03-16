@@ -29,8 +29,8 @@ sudo pkill -f adf4351
 C=0
 echo "C is " $C
 
-A=320000
-B=15000
+A=11905
+B=2381
 
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $B&
