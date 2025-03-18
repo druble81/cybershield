@@ -66,8 +66,8 @@ fi
 echo "$A"
 
 
-
-A=$1
+rand_num=$((RANDOM % 11))
+A=$(($1 + rand_num))
 
 while [[ $A -lt $2 ]]
 do
