@@ -59,7 +59,7 @@ elif [ "$diff" -ge 3000 ] && [ "$diff" -lt 3500 ]; then
 elif [ "$diff" -ge 3500 ] && [ "$diff" -lt 4000 ]; then
     B=45
 else
-    B=50
+    B=65
 fi
 
 # Output the result
