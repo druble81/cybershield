@@ -26,6 +26,45 @@ cp adf43519 /tmp/ramdisk/adf43519
 cp loadrd.sh /tmp/ramdisk/loadrd.sh
 
 cat /dev/null > /tmp/ramdisk/SG3.TXT
+clear
+
+
+#!/bin/bash
+
+# Accept two input arguments
+val1=$1
+val2=$2
+
+# Calculate the absolute difference
+diff=$(( val1 > val2 ? val1 - val2 : val2 - val1 ))
+
+# Determine the value of B based on the difference
+if [ "$diff" -lt 100 ]; then
+    B=5
+elif [ "$diff" -ge 100 ] && [ "$diff" -lt 500 ]; then
+    B=10
+
+elif [ "$diff" -ge 500 ] && [ "$diff" -lt 1000 ]; then
+    B=15
+elif [ "$diff" -ge 1000 ] && [ "$diff" -lt 1500 ]; then
+    B=20
+elif [ "$diff" -ge 1500 ] && [ "$diff" -lt 2000 ]; then
+    B=25
+elif [ "$diff" -ge 2000 ] && [ "$diff" -lt 2500 ]; then
+    B=30
+elif [ "$diff" -ge 2500 ] && [ "$diff" -lt 3000 ]; then
+    B=35
+elif [ "$diff" -ge 3000 ] && [ "$diff" -lt 3500 ]; then
+    B=40
+elif [ "$diff" -ge 3500 ] && [ "$diff" -lt 4000 ]; then
+    B=45
+else
+    B=50
+fi
+
+# Output the result
+echo "$A"
+
 
 
 A=$1
@@ -36,11 +75,13 @@ printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 
 
 
-A=$(($A+$((1))))
-echo done setting primaries
+A=$(($A+$(($B))))
+
 done
 printf "\n"    >> /tmp/ramdisk/SG3.TXT
 A=900
+echo done setting primaries
+echo b is $B
 exit
 
 
