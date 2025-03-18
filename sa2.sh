@@ -132,7 +132,7 @@ fi
 echo "......................Full Coverage MODE......................"
 
 
-sleep 2
+sleep 1
 
 
 
