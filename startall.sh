@@ -29,7 +29,7 @@ sudo pkill -f adf4351
 C=0
 echo "C is " $C
 
-A=11905
+A=8333
 B=2381
 
 

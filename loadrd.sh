@@ -69,6 +69,7 @@ echo "$A"
 rand_num=$((RANDOM % 11))
 A=$(($1 + rand_num))
 
+
 while [[ $A -lt $2 ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
