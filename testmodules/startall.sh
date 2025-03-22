@@ -30,15 +30,16 @@ BB2=$(($BB))
 BB3=$(($BB))
 
 
-hz1=4
-hz2=3
-hz3=1
-hz4=2
+hz1=7
+hz2=5
+hz3=19
+hz4=12
 
+x=$((RANDOM % 9 + 1))
 
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
-
+echo QUAD H.
 
 
 BB44=$(($RANDOM%3+1))
@@ -70,7 +71,7 @@ BB44=$(($RANDOM%3+1))
 ####################10001
 
 #10000 - 100001 = 1hz#
-sleep 5
+sleep 0.$x
 
 done
 
