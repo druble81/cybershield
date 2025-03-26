@@ -45,16 +45,16 @@ done
 #echo $offset
 
 
-
-BB1=$(($BB))
-BB2=$(($BB))
-BB3=$(($BB))
+BB=366
+BB1=$(($BB+1))
+BB2=$(($BB+2))
+BB3=$(($BB+3))
 
 
 hz1=2
 hz2=3
 hz3=4
-hz4=5
+hz4=1
 
 
 #echo $BB1.$offset
@@ -91,5 +91,6 @@ BB44=$(($RANDOM%3+1))
 
 #10000 - 100001 = 1hz#
 sleep 1
+exit
 
 done

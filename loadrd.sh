@@ -39,7 +39,9 @@ val2=$2
 diff=$(( val1 > val2 ? val1 - val2 : val2 - val1 ))
 
 # Determine the value of B based on the difference
-if [ "$diff" -lt 100 ]; then
+if [ "$diff" -lt 50 ]; then
+    B=1
+elif [ "$diff" -ge 50 ] && [ "$diff" -lt 100 ]; then
     B=5
 elif [ "$diff" -ge 100 ] && [ "$diff" -lt 500 ]; then
     B=10
@@ -62,11 +64,29 @@ else
     B=65
 fi
 
+# Validate arguments
+if [[ -z $1 || -z $2 || $1 -ge $2 ]]; then
+    echo "Usage: $0 <start_number> <end_number>"
+    exit 1
+fi
+
+start=$1
+end=$2
+range=$((end - start + 1))
+
+# Calculate the divisor
+divisor=$(( (range + 74) / 75 ))
+
+# Assign the result to a variable
+segment_size=$(( (range + divisor - 1) / divisor ))
+
 # Output the result
+
+B=$divisor
 echo "$A"
 
 
-rand_num=$((RANDOM % 11))
+rand_num=$((RANDOM % 3))
 A=$(($1 + rand_num))
 
 

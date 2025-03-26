@@ -5,7 +5,7 @@ echo QUAD H.
 # Function to load and shuffle numbers into an array
 load_and_shuffle_array() {
     # Use 'shuf' to randomly shuffle lines before storing them
-    mapfile -t numbers < <(shuf /tmp/ramdisk/SG3.TXT)
+    mapfile -t numbers < <(grep -v '^[[:space:]]*$' /tmp/ramdisk/SG3.TXT | shuf)
     # Track the size of the array
     size=${#numbers[@]}
     # Start index back at 0
@@ -18,10 +18,10 @@ load_and_shuffle_array
 SEED=$(od -An -N2 -i /dev/urandom)
 RANDOM=$SEED
 
-mapfile -t numbers < <(shuf /tmp/ramdisk/SG3.TXT)
-index=0
-size=${#numbers[@]}
 
+mapfile -t numbers < <(grep -v '^[[:space:]]*$' /tmp/ramdisk/SG3.TXT | shuf)
+index=0
+size=$((${#numbers[@]}-2))
 
 
 while :
@@ -37,6 +37,9 @@ do
    
     BB=${numbers[$index]}
 echo $BB
+
+
+
 
 #BB=$(($RANDOM%$(($2-$1)) + $1))
 
@@ -57,8 +60,8 @@ BB3=$(($BB+3))
 
 hz1=7
 hz2=5
-hz3=19
-hz4=12
+hz3=9
+hz4=3
 
 x=$((RANDOM % 2 + 1))
 

@@ -1,4 +1,4 @@
-a#!/bin/bash
+#!/bin/bash
 
 
 cd /home/pi/Desktop
@@ -16,38 +16,45 @@ sudo pkill -f startDLPFC.sh
 sudo pkill -f startPTSD.sh
 sudo pkill -f adf4351
 sudo pkill -f startall
+sudo pkill -f 10k
 
 
-A=$(($RANDOM % 5))
+A=$(($RANDOM % 6))
 
 if [[ $A == 0 ]]
 then
-bash sa2.sh&
-sleep 10
+bash startall.sh&
+sleep 1.5
 fi
 
 if [[ $A == 1 ]]
 then
 bash startall2.sh&
-sleep 10
+sleep 1.5
 fi
 
 if [[ $A == 2 ]]
 then
 bash startDLPFC.sh&
-sleep 10
+sleep 1.5
 fi
 
 if [[ $A == 3 ]]
 then
 bash startPTSD.sh&
-sleep 10
+sleep 1.5
 fi
 
 if [[ $A == 4 ]]
 then
 bash /home/pi/Desktop/testmodules/startall2.sh&
-sleep 10
+sleep 1.5
+fi
+
+if [[ $A == 5 ]]
+then
+bash 10k.sh&
+sleep 1.5
 fi
 
 
