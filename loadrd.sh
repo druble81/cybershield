@@ -25,57 +25,56 @@ cp adf43518 /tmp/ramdisk/adf43518
 cp adf43519 /tmp/ramdisk/adf43519
 cp loadrd.sh /tmp/ramdisk/loadrd.sh
 
+
+
+#!/bin/bash
+
+RUN_FILE="/tmp/ramdisk/running.txt"
+A1_FILE="/tmp/ramdisk/A1.txt"
+A2_FILE="/tmp/ramdisk/A2.txt"
+
+# Check if running.txt exists and contains "running"
+if [[ -f "$RUN_FILE" && "$(cat $RUN_FILE)" == "running" ]]; then
+    echo "$1" > "$A1_FILE"
+    echo "$2" > "$A2_FILE"
+    exit 0
+else
+    echo "running" > "$RUN_FILE"
+    echo "$1" > "$A1_FILE"
+    echo "$2" > "$A2_FILE"
+
+    # Placeholder for additional code
+    # Add your custom code below this line
+
+
+
+
+
+while :
+do
+
+A1=$(< /tmp/ramdisk/A1.txt)
+A2=$(< /tmp/ramdisk/A2.txt)
+
+
 cat /dev/null > /tmp/ramdisk/SG3.TXT
 clear
 
 
 #!/bin/bash
 
-# Accept two input arguments
-val1=$1
-val2=$2
-
-# Calculate the absolute difference
-diff=$(( val1 > val2 ? val1 - val2 : val2 - val1 ))
-
-# Determine the value of B based on the difference
-if [ "$diff" -lt 50 ]; then
-    B=1
-elif [ "$diff" -ge 50 ] && [ "$diff" -lt 100 ]; then
-    B=5
-elif [ "$diff" -ge 100 ] && [ "$diff" -lt 500 ]; then
-    B=10
-
-elif [ "$diff" -ge 500 ] && [ "$diff" -lt 1000 ]; then
-    B=15
-elif [ "$diff" -ge 1000 ] && [ "$diff" -lt 1500 ]; then
-    B=20
-elif [ "$diff" -ge 1500 ] && [ "$diff" -lt 2000 ]; then
-    B=25
-elif [ "$diff" -ge 2000 ] && [ "$diff" -lt 2500 ]; then
-    B=30
-elif [ "$diff" -ge 2500 ] && [ "$diff" -lt 3000 ]; then
-    B=35
-elif [ "$diff" -ge 3000 ] && [ "$diff" -lt 3500 ]; then
-    B=40
-elif [ "$diff" -ge 3500 ] && [ "$diff" -lt 4000 ]; then
-    B=45
-else
-    B=65
-fi
-
 # Validate arguments
-if [[ -z $1 || -z $2 || $1 -ge $2 ]]; then
+if [[ -z $1 || -z $A2 || $A1 -ge $A2 ]]; then
     echo "Usage: $0 <start_number> <end_number>"
     exit 1
 fi
 
-start=$1
-end=$2
+start=$A1
+end=$A2
 range=$((end - start + 1))
 
 # Calculate the divisor
-divisor=$(( (range + 74) / 75 ))
+divisor=$(( (range + 14) / 15 ))
 
 # Assign the result to a variable
 segment_size=$(( (range + divisor - 1) / divisor ))
@@ -83,27 +82,33 @@ segment_size=$(( (range + divisor - 1) / divisor ))
 # Output the result
 
 B=$divisor
-echo "$A"
+echo "$B"
+
+rand_num=0
+
+if [[ $segment_size -ge 20 ]]; then
+rand_num=$((RANDOM % 99))
+fi
+
+A=$(($A1 + rand_num))
 
 
-rand_num=$((RANDOM % 3))
-A=$(($1 + rand_num))
-
-
-while [[ $A -lt $2 ]]
+while [[ $A -lt $A2 ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
-
-
-
 A=$(($A+$(($B))))
-
 done
+
+
 printf "\n"    >> /tmp/ramdisk/SG3.TXT
 A=900
 echo done setting primaries
 echo b is $B
+
+sleep 30
+
+done
+
+fi
+
 exit
-
-
- 
