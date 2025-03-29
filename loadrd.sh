@@ -30,6 +30,7 @@ cp loadrd.sh /tmp/ramdisk/loadrd.sh
 #!/bin/bash
 
 RUN_FILE="/tmp/ramdisk/running.txt"
+RUN_FILE2="/tmp/ramdisk/running2.txt"
 A1_FILE="/tmp/ramdisk/A1.txt"
 A2_FILE="/tmp/ramdisk/A2.txt"
 
@@ -46,69 +47,125 @@ else
     # Placeholder for additional code
     # Add your custom code below this line
 
-
-
+if [[ -f "$RUN_FILE2" && "$(cat $RUN_FILE)" == "running" ]]; then
 
 
 while :
 do
 
-A1=$(< /tmp/ramdisk/A1.txt)
-A2=$(< /tmp/ramdisk/A2.txt)
+    A1=$(< /tmp/ramdisk/A1.txt)
+    A2=$(< /tmp/ramdisk/A2.txt)
 
 
-cat /dev/null > /tmp/ramdisk/SG3.TXT
-clear
+    cat /dev/null > /tmp/ramdisk/SG3.TXT
+    clear
+    
+    # Validate arguments
+    if [[ -z $1 || -z $A2 || $A1 -ge $A2 ]]; then
+        echo "Usage: $0 <start_number> <end_number>"
+        exit 1
+    fi
+    
+    start=$A1
+    end=$A2
+    range=$((end - start + 1))
+
+    # Calculate the divisor
+    divisor=$(( (range + 14) / 15 ))
+
+    # Assign the result to a variable
+    segment_size=$(( (range + divisor - 1) / divisor ))
+
+    # Output the result 
+
+    B=$divisor
+    echo "$B"
+
+    rand_num=0
+
+    if [[ $segment_size -ge 20 ]]; then
+        rand_num=$((RANDOM % 99))
+    fi
+
+    A=$(($A1 + rand_num))
 
 
-#!/bin/bash
+    while [[ $A -lt $A2 ]]
+    do
+        printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
+        A=$(($A+$(($B))))
+    done
 
-# Validate arguments
-if [[ -z $1 || -z $A2 || $A1 -ge $A2 ]]; then
-    echo "Usage: $0 <start_number> <end_number>"
-    exit 1
+
+    printf "\n"    >> /tmp/ramdisk/SG3.TXT
+    A=900
+    echo done setting primaries
+    echo b is $B
+
+    sleep 30    
+
+    done
+
+
+else
+
+    ###############################
+    A1=$(< /tmp/ramdisk/A1.txt)
+    A2=$(< /tmp/ramdisk/A2.txt)
+
+
+    cat /dev/null > /tmp/ramdisk/SG3.TXT
+    clear
+
+
+    #!/bin/bash
+
+    # Validate arguments
+    if [[ -z $1 || -z $A2 || $A1 -ge $A2 ]]; then
+        echo "Usage: $0 <start_number> <end_number>"
+        exit 1
+    fi
+
+    start=$A1
+    end=$A2
+    range=$((end - start + 1))
+
+    # Calculate the divisor
+    divisor=$(( (range + 14) / 15 ))
+
+    # Assign the result to a variable
+    segment_size=$(( (range + divisor - 1) / divisor ))
+
+    # Output the result
+
+    B=$divisor
+    echo "$B"
+
+    rand_num=0
+
+    if [[ $segment_size -ge 20 ]]; then
+        rand_num=$((RANDOM % 99))
+    fi
+
+    A=$(($A1 + rand_num))
+
+
+    while [[ $A -lt $A2 ]]
+    do
+        printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
+        A=$(($A+$(($B))))
+    done
+
+
+    printf "\n"    >> /tmp/ramdisk/SG3.TXT
+    A=900
+    echo done setting primaries
+    echo b is $B
+
+    echo "running" > "$RUN_FILE2"
+    echo "" > "$RUN_FILE"
+
+    exit
+
 fi
-
-start=$A1
-end=$A2
-range=$((end - start + 1))
-
-# Calculate the divisor
-divisor=$(( (range + 14) / 15 ))
-
-# Assign the result to a variable
-segment_size=$(( (range + divisor - 1) / divisor ))
-
-# Output the result
-
-B=$divisor
-echo "$B"
-
-rand_num=0
-
-if [[ $segment_size -ge 20 ]]; then
-rand_num=$((RANDOM % 99))
 fi
-
-A=$(($A1 + rand_num))
-
-
-while [[ $A -lt $A2 ]]
-do
-printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
-A=$(($A+$(($B))))
-done
-
-
-printf "\n"    >> /tmp/ramdisk/SG3.TXT
-A=900
-echo done setting primaries
-echo b is $B
-
-sleep 30
-
-done
-
-fi
-
-exit
