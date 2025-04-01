@@ -71,7 +71,7 @@ do
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 14) / 15 ))
+    divisor=$(( (range + 29) / 30 ))
 
     # Assign the result to a variable
     segment_size=$(( (range + divisor - 1) / divisor ))
@@ -84,7 +84,7 @@ do
     rand_num=0
 
     if [[ $segment_size -ge 20 ]]; then
-        rand_num=$((RANDOM % 99))
+        rand_num=$((RANDOM % $segment_size))
     fi
 
     A=$(($A1 + rand_num))
@@ -102,7 +102,7 @@ do
     echo done setting primaries
     echo b is $B
 
-    sleep 30    
+    sleep 30  
 
     done
 
@@ -131,7 +131,7 @@ else
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 14) / 15 ))
+    divisor=$(( (range + 29) / 30 ))
 
     # Assign the result to a variable
     segment_size=$(( (range + divisor - 1) / divisor ))
@@ -144,7 +144,7 @@ else
     rand_num=0
 
     if [[ $segment_size -ge 20 ]]; then
-        rand_num=$((RANDOM % 99))
+        rand_num=$((RANDOM % $segment_size))
     fi
 
     A=$(($A1 + rand_num))

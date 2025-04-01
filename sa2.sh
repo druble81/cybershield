@@ -20,7 +20,7 @@ echo $A
 
 
 
-sudo pkill -f adf4351
+sudo pkill -f adf435
 
 
 
@@ -133,8 +133,7 @@ fi
 echo "......................Full Coverage MODE......................"
 
 
-sleep 1
-
+sleep 2
 
 
 done
