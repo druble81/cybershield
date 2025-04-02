@@ -65,6 +65,7 @@ hz4=3
 
 x=$((RANDOM % 2 + 1))
 
+
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
 echo QUAD H.

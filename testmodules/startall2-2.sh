@@ -29,7 +29,7 @@ D=1
 while :
 do
 
-x=$((RANDOM % 5 + 1))
+x=$((RANDOM % 3 + 1))
 
 BA=$((RANDOM % 99 + 1))
 ##BA=33
@@ -71,7 +71,7 @@ sleep 0.$x
 
 
 BB=$(($RANDOM % 200 + 4200))
-echo V2K
+#echo V2K
 
 #./adf43519 4130 25000000 $C
 
@@ -102,7 +102,7 @@ sleep 0.$x
 
 
 BB=$(($RANDOM % 75 + 35))
-echo V2K
+#echo V2K
 
 #./adf43519 4130 25000000 $C
 
@@ -334,15 +334,4 @@ BB=$(($RANDOM % 195 + 4200))
 
 #10000 - 100001 = 1hz
 sleep 0.$x
-done
-/home/pi/Desktop/testmodules/adf43519& 
-/home/pi/Desktop/testmodules/adf43516& 
-/home/pi/Desktop/testmodules/adf43515& 
-/home/pi/Desktop/testmodules/adf43517& 
-/home/pi/Desktop/testmodules/adf43518& 
-/home/pi/Desktop/testmodules/adf43514& 
-/home/pi/Desktop/testmodules/adf43513&
-/home/pi/Desktop/testmodules/adf4351& 
-/home/pi/Desktop/testmodules/adf43512
-
 done
