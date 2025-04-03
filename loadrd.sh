@@ -38,6 +38,7 @@ A2_FILE="/tmp/ramdisk/A2.txt"
 if [[ -f "$RUN_FILE" && "$(cat $RUN_FILE)" == "running" ]]; then
     echo "$1" > "$A1_FILE"
     echo "$2" > "$A2_FILE"
+pkill -f sleep
     exit 0
 else
     echo "running" > "$RUN_FILE"
@@ -164,6 +165,8 @@ else
 
     echo "running" > "$RUN_FILE2"
     echo "" > "$RUN_FILE"
+
+    pkill -f sleep
 
     exit
 
