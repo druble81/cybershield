@@ -30,7 +30,7 @@ RANDOM=$SEED
 
 
 
-two=400
+two=300
 one=225
 
 
