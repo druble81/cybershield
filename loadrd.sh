@@ -72,7 +72,7 @@ do
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 145) / 150 ))
+    divisor=$(( (range + 99) / 100 ))
 
     # Assign the result to a variable
     segment_size=$(( (range + divisor - 1) / divisor ))
@@ -132,7 +132,7 @@ else
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 149) / 150 ))
+    divisor=$(( (range + 99) / 100 ))
 
     # Assign the result to a variable
     segment_size=$(( (range + divisor - 1) / divisor ))
