@@ -6,6 +6,8 @@ cd /home/pi/Desktop/testmodules
 
 
 
+SEED=$(od -An -N2 -i /dev/urandom)
+RANDOM=$SEED
 
 
 

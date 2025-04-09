@@ -5,7 +5,8 @@
 cd /tmp/ramdisk
 
 #bash /home/pi/Desktop/startall6.sh 530 0.05&
-RANDOM=$$
+SEED=$(od -An -N2 -i /dev/urandom)
+RANDOM=$SEED
 myarray=(1 2 4 3 5 6 7 8 9)
 
 #shuf -e ${myarray[@]}

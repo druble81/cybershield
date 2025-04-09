@@ -4,7 +4,8 @@
 cd /tmp/ramdisk
 
 sudo pkill -f adf435
-RANDOM=$$
+SEED=$(od -An -N2 -i /dev/urandom)
+RANDOM=$SEED
 myarray=(1 2 3 4 5 6 7 8 9)
 #shuf -e ${myarray[@]}
 
@@ -13,7 +14,7 @@ myarray=(1 2 3 4 5 6 7 8 9)
 
 while :
 do
-RANDOM=$$
+
 A=1
 #A=1
 echo $A

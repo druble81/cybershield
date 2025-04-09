@@ -25,6 +25,8 @@ cp adf43518 /tmp/ramdisk/adf43518
 cp adf43519 /tmp/ramdisk/adf43519
 cp loadrd.sh /tmp/ramdisk/loadrd.sh
 
+SEED=$(od -An -N2 -i /dev/urandom)
+RANDOM=$SEED
 
 
 #!/bin/bash
