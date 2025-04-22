@@ -1,7 +1,6 @@
 #!/bin/bash
 cd /home/pi/Desktop/testmodules
 C=0
-cd /home/pi/Desktop/testmodules
 
 clear
 echo  **********----------ANTI PTSD RUNNING----------**********
@@ -59,7 +58,6 @@ hz1=130
 hz2=130
 hz3=430
 hz4=35
-0
 
 
 #echo $BB1.$offset
