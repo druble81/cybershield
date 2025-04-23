@@ -1,6 +1,7 @@
-#!/bin/bash
+
 cd /home/pi/Desktop/testmodules
 C=0
+cd /home/pi/Desktop/testmodules
 
 clear
 echo  **********----------ANTI PTSD RUNNING----------**********
