@@ -74,7 +74,7 @@ do
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 34) / 35 ))
+    divisor=$(( (range + 24) / 25 ))
 
  
 
@@ -97,7 +97,7 @@ do
     # Assign the result to a variable
     
 
-    if [[ $segment_size -ge 20 ]]; then
+    if [[ $segment_size -ge 10 ]]; then
         rand_num=$((RANDOM % $segment_size))
     fi
         printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
@@ -139,7 +139,7 @@ else
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 34) / 35 ))
+    divisor=$(( (range + 24) / 25 ))
 
     # Assign the result to a variable
     segment_size=$(( (range + divisor - 1) / divisor ))
@@ -159,7 +159,7 @@ else
     while [[ $A -lt $A2 ]]
     do
 
-    if [[ $segment_size -ge 20 ]]; then
+    if [[ $segment_size -ge 10 ]]; then
         rand_num=$((RANDOM % $segment_size))
     fi
 
