@@ -74,7 +74,7 @@ do
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 24) / 25 ))
+    divisor=$(( (range + 44) / 45 ))
 
  
 
@@ -139,7 +139,7 @@ else
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 24) / 25 ))
+    divisor=$(( (range + 44) / 45 ))
 
     # Assign the result to a variable
     segment_size=$(( (range + divisor - 1) / divisor ))
