@@ -63,7 +63,7 @@ hz2=5
 hz3=5
 hz4=5
 
-x=$((RANDOM % 2 + 1))
+x=$((RANDOM % 2 + 2))
 
 
 #echo $BB1.$offset
