@@ -29,7 +29,8 @@ D=1
 while :
 do
 
-x=$((RANDOM % 3 + 1))
+x=8
+#$((RANDOM % 3 + 1))
 
 offset=100000
 #echo $offset
