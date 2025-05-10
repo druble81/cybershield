@@ -31,6 +31,7 @@ echo "......................FULL 10K MODE......................$D"
 /tmp/ramdisk/adf435172 3000 25000000 $C $B&
 /tmp/ramdisk/adf435182 3000 25000000 $C $B&
 /tmp/ramdisk/adf435192 3000 25000000 $C $B&
+exit
 
 sleep 9
 sudo pkill -f adf4351
