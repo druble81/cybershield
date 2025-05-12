@@ -1,4 +1,4 @@
-
+#!/bin/bash
 cd /home/pi/Desktop/testmodules
 C=0
 cd /home/pi/Desktop/testmodules
@@ -30,8 +30,8 @@ RANDOM=$SEED
 
 
 
-two=1600
-one=1800
+two=400
+one=225
 
 
 while :
@@ -49,16 +49,16 @@ done
 #echo $offset
 
 
-BB=333
-BB1=$(($BB+1))
-BB2=$(($BB+2))
-BB3=$(($BB+3))
+
+BB1=$(($BB))
+BB2=$(($BB))
+BB3=$(($BB))
 
 
 hz1=130
 hz2=130
 hz3=430
-hz4=35
+hz4=430
 
 
 #echo $BB1.$offset
@@ -92,8 +92,8 @@ BB44=$(($RANDOM%3+1))
 ##200003
 
 ####################10001
-exit
+
 #10000 - 100001 = 1hz#
-sleep 5
+sleep 0.5
 
 done

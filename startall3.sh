@@ -28,7 +28,7 @@ echo "PFC"
 
 
 
-sleep 10
+sleep 120
 
 
 
