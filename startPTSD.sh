@@ -30,8 +30,8 @@ RANDOM=$SEED
 
 
 
-two=400
-one=225
+two=1600
+one=1800
 
 
 while :
@@ -49,16 +49,17 @@ done
 #echo $offset
 
 
-
-BB1=$(($BB))
-BB2=$(($BB))
-BB3=$(($BB))
+BB=333
+BB1=$(($BB+1))
+BB2=$(($BB+2))
+BB3=$(($BB+3))
 
 
 hz1=130
 hz2=130
 hz3=430
-hz4=430
+hz4=35
+0
 
 
 #echo $BB1.$offset
@@ -92,8 +93,8 @@ BB44=$(($RANDOM%3+1))
 ##200003
 
 ####################10001
-
+exit
 #10000 - 100001 = 1hz#
-sleep 0.5
+sleep 5
 
 done
