@@ -110,7 +110,7 @@ do
     echo done setting primaries
     echo b is $B
 
-    sleep 2
+    sleep 10
 
     done
 
