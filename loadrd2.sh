@@ -27,8 +27,8 @@ cp loadrd.sh /tmp/ramdisk/loadrd.sh
 cat /dev/null > /tmp/ramdisk/SG3.TXT
 
 
-A=35
-B=110
+A=4200
+B=4400
 while [[ $A -lt $B ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
@@ -36,32 +36,32 @@ A=$(($A+1))
 done
 
 
-A=950
-B=1050
+A=85
+B=135
 while [[ $A -lt $B ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 A=$(($A+1))
 done
 
-A=3000
-B=3200
+A=185
+B=278
 while [[ $A -lt $B ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 A=$(($A+$((1))))
 done
 
-A=3400
-B=3600
+A=485
+B=800
 while [[ $A -lt $B ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 A=$(($A+1))
 done
 
-A=3800
-B=4200
+A=975
+B=1025
 while [[ $A -lt $B ]]
 do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
