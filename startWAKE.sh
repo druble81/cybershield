@@ -23,32 +23,9 @@ echo  **********----------WAKE- RUNNING----------**********
 A=0
 C=1
 
-while [[ "$A" -lt "660" ]] 
+while [[ "$A" -lt "$1" ]] 
 do
 
-
-if [ -z "$1" ]
-then
-echo "nothing"
-else
-
-echo custom
-/home/pi/Desktop/testmodules/adf4351 380 25000000 $C&
-/home/pi/Desktop/testmodules/adf43512 380.$1 25000000 $C&
-/home/pi/Desktop/testmodules/adf43519 380.$1 25000000 $C&
-
-/home/pi/Desktop/testmodules/adf43515 355 25000000 $C&
-/home/pi/Desktop/testmodules/adf43516 355.$1 25000000 $C&
-
-/home/pi/Desktop/testmodules/adf43517 380 25000000 $C&
-/home/pi/Desktop/testmodules/adf43518 380.$1 25000000 $C&
-
-
-/home/pi/Desktop/testmodules/adf43513 300 25000000 $C&
-/home/pi/Desktop/testmodules/adf43514 300.$1 25000000 $C&
-exit
-
-fi
 
 A=$(($A+10))
 echo $A"hz Entrainment"

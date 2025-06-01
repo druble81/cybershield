@@ -1,0 +1,56 @@
+#!/bin/bash
+
+sudo bash /home/pi/Desktop/ramdisk.sh
+sudo bash /home/pi/Desktop/compfg.sh
+
+
+cd /home/pi/Desktop
+cp adf4351 /tmp/ramdisk/adf43512s
+cp adf43512 /tmp/ramdisk/adf435122
+cp adf43513 /tmp/ramdisk/adf435132
+cp adf43514 /tmp/ramdisk/adf435142
+cp adf43515 /tmp/ramdisk/adf435152
+cp adf43516 /tmp/ramdisk/adf435162
+cp adf43517 /tmp/ramdisk/adf435172
+cp adf43518 /tmp/ramdisk/adf435182
+cp adf43519 /tmp/ramdisk/adf435192
+
+cd /home/pi/Desktop/startall2
+cp adf4351 /tmp/ramdisk/adf4351lp
+cp adf43512 /tmp/ramdisk/adf43512lp
+cp adf43513 /tmp/ramdisk/adf43513lp
+cp adf43514 /tmp/ramdisk/adf43514lp
+cp adf43515 /tmp/ramdisk/adf43515lp
+cp adf43516 /tmp/ramdisk/adf43516lp
+cp adf43517 /tmp/ramdisk/adf43517lp
+cp adf43518 /tmp/ramdisk/adf43518lp
+cp adf43519 /tmp/ramdisk/adf43519lp
+
+
+#!/bin/bash
+echo $A
+cat /dev/null > /tmp/ramdisk/SG3.TXT
+
+A=$1
+
+while [[ $A -lt $2 ]]
+do
+
+ printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
+
+A=$(($A+1))
+
+done
+A=900
+exit
+
+while [[ $A -lt 1000 ]]
+do
+B=$(($RANDOM%99))
+ printf "%s\n" $A,   >> /tmp/ramdisk/SG3.TXT
+A=$(($A+1))
+
+done
+
+
+ 
