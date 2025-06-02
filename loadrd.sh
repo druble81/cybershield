@@ -74,7 +74,7 @@ do
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 1999) / 2000 ))
+    divisor=$(( (range + 999) / 1000 ))
 
  
 
@@ -139,7 +139,7 @@ else
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 1999) / 2000 ))
+    divisor=$(( (range + 999) / 1000 ))
 
     # Assign the result to a variable
     segment_size=$(( (range + divisor - 1) / divisor ))
@@ -176,7 +176,7 @@ else
     echo "running" > "$RUN_FILE2"
     echo "" > "$RUN_FILE"
 
-    pkill -f sleep
+    sudo pkill -f sleep
 
     exit
 
