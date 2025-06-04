@@ -74,7 +74,7 @@ do
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 999) / 1000 ))
+    divisor=$(( (range + 1499) / 1500 ))
 
  
 
@@ -139,7 +139,7 @@ else
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 999) / 1000 ))
+    divisor=$(( (range + 1499) / 1500 ))
 
     # Assign the result to a variable
     segment_size=$(( (range + divisor - 1) / divisor ))
