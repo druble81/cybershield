@@ -26,6 +26,7 @@ cp adf43519 /tmp/ramdisk/adf43519
 cp loadrd.sh /tmp/ramdisk/loadrd.sh
 cat /dev/null > /tmp/ramdisk/SG3.TXT
 
+sudo pkill -f loadrd.sh
 
 A=4200
 B=4400

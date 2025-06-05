@@ -74,7 +74,7 @@ do
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 1499) / 1500 ))
+    divisor=$(( (range + 999) / 1000 ))
 
  
 
@@ -110,7 +110,7 @@ do
     echo done setting primaries
     echo b is $B
 
-    sleep 10
+    sleep 30
 
     done
 
@@ -139,7 +139,7 @@ else
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 1499) / 1500 ))
+    divisor=$(( (range + 999) / 1000 ))
 
     # Assign the result to a variable
     segment_size=$(( (range + divisor - 1) / divisor ))
