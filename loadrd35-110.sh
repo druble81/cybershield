@@ -9,4 +9,4 @@ cd /home/pi/Desktop
 sudo bash alloffrd.sh
 sudo rm /tmp/ramdisk/*.txt
 sudo rm /tmp/ramdisk/*.TXT
-lxterminal -e "bash testscan.sh 50"
+lxterminal -e "bash testscan.sh 25"
