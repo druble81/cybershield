@@ -1,6 +1,9 @@
 clear
 echo  **********--------- Low Triple Heterodyne Forty TBS----------**********
 
+echo $1
+echo $2
+
 
 #####   PRIMARY FREQ's  
 #####   These will alter penetration depth
@@ -10,23 +13,39 @@ echo  **********--------- Low Triple Heterodyne Forty TBS----------**********
 ####TO SET PRIMARY RANGE######
 ##START OF 350 and Length of 100 is 350-450
 
-STARTFREQ1=200
-LENGTH1=300
-STARTFREQ2=4200
-LENGTH2=200
-STARTFREQ3=4200
-LENGTH3=200
-STARTFREQ4=200
-LENGTH4=200
-STARTFREQ5=400
-LENGTH5=3000
-STARTFREQ6=2000
-LENGTH6=2500
-STARTFREQ7=35
-LENGTH7=100
-STARTFREQ8=1000
-LENGTH8=2500
+STARTFREQ1=$((100+$1+$RANDOM % 100))
+LENGTH1=10
+STARTFREQ2=$((100+$2+$RANDOM % 100))
+LENGTH2=10
+STARTFREQ3=$((100+$2+$RANDOM % 100))
+LENGTH3=10
+STARTFREQ4=$((100+$1+$RANDOM % 100))
+LENGTH4=10
+STARTFREQ5=$((100 +$1+$RANDOM % 100))
+LENGTH5=10
+STARTFREQ6=$((100 +$1+$RANDOM % 100))
+LENGTH6=10
+STARTFREQ7=$((100 +$2+$RANDOM % 100))
+LENGTH7=10
+STARTFREQ8=$((100 +$2+$RANDOM % 100))
+LENGTH8=10
 
+STARTFREQ9=$((35+$1+$RANDOM % 100))
+LENGTH9=10
+STARTFREQ10=$((100+$2+$RANDOM % 100))
+LENGTH10=10
+STARTFREQ11=$((100+$2+$RANDOM % 100))
+LENGTH111=10
+STARTFREQ12=$((100+$1+$RANDOM % 100))
+LENGTH12=10
+STARTFREQ13=$((100 +$1+$RANDOM % 100))
+LENGTH13=10
+STARTFREQ14=$((100 +$1+$RANDOM % 100))
+LENGTH14=10
+STARTFREQ15=$((100 +$2+$RANDOM % 100))
+LENGTH15=10
+STARTFREQ16=$((100 +$2+$RANDOM % 100))
+LENGTH16=10
 
 
 
@@ -35,12 +54,13 @@ LENGTH8=2500
 ##### 10hz would be "000010"
 ##### 10khz would be "010000"
 
-hz1="0000"$(($RANDOM % 5 + 45)).$(($RANDOM % 10000))
-hz2="0000"$(($RANDOM % 5 + 45)).$(($RANDOM % 10000))																																																																																																				
-hz3="0000"$(($RANDOM % 5 + 45)).$(($RANDOM % 10000))
-hz4="0000"$(($RANDOM %  5 + 45)).$(($RANDOM % 10000))
-hz5="000"$(($RANDOM % 5 + 300)).$(($RANDOM % 10000))
-hz9="000"$(($RANDOM % 5 + 300)).$(($RANDOM % 10000))
+hz1="0000"$(($RANDOM % 10 + 47)).$(($RANDOM % 10000))
+hz2="0000"$(($RANDOM % 10 + 47)).$(($RANDOM % 10000))
+hz8="0000"$(($RANDOM % 10 + 27)).$(($RANDOM % 10000))
+hz10="0000"$(($RANDOM % 10  + 27)).$(($RANDOM % 10000))
+hz11="0000"$(($RANDOM % 10 + 47)).$(($RANDOM % 10000))
+hz12="0000"$(($RANDOM % 10 + 47)).$(($RANDOM % 10000))
+
 
 
 
@@ -61,7 +81,7 @@ hz22="0"$(($RANDOM % 100 + 20000))
 hz32="0"$(($RANDOM % 100 + 30000))
 hz42="000"$(($RANDOM % 540 + 100))
 hz52="000"$(($RANDOM % 540 + 100))
-hz92="000"$(($RANDOM % 361 + 250))##############NEW ONE FOR 9#############################
+hz92="000"$(($RANDOM % 540 + 100)) ##############NEW ONE FOR 9#############################
 
 ##### Power LEVEL
 ##### use 0 - 3
@@ -81,18 +101,27 @@ p52=3
 ##### PULSE LENGTH
 ##### 0.00005 = 50 microseconds
 
-pulselength=0.200
+pulselength=0.195
 
-pulselength2=0.200
+pulselength2=0.195
+
+pulselength3=0.245
+
+pulselength4=0.245
 
 holdprimarymax=19
 holdprimary=19
+
+holdprimarymax2=19
+holdprimary2=19
 
 ###TURN ON 2nd PULSE###
 ###1 = ON
 ###0 = OFF
 
 twopulse=1
+
+fourpulse=0
 
 ##### PULSE OR CONSTANT
 ##### 1 = Pulse
@@ -103,6 +132,12 @@ pulse=1
 
 #2nd Pulse
 secondpulse=1
+
+#third pulse
+tbirdpulse=1
+
+#fourth pulse
+fourthpulse=1
 
 
 ##############DO NOT EDIT BELOW THIS LINE#################################
@@ -121,12 +156,22 @@ carrier3=$(($RANDOM % $LENGTH3 + $STARTFREQ3)).$(($RANDOM % 10000))
 carrier4=$(($RANDOM % $LENGTH4 + $STARTFREQ4)).$(($RANDOM % 10000))
 
 carrier12=$(($RANDOM % $LENGTH5 + $STARTFREQ5)).$(($RANDOM % 10000))
-carrier22=$(($RANDOM % $LENGTH6 + $STARTFREQ6)).$(($RANDOM % 10000))
-carrier32=$(($RANDOM % $LENGTH7 + $STARTFREQ7)).$(($RANDOM % 10000))
-carrier42=$(($RANDOM % $LENGTH8 + $STARTFREQ8)).$(($RANDOM % 10000))
+carrier22=$carrier12 #$(($RANDOM % $LENGTH6 + $STARTFREQ6))
+carrier32=$carrier12 #$(($RANDOM % $LENGTH7 + $STARTFREQ7))
+carrier42=$carrier12 #(($RANDOM % $LENGTH8 + $STARTFREQ8))
+
+carrier6=$(($RANDOM % $LENGTH9 + $STARTFREQ9)).$(($RANDOM % 10000))
+carrier7=$(($RANDOM % $LENGTH10 + $STARTFREQ10)).$(($RANDOM % 10000))
+carrier8=$(($RANDOM % $LENGTH11 + $STARTFREQ11)).$(($RANDOM % 10000))
+carrier9=$(($RANDOM % $LENGTH12 + $STARTFREQ12)).$(($RANDOM % 10000))
+
+carrier13=$(($RANDOM % $LENGTH13 + $STARTFREQ13)).$(($RANDOM % 10000))
+carrier22=$carrier13 #$(($RANDOM % $LENGTH6 + $STARTFREQ6))
+carrier32=$carrier13 #$(($RANDOM % $LENGTH7 + $STARTFREQ7))
+carrier42=$carrier13 #(($RANDOM % $LENGTH8 + $STARTFREQ8))
 fi
 clear
-echo  **********----------Triple Heterodyne Forty TBS----------**********
+echo  **********----------Intermittent Theta Burst2 with Quad Burst----------**********
 echo carrier 1 $carrier1
 echo carrier 2 $carrier2
 echo carrier 3 $carrier3
@@ -181,12 +226,19 @@ rnd=$(($RANDOM % 100 + 1))
 done
 #hz52=$rnd
 
-hz12="00"$(($RANDOM % 500 + 4000)).$(($RANDOM % 10000))
-hz22="00"$(($RANDOM % 640 + 4360)).$(($RANDOM % 10000))
-hz32="0"$(($RANDOM % 500 + 10646)).$(($RANDOM % 10000))
-hz42="0"$(($RANDOM % 300 + 15002)).$(($RANDOM % 10000))
-hz52="0"$(($RANDOM %  500 + 13054)).$(($RANDOM % 10000))
-hz92="0"$(($RANDOM %  500 + 14054)).$(($RANDOM % 10000))
+hz12="0"$(($RANDOM % 26 + 11420)).$(($RANDOM % 10000))
+hz22="0"$(($RANDOM % 26 + 10060)).$(($RANDOM % 10000))
+hz32="0"$(($RANDOM % 26 + 10746)).$(($RANDOM % 10000))
+hz42="0"$(($RANDOM % 26 + 12086)).$(($RANDOM % 10000))
+hz52="0"$(($RANDOM %  26 + 12752)).$(($RANDOM % 10000))
+hz92="0"$(($RANDOM %  36 + 13300)).$(($RANDOM % 10000))
+
+hz13="0"$(($RANDOM % 26 + 16000))
+hz23="0"$(($RANDOM % 26 + 16660))
+hz33="0"$(($RANDOM % 28 + 17320))
+hz43="0"$(($RANDOM % 28 + 17980))
+hz53="0"$(($RANDOM %  28 + 18640))
+hz93="0"$(($RANDOM %  28 + 19300))
 
 ####TURN OFF MODULES####
 if [[ $pulse -gt 0 ]]
@@ -213,7 +265,7 @@ fi
 /home/pi/Desktop/testmodules/adf43516 $carrier3.$hz3 25000000 $p3&
 /home/pi/Desktop/testmodules/adf43517 $carrier4 25000000 $p4&
 /home/pi/Desktop/testmodules/adf43518 $carrier4.$hz4 25000000 $p4&
-/home/pi/Desktop/testmodules/adf43519 $carrier3.$hz9 25000000 $p4&
+/home/pi/Desktop/testmodules/adf43519 $carrier3.$hz9 25000000 $p3&
 
 holdprimary=$(($holdprimary+1))
 echo $holdprimary
@@ -251,6 +303,71 @@ fi
 
 sleep $pulselength2
 
+fi
+
+if [[ $thirdpulse -gt 0 ]]
+then
+/home/pi/Desktop/testmodules/adf43519& 
+/home/pi/Desktop/testmodules/adf43516&
+/home/pi/Desktop/testmodules/adf43515& 
+/home/pi/Desktop/testmodules/adf43517& 
+/home/pi/Desktop/testmodules/adf43518& 
+/home/pi/Desktop/testmodules/adf43514& 
+/home/pi/Desktop/testmodules/adf43513&
+/home/pi/Desktop/testmodules/adf4351&
+/home/pi/Desktop/testmodules/adf43512&
+sleep 0.01
+fi
+
+
+####ACTIVATE MODULES#####
+/home/pi/Desktop/testmodules/adf4351 $carrier6 25000000 $p1&
+/home/pi/Desktop/testmodules/adf43512 $carrier6.$hz6 25000000 $p1&
+/home/pi/Desktop/testmodules/adf43513 $carrier7 25000000 $p2&
+/home/pi/Desktop/testmodules/adf43514 $carrier7.$hz7 25000000 $p2&
+/home/pi/Desktop/testmodules/adf43515 $carrier8 25000000 $p3&
+/home/pi/Desktop/testmodules/adf43516 $carrier8.$hz8 25000000 $p3&
+/home/pi/Desktop/testmodules/adf43517 $carrier9 25000000 $p4&
+/home/pi/Desktop/testmodules/adf43518 $carrier9.$hz10 25000000 $p4&
+/home/pi/Desktop/testmodules/adf43519 $carrier8.$hz11 25000000 $p3&
+
+holdprimary2=$(($holdprimary+1))
+
+echo $holdprimary2
+
+sleep $pulselength3
+
+if [[ $fourthpulse -gt 0 ]]
+then
+####TURN OFF MODULES####
+if [[ $fourthpulse2 -gt 0 ]]
+then
+/home/pi/Desktop/testmodules/adf43519& 
+/home/pi/Desktop/testmodules/adf43516&
+/home/pi/Desktop/testmodules/adf43515& 
+/home/pi/Desktop/testmodules/adf43517& 
+/home/pi/Desktop/testmodules/adf43518& 
+/home/pi/Desktop/testmodules/adf43514& 
+/home/pi/Desktop/testmodules/adf43513&
+/home/pi/Desktop/testmodules/adf4351&
+/home/pi/Desktop/testmodules/adf43512&
+sleep 0.1
+fi
+
+
+####ACTIVATE MODULES#####
+/home/pi/Desktop/testmodules/adf4351 $carrier13 25000000 $p12&
+/home/pi/Desktop/testmodules/adf43512 $carrier13.$hz13 25000000 $p12&
+/home/pi/Desktop/testmodules/adf43513 $carrier22 25000000 $p22&
+/home/pi/Desktop/testmodules/adf43514 $carrier22.$hz23 25000000 $p22&
+/home/pi/Desktop/testmodules/adf43515 $carrier32 25000000 $p32&
+/home/pi/Desktop/testmodules/adf43516 $carrier32.$hz33 25000000 $p32&
+/home/pi/Desktop/testmodules/adf43519 $carrier32.$hz93 25000000 $p32&
+/home/pi/Desktop/testmodules/adf43517 $carrier42 25000000 $p42&
+/home/pi/Desktop/testmodules/adf43518 $carrier42.$hz43 25000000 $p42&
+
+
+sleep $pulselength4
 
 
 fi

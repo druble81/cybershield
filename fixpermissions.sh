@@ -147,6 +147,7 @@ sudo chmod +x t21.sh
 sudo chmod +x t22.sh
 sudo chmod +x t23.sh
 sudo chmod +x t24.sh
+sudo chmod +x t25.sh
 sudo chmod +x dfmenu
 sudo chmod +x tp
 
