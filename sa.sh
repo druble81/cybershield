@@ -80,4 +80,26 @@ sleep 1
 sudo pkill -f adf4351
 
 
+echo "n2" 
+/tmp/ramdisk/adf43512sn 3000 25000000 $C $B&
+/tmp/ramdisk/adf435132n 3000 25000000 $C $A&
+/tmp/ramdisk/adf435122n 3000 25000000 $C $B&
+/tmp/ramdisk/adf435142n 3000 25000000 $C $B&
+/tmp/ramdisk/adf435152n 3000 25000000 $C $B&
+/tmp/ramdisk/adf435162n 3000 25000000 $C $B&
+/tmp/ramdisk/adf435172n 3000 25000000 $C $B&
+/tmp/ramdisk/adf435182n 3000 25000000 $C $B&
+/tmp/ramdisk/adf435192n 3000 25000000 $C $B&
+D=$(($RANDOM % 30 + 1))
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+
+sleep 1
+
+sudo pkill -f adf4351
+
 done
