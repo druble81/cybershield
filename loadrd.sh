@@ -40,6 +40,26 @@ cp n2/adf43517 /tmp/ramdisk/adf435172n
 cp n2/adf43518 /tmp/ramdisk/adf435182n
 cp n2/adf43519 /tmp/ramdisk/adf435192n
 
+cp n3/adf4351 /tmp/ramdisk/adf43512sn3
+cp n3/adf43512 /tmp/ramdisk/adf435122n3
+cp n3/adf43513 /tmp/ramdisk/adf435132n3
+cp n3/adf43514 /tmp/ramdisk/adf435142n3
+cp n3/adf43515 /tmp/ramdisk/adf435152n3
+cp n3/adf43516 /tmp/ramdisk/adf435162n3
+cp n3/adf43517 /tmp/ramdisk/adf435172n3
+cp n3/adf43518 /tmp/ramdisk/adf435182n3
+cp n3/adf43519 /tmp/ramdisk/adf435192n3
+
+cp n4/adf4351 /tmp/ramdisk/adf43512sn4
+cp n4/adf43512 /tmp/ramdisk/adf435122n4
+cp n4/adf43513 /tmp/ramdisk/adf435132n4
+cp n4/adf43514 /tmp/ramdisk/adf435142n4
+cp n4/adf43515 /tmp/ramdisk/adf435152n4
+cp n4/adf43516 /tmp/ramdisk/adf435162n4
+cp n4/adf43517 /tmp/ramdisk/adf435172n4
+cp n4/adf43518 /tmp/ramdisk/adf435182n4
+cp n4/adf43519 /tmp/ramdisk/adf435192n4
+
 
 SEED=$(od -An -N2 -i /dev/urandom)
 RANDOM=$SEED

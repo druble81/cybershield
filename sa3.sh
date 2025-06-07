@@ -24,37 +24,37 @@ A=$(($RANDOM % 6))
 if [[ $A == 0 ]]
 then
 bash startall.sh&
-sleep 1.5
+sleep 0.5
 fi
 
 if [[ $A == 1 ]]
 then
 bash startall2.sh&
-sleep 1.5
+sleep 0.5
 fi
 
 if [[ $A == 2 ]]
 then
 bash startDLPFC.sh&
-sleep 1.5
+sleep 0.5
 fi
 
 if [[ $A == 3 ]]
 then
 bash startPTSD.sh&
-sleep 1.5
+sleep 0.5
 fi
 
 if [[ $A == 4 ]]
 then
 bash /home/pi/Desktop/testmodules/startall2.sh&
-sleep 1.5
+sleep 0.5
 fi
 
 if [[ $A == 5 ]]
 then
 bash 10k.sh&
-sleep 1.5
+sleep 0.5
 fi
 
 
