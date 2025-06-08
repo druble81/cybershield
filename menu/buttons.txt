@@ -1,4 +1,4 @@
-Update|/home/pi/Desktop/update_gui&
+Update|lxterminal -e /home/pi/Desktop/update_gui&
 Primary Scan|lxterminal -e bash /home/pi/Desktop/testscan.sh 25&
 Special Primary 1|bash /home/pi/Desktop/loadrd2.sh&
 N2|bash /home/pi/Desktop/n2/startall.sh&
