@@ -50,7 +50,7 @@ echo "......................10K BURST MODE......................"
 echo "......................10K BURST MODE......................"
 echo "......................10K BURST MODE......................"
 
-sleep 1
+sleep 3
 
 sudo pkill -f adf4351
 
@@ -75,7 +75,7 @@ echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 
-sleep 1
+sleep 3
 
 sudo pkill -f adf4351
 
@@ -98,8 +98,132 @@ echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 
-sleep 1
+sleep 3
 
 sudo pkill -f adf4351
+
+B=25000
+A=8264
+
+echo "10k2" 
+/tmp/ramdisk/adf43512sk2 3000 25000000 $C $B&
+/tmp/ramdisk/adf435132k2 3000 25000000 $C $A&
+/tmp/ramdisk/adf435122k2 3000 25000000 $C $B&
+/tmp/ramdisk/adf435142k2 3000 25000000 $C $B&
+/tmp/ramdisk/adf435152k2 3000 25000000 $C $B&
+/tmp/ramdisk/adf435162k2 3000 25000000 $C $B&
+/tmp/ramdisk/adf435172k2 3000 25000000 $C $B&
+/tmp/ramdisk/adf435182k2 3000 25000000 $C $B&
+/tmp/ramdisk/adf435192k2 3000 25000000 $C $B&
+D=$(($RANDOM % 30 + 1))
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+
+sleep 3
+
+sudo pkill -f adf4351
+
+echo "n3" 
+/tmp/ramdisk/adf43512sn3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435132n3 3000 25000000 $C $A&
+/tmp/ramdisk/adf435122n3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435142n3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435152n3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435162n3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435172n3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435182n3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435192n3 3000 25000000 $C $B&
+D=$(($RANDOM % 30 + 1))
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+
+sleep 3
+
+sudo pkill -f adf4351
+B=25000
+A=8264
+
+echo "10k3" 
+/tmp/ramdisk/adf43512sk3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435132k3 3000 25000000 $C $A&
+/tmp/ramdisk/adf435122k3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435142k3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435152k3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435162k3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435172k3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435182k3 3000 25000000 $C $B&
+/tmp/ramdisk/adf435192k3 3000 25000000 $C $B&
+D=$(($RANDOM % 30 + 1))
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+
+sleep 3
+
+sudo pkill -f adf4351
+
+echo "n4" 
+/tmp/ramdisk/adf43512sn4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435132n4 3000 25000000 $C $A&
+/tmp/ramdisk/adf435122n4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435142n4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435152n4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435162n4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435172n4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435182n4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435192n4 3000 25000000 $C $B&
+D=$(($RANDOM % 30 + 1))
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+
+sleep 3
+
+sudo pkill -f adf4351
+
+
+B=25000
+A=8264
+
+echo "10k4" 
+/tmp/ramdisk/adf43512sk4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435132k4 3000 25000000 $C $A&
+/tmp/ramdisk/adf435122k4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435142k4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435152k4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435162k4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435172k4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435182k4 3000 25000000 $C $B&
+/tmp/ramdisk/adf435192k4 3000 25000000 $C $B&
+D=$(($RANDOM % 30 + 1))
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+echo "......................10K BURST MODE......................$D"
+
+sleep 3
+
+sudo pkill -f adf4351
+
+
+
+
+
 
 done

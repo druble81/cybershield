@@ -60,6 +60,35 @@ cp n4/adf43517 /tmp/ramdisk/adf435172n4
 cp n4/adf43518 /tmp/ramdisk/adf435182n4
 cp n4/adf43519 /tmp/ramdisk/adf435192n4
 
+cp 10k2/adf4351 /tmp/ramdisk/adf43512sk2
+cp 10k2/adf43512 /tmp/ramdisk/adf435122k2
+cp 10k2/adf43513 /tmp/ramdisk/adf435132k2
+cp 10k2/adf43514 /tmp/ramdisk/adf435142k2
+cp 10k2/adf43515 /tmp/ramdisk/adf435152k2
+cp 10k2/adf43516 /tmp/ramdisk/adf435162k2
+cp 10k2/adf43517 /tmp/ramdisk/adf435172k2
+cp 10k2/adf43518 /tmp/ramdisk/adf435182k2
+cp 10k2/adf43519 /tmp/ramdisk/adf435192k2
+
+cp 10k3/adf4351 /tmp/ramdisk/adf43512sk3
+cp 10k3/adf43512 /tmp/ramdisk/adf435122k3
+cp 10k3/adf43513 /tmp/ramdisk/adf435132k3
+cp 10k3/adf43514 /tmp/ramdisk/adf435142k3
+cp 10k3/adf43515 /tmp/ramdisk/adf435152k3
+cp 10k3/adf43516 /tmp/ramdisk/adf435162k3
+cp 10k3/adf43517 /tmp/ramdisk/adf435172k3
+cp 10k3/adf43518 /tmp/ramdisk/adf435182k3
+cp 10k3/adf43519 /tmp/ramdisk/adf435192k3
+
+cp 10k4/adf4351 /tmp/ramdisk/adf43512sk4
+cp 10k4/adf43512 /tmp/ramdisk/adf435122k4
+cp 10k4/adf43513 /tmp/ramdisk/adf435132k4
+cp 10k4/adf43514 /tmp/ramdisk/adf435142k4
+cp 10k4/adf43515 /tmp/ramdisk/adf435152k4
+cp 10k4/adf43516 /tmp/ramdisk/adf435162k4
+cp 10k4/adf43517 /tmp/ramdisk/adf435172k4
+cp 10k4/adf43518 /tmp/ramdisk/adf435182k4
+cp 10k4/adf43519 /tmp/ramdisk/adf435192k4
 
 SEED=$(od -An -N2 -i /dev/urandom)
 RANDOM=$SEED
@@ -81,7 +110,7 @@ A=$1
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 1999) / 2000 ))
+    divisor=$(( (range + 2999) / 3000 ))
 
  
 
@@ -101,16 +130,12 @@ A=$1
     while [[ $A -lt $2 ]]
     do
 
-    # Assign the result to a variable
-    
+     
 
-    if [[ $segment_size -ge 20 ]]; then
-        rand_num=$((RANDOM % $segment_size))
-    fi
         printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
         A=$(($A+$(($B))))
+    
     done
-
 
     printf "\n"    >> /tmp/ramdisk/SG3.TXT
     A=900

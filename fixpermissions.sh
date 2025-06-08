@@ -90,6 +90,45 @@ sudo chmod +x adf43517
 sudo chmod +x adf43518
 sudo chmod +x adf43519
 
+
+cd /home/pi/Desktop/10k2
+sudo chmod +x 10k.sh
+sudo chmod +x adf4351
+sudo chmod +x adf43512
+sudo chmod +x adf43513
+sudo chmod +x adf43514
+sudo chmod +x adf43515
+sudo chmod +x adf43516
+sudo chmod +x adf43517
+sudo chmod +x adf43518
+sudo chmod +x adf43519
+
+cd /home/pi/Desktop/10k3
+sudo chmod +x 10k.sh
+sudo chmod +x adf4351
+sudo chmod +x adf43512
+sudo chmod +x adf43513
+sudo chmod +x adf43514
+sudo chmod +x adf43515
+sudo chmod +x adf43516
+sudo chmod +x adf43517
+sudo chmod +x adf43518
+sudo chmod +x adf43519
+
+
+cd /home/pi/Desktop/10k4
+sudo chmod +x 10k.sh
+sudo chmod +x adf4351
+sudo chmod +x adf43512
+sudo chmod +x adf43513
+sudo chmod +x adf43514
+sudo chmod +x adf43515
+sudo chmod +x adf43516
+sudo chmod +x adf43517
+sudo chmod +x adf43518
+sudo chmod +x adf43519
+
+
 cd /home/pi/Desktop/10k
 sudo chmod +x adf4351
 sudo chmod +x adf43512
