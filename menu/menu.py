@@ -3,6 +3,7 @@ import subprocess
 import os
 
 BUTTONS_FILE = "buttons.txt"
+COLUMNS = 2  # 8 buttons per row
 
 # Load button definitions from file
 def load_button_definitions(file_path):
@@ -23,15 +24,17 @@ def run_command(command):
     process = subprocess.Popen(command, shell=True)
     process.wait()
 
-# Build GUI
+# Build GUI with 2 rows and 8 columns (or more if needed)
 def create_menu(buttons):
     root = tk.Tk()
     root.title("Command Menu")
 
-    for i, btn in enumerate(buttons):
-        button = tk.Button(root, text=btn["label"], width=30, height=2,
+    for index, btn in enumerate(buttons):
+        row = index // COLUMNS
+        col = index % COLUMNS
+        button = tk.Button(root, text=btn["label"], width=20, height=2,
                            command=lambda cmd=btn["command"]: run_command(cmd))
-        button.grid(row=i, column=0, padx=10, pady=5)
+        button.grid(row=row, column=col, padx=5, pady=5)
 
     root.mainloop()
 

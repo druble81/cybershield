@@ -2,9 +2,13 @@ Update|/home/pi/Desktop/update_gui&
 Primary Scan|lxterminal -e bash /home/pi/Desktop/testscan.sh 25&
 Special Primary 1|bash /home/pi/Desktop/loadrd2.sh&
 N2|bash /home/pi/Desktop/n2/startall.sh&
-4200-4400|bash /home/pi/Desktop/loadrd.sh 4200 4400&
+10k2|bash /home/pi/Desktop/10k2/10k.sh&
 N3|bash /home/pi/Desktop/n3/startall.sh&
-998-1005|bash /home/pi/Desktop/loadrd.sh 998 1005&
+10k3|bash /home/pi/Desktop/10k3/10k.sh&
 N4|bash /home/pi/Desktop/n4/startall.sh&
-Reboot|sudo reboot
+10k4|bash /home/pi/Desktop/10k4/10k.sh&
+Stop|bash /home/pi/Desktop/alloffrd.sh&
+4200-4400|bash /home/pi/Desktop/loadrd.sh 4200 4400&
+998-1005|bash /home/pi/Desktop/loadrd.sh 998 1005&
+85-125|bash /home/pi/Desktop/loadrd.sh 85 125&
 Reboot|sudo reboot
