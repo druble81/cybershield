@@ -110,7 +110,7 @@ A=$1
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 2999) / 3000 ))
+    divisor=$(( (range + 4599) / 4500 ))
 
  
 
