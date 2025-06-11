@@ -11,4 +11,5 @@ Stop|bash /home/pi/Desktop/alloffrd.sh&
 4200-4400|bash /home/pi/Desktop/loadrd.sh 4200 4400&
 998-1005|bash /home/pi/Desktop/loadrd.sh 998 1005&
 85-125|bash /home/pi/Desktop/loadrd.sh 85 125&
+Program Manager| python3 /home/pi/Desktop/testmenu.py&
 Reboot|sudo reboot
