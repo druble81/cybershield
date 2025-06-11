@@ -5,7 +5,7 @@ import json
 import os
 import threading
 
-SAVE_FILE = "saved_programs.json"
+SAVE_FILE = "/home/pi/Desktop/saved_programs.json"
 
 PROGRAM_OPTIONS = {
     "10k": "bash /home/pi/Desktop/10k.sh &",
