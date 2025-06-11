@@ -12,6 +12,7 @@ sudo chmod +x adf43519
 sudo chmod +x jam.sh
 sudo chmod +x update_gui1
 sudo chmod +x update_gui
+sudo chmod +x testmenu.py
 
 sudo chmod +x ramdisk.sh
 sudo chmod +x loadrdDEW.sh
