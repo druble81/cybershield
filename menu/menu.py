@@ -3,7 +3,7 @@ import subprocess
 import os
 
 BUTTONS_FILE = "buttons.txt"
-COLUMNS = 2  # 8 buttons per row
+COLUMNS = 3  # 8 buttons per row
 
 # Load button definitions from file
 def load_button_definitions(file_path):

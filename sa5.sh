@@ -54,7 +54,6 @@ sleep 1
 
 sudo pkill -f adf4351
 
-sleep $(($RANDOM % 2 + 5))
 
 /tmp/ramdisk/adf43512sn3 3000 25000000 $C $B&
 /tmp/ramdisk/adf435132n3 3000 25000000 $C $A&
@@ -77,7 +76,6 @@ echo "......................N BURST MODE......................"
 sleep 1
 
 sudo pkill -f adf4351
-sleep $(($RANDOM % 2 + 5))
 
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $B&
@@ -101,7 +99,6 @@ echo "......................N BURST MODE......................"
 sleep 1
 
 sudo pkill -f adf4351
-sleep $(($RANDOM % 2 + 5))
 
 /tmp/ramdisk/adf43512sn4 3000 25000000 $C $B&
 /tmp/ramdisk/adf435132n4 3000 25000000 $C $A&
@@ -124,7 +121,6 @@ echo "......................N BURST MODE......................"
 sleep 1
 
 sudo pkill -f adf4351
-sleep $(($RANDOM % 2 + 5))
 
 
 

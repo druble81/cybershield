@@ -12,4 +12,7 @@ Stop|bash /home/pi/Desktop/alloffrd.sh&
 998-1005|bash /home/pi/Desktop/loadrd.sh 998 1005&
 85-125|bash /home/pi/Desktop/loadrd.sh 85 125&
 Program Manager| python3 /home/pi/Desktop/testmenu.py&
+N4 Burst Mode|bash /home/pi/Desktop/sa5.sh&
+N4 Burst pulse|bash /home/pi/Desktop/sa4.sh&
+Full Burst|bash /home/pi/Desktop/sa6.sh&
 Reboot|sudo reboot

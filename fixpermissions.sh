@@ -13,6 +13,10 @@ sudo chmod +x jam.sh
 sudo chmod +x update_gui1
 sudo chmod +x update_gui
 sudo chmod +x testmenu.py
+sudo chmod +x sa4.sh
+sudo chmod +x sa5.sh
+sudo chmod +x sa6.sh
+
 
 sudo chmod +x ramdisk.sh
 sudo chmod +x loadrdDEW.sh
