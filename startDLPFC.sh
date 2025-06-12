@@ -26,8 +26,8 @@ RANDOM=$SEED
 
 
 
-two=1000
-one=950
+two=2000
+one=300
 
 
 while :
@@ -90,7 +90,7 @@ BB44=$(($RANDOM%3+1))
 ####################10001
 
 #10000 - 100001 = 1hz#
-sleep 20
+sleep 5
 
 
 done

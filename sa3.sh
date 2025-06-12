@@ -19,7 +19,7 @@ sudo pkill -f startall
 sudo pkill -f 10k
 
 
-A=$(($RANDOM % 12))
+A=$(($RANDOM % 8))
 
 if [[ $A == 0 ]]
 then
@@ -59,35 +59,11 @@ fi
 
 if [[ $A == 6 ]]
 then
-bash /home/pi/Desktop/10k2/10k.sh&
-sleep 0.7
-fi
-
-if [[ $A == 7 ]]
-then
-bash /home/pi/Desktop/10k3/10k.sh&
-sleep 0.7
-fi
-
-if [[ $A == 8 ]]
-then
 bash /home/pi/Desktop/10k4/10k.sh&
 sleep 0.7
 fi
 
-if [[ $A == 9 ]]
-then
-bash /home/pi/Desktop/n2/startall.sh&
-sleep 0.7
-fi
-
-if [[ $A == 10 ]]
-then
-bash /home/pi/Desktop/n3/startall.sh&
-sleep 0.7
-fi
-
-if [[ $A == 11 ]]
+if [[ $A == 7 ]]
 then
 bash /home/pi/Desktop/n4/startall.sh&
 sleep 0.7
