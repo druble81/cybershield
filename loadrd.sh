@@ -1,6 +1,6 @@
 #!/bin/bash
     if [ -f /tmp/ramdisk/adf4351 ]; then
-        ./loadrd $1 $2
+        sudo ./loadrd $1 $2
         exit
     fi
 
