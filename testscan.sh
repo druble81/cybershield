@@ -2,6 +2,7 @@
 A1_FILE="/tmp/ramdisk/A1.txt"
 A2_FILE="/tmp/ramdisk/A2.txt"
 sudo pkill -f loadrd
+sudo rm /tmp/ramdisk/SG3.TXT
   
   A=35
   
