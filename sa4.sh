@@ -32,15 +32,15 @@ A=1600
 B=800
 
 
-/tmp/ramdisk/adf4351 1000 25000000 $C $B&
-/tmp/ramdisk/adf43512 1000 25000000 $C $B&
-/tmp/ramdisk/adf43513 1000 25000000 $C $A&
-/tmp/ramdisk/adf43514 1000 25000000 $C $B&
-/tmp/ramdisk/adf43515 1000 25000000 $C $B&
-/tmp/ramdisk/adf43516 1000 25000000 $C $B&
-/tmp/ramdisk/adf43517 1000 25000000 $C $B&
-/tmp/ramdisk/adf43518 1000 25000000 $C $B&
-/tmp/ramdisk/adf43519 1000 25000000 $C $B&
+/tmp/ramdisk/adf4351 1000 25000000 $C&
+/tmp/ramdisk/adf43512 1000 25000000 $C&
+/tmp/ramdisk/adf43513 1000 25000000 $C&
+/tmp/ramdisk/adf43514 1000 25000000 $C&
+/tmp/ramdisk/adf43515 1000 25000000 $C&
+/tmp/ramdisk/adf43516 1000 25000000 $C&
+/tmp/ramdisk/adf43517 1000 25000000 $C&
+/tmp/ramdisk/adf43518 1000 25000000 $C&
+/tmp/ramdisk/adf43519 1000 25000000 $C&
 
 
 echo "......................N BURST MODE......................"
@@ -54,17 +54,17 @@ sleep 1
 
 sudo pkill -f adf4351
 
-sleep $(($RANDOM % 2 + 5))
+sleep $(($RANDOM % 2 + 3))
 
-/tmp/ramdisk/adf43512sn3 3000 25000000 $C $B&
-/tmp/ramdisk/adf435132n3 3000 25000000 $C $A&
-/tmp/ramdisk/adf435122n3 3000 25000000 $C $B&
-/tmp/ramdisk/adf435142n3 3000 25000000 $C $B&
-/tmp/ramdisk/adf435152n3 3000 25000000 $C $B&
-/tmp/ramdisk/adf435162n3 3000 25000000 $C $B&
-/tmp/ramdisk/adf435172n3 3000 25000000 $C $B&
-/tmp/ramdisk/adf435182n3 3000 25000000 $C $B&
-/tmp/ramdisk/adf435192n3 3000 25000000 $C $B&
+/tmp/ramdisk/adf43512sn3 3000 25000000 $C&
+/tmp/ramdisk/adf435132n3 3000 25000000 $C&
+/tmp/ramdisk/adf435122n3 3000 25000000 $C&
+/tmp/ramdisk/adf435142n3 3000 25000000 $C&
+/tmp/ramdisk/adf435152n3 3000 25000000 $C&
+/tmp/ramdisk/adf435162n3 3000 25000000 $C&
+/tmp/ramdisk/adf435172n3 3000 25000000 $C&
+/tmp/ramdisk/adf435182n3 3000 25000000 $C&
+/tmp/ramdisk/adf435192n3 3000 25000000 $C&
 
 
 echo "......................N3 BURST MODE......................"
@@ -77,18 +77,18 @@ echo "......................N BURST MODE......................"
 sleep 1
 
 sudo pkill -f adf4351
-sleep $(($RANDOM % 2 + 5))
+sleep $(($RANDOM % 2 + 3))
 
 
-/tmp/ramdisk/adf4351 1000 25000000 $C $B&
-/tmp/ramdisk/adf43512 1000 25000000 $C $B&
-/tmp/ramdisk/adf43513 1000 25000000 $C $A&
-/tmp/ramdisk/adf43514 1000 25000000 $C $B&
-/tmp/ramdisk/adf43515 1000 25000000 $C $B&
-/tmp/ramdisk/adf43516 1000 25000000 $C $B&
-/tmp/ramdisk/adf43517 1000 25000000 $C $B&
-/tmp/ramdisk/adf43518 1000 25000000 $C $B&
-/tmp/ramdisk/adf43519 1000 25000000 $C $B&
+/tmp/ramdisk/adf4351 1000 25000000 $C&
+/tmp/ramdisk/adf43512 1000 25000000 $C&
+/tmp/ramdisk/adf43513 1000 25000000 $C&
+/tmp/ramdisk/adf43514 1000 25000000 $C&
+/tmp/ramdisk/adf43515 1000 25000000 $C&
+/tmp/ramdisk/adf43516 1000 25000000 $C&
+/tmp/ramdisk/adf43517 1000 25000000 $C&
+/tmp/ramdisk/adf43518 1000 25000000 $C&
+/tmp/ramdisk/adf43519 1000 25000000 $C&
 
 
 echo "......................N BURST MODE......................"
@@ -101,17 +101,17 @@ echo "......................N BURST MODE......................"
 sleep 1
 
 sudo pkill -f adf4351
-sleep $(($RANDOM % 2 + 5))
+sleep $(($RANDOM % 2 + 3))
 
-/tmp/ramdisk/adf43512sn4 3000 25000000 $C $B&
-/tmp/ramdisk/adf435132n4 3000 25000000 $C $A&
-/tmp/ramdisk/adf435122n4 3000 25000000 $C $B&
-/tmp/ramdisk/adf435142n4 3000 25000000 $C $B&
-/tmp/ramdisk/adf435152n4 3000 25000000 $C $B&
-/tmp/ramdisk/adf435162n4 3000 25000000 $C $B&
-/tmp/ramdisk/adf435172n4 3000 25000000 $C $B&
-/tmp/ramdisk/adf435182n4 3000 25000000 $C $B&
-/tmp/ramdisk/adf435192n4 3000 25000000 $C $B&
+/tmp/ramdisk/adf43512sn4 3000 25000000 $C&
+/tmp/ramdisk/adf435132n4 3000 25000000 $C&
+/tmp/ramdisk/adf435122n4 3000 25000000 $C&
+/tmp/ramdisk/adf435142n4 3000 25000000 $C&
+/tmp/ramdisk/adf435152n4 3000 25000000 $C&
+/tmp/ramdisk/adf435162n4 3000 25000000 $C&
+/tmp/ramdisk/adf435172n4 3000 25000000 $C&
+/tmp/ramdisk/adf435182n4 3000 25000000 $C&
+/tmp/ramdisk/adf435192n4 3000 25000000 $C&
 
 
 echo "......................N4 BURST MODE......................"
@@ -124,7 +124,7 @@ echo "......................N BURST MODE......................"
 sleep 1
 
 sudo pkill -f adf4351
-sleep $(($RANDOM % 2 + 5))
+sleep $(($RANDOM % 2 + 3))
 
 
 
@@ -134,15 +134,15 @@ B=25000
 A=8264
 
 echo "10k" 
-/tmp/ramdisk/adf43512s 3000 25000000 $C $B&
-/tmp/ramdisk/adf435132 3000 25000000 $C $A&
-/tmp/ramdisk/adf435122 3000 25000000 $C $B&
-/tmp/ramdisk/adf435142 3000 25000000 $C $B&
-/tmp/ramdisk/adf435152 3000 25000000 $C $B&
-/tmp/ramdisk/adf435162 3000 25000000 $C $B&
-/tmp/ramdisk/adf435172 3000 25000000 $C $B&
-/tmp/ramdisk/adf435182 3000 25000000 $C $B&
-/tmp/ramdisk/adf435192 3000 25000000 $C $B&
+/tmp/ramdisk/adf43512s 3000 25000000 $C&
+/tmp/ramdisk/adf435132 3000 25000000 $C&
+/tmp/ramdisk/adf435122 3000 25000000 $C&
+/tmp/ramdisk/adf435142 3000 25000000 $C&
+/tmp/ramdisk/adf435152 3000 25000000 $C&
+/tmp/ramdisk/adf435162 3000 25000000 $C&
+/tmp/ramdisk/adf435172 3000 25000000 $C&
+/tmp/ramdisk/adf435182 3000 25000000 $C&
+/tmp/ramdisk/adf435192 3000 25000000 $C&
 D=$(($RANDOM % 30 + 1))
 echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"

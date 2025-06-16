@@ -32,15 +32,15 @@ A=1600
 B=800
 
 
-/tmp/ramdisk/adf4351 1000 25000000 $C $B&
-/tmp/ramdisk/adf43512 1000 25000000 $C $B&
-/tmp/ramdisk/adf43513 1000 25000000 $C $A&
-/tmp/ramdisk/adf43514 1000 25000000 $C $B&
-/tmp/ramdisk/adf43515 1000 25000000 $C $B&
-/tmp/ramdisk/adf43516 1000 25000000 $C $B&
-/tmp/ramdisk/adf43517 1000 25000000 $C $B&
-/tmp/ramdisk/adf43518 1000 25000000 $C $B&
-/tmp/ramdisk/adf43519 1000 25000000 $C $B&
+/tmp/ramdisk/adf4351 1000 25000000 $C&
+/tmp/ramdisk/adf43512 1000 25000000 $C&
+/tmp/ramdisk/adf43513 1000 25000000 $C&
+/tmp/ramdisk/adf43514 1000 25000000 $C&
+/tmp/ramdisk/adf43515 1000 25000000 $C&
+/tmp/ramdisk/adf43516 1000 25000000 $C&
+/tmp/ramdisk/adf43517 1000 25000000 $C&
+/tmp/ramdisk/adf43518 1000 25000000 $C&
+/tmp/ramdisk/adf43519 1000 25000000 $C&
 
 
 echo "......................N BURST MODE......................"
@@ -59,15 +59,15 @@ B=25000
 A=8264
 
 echo "10k" 
-/tmp/ramdisk/adf43512s 3000 25000000 $C $B&
-/tmp/ramdisk/adf435132 3000 25000000 $C $A&
-/tmp/ramdisk/adf435122 3000 25000000 $C $B&
-/tmp/ramdisk/adf435142 3000 25000000 $C $B&
-/tmp/ramdisk/adf435152 3000 25000000 $C $B&
-/tmp/ramdisk/adf435162 3000 25000000 $C $B&
-/tmp/ramdisk/adf435172 3000 25000000 $C $B&
-/tmp/ramdisk/adf435182 3000 25000000 $C $B&
-/tmp/ramdisk/adf435192 3000 25000000 $C $B&
+/tmp/ramdisk/adf43512s 3000 25000000 $C&
+/tmp/ramdisk/adf435132 3000 25000000 $C&
+/tmp/ramdisk/adf435122 3000 25000000 $C&
+/tmp/ramdisk/adf435142 3000 25000000 $C&
+/tmp/ramdisk/adf435152 3000 25000000 $C&
+/tmp/ramdisk/adf435162 3000 25000000 $C&
+/tmp/ramdisk/adf435172 3000 25000000 $C&
+/tmp/ramdisk/adf435182 3000 25000000 $C&
+/tmp/ramdisk/adf435192 3000 25000000 $C&
 D=$(($RANDOM % 30 + 1))
 echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
