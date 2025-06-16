@@ -16,6 +16,7 @@ sudo chmod +x testmenu.py
 sudo chmod +x sa4.sh
 sudo chmod +x sa5.sh
 sudo chmod +x sa6.sh
+sudo chmod +x sa7.sh
 sudo chmod +x loadrd
 
 

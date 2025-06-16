@@ -23,39 +23,47 @@ echo  **********----------DLPFC RUNNING----------**********
 
 SEED=$(od -An -N2 -i /dev/urandom)
 RANDOM=$SEED
+# Read all non-empty lines (assumed to be numbers) into an array
+mapfile -t numbers < <(grep -Eo '[0-9]+' /tmp/ramdisk/SG3.TXT)
+
+# Check if the array has at least one number
+if [ "${#numbers[@]}" -eq 0 ]; then
+    echo "No numbers found in /tmp/ramdisk/SG3.TXT"
+    exit 1
+fi
+
+# Randomly pick a number and assign to BB
+BB="${numbers[$RANDOM % ${#numbers[@]}]}"
+
+# (Optional) Echo it to verify
+#echo "Random number selected: $BB"
 
 
 
-two=2000
-one=300
+two=1005
+one=998
 
 
 while :
 do
 
-BB=$(($RANDOM%$(($two-$one)) + $one))
-
-C=0
-
-for (( i=1; i<=27; i++ ))
-do
-offset=$(($offset + RANDOM % 900000))
-done
-
-#echo $offset
+BB="${numbers[$RANDOM % ${#numbers[@]}]}"
+echo "Random number selected: $BB"
 
 
-#BB=366
+offset=500000
+
+
+BB=998
 BB1=$(($BB+1))
 BB2=$(($BB+2))
 BB3=$(($BB+3))
 
 
 hz1=3
-hz2=3
-hz3=2
-hz4=1
-
+hz2=2
+hz3=1
+hz4=2
 
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
@@ -88,9 +96,7 @@ BB44=$(($RANDOM%3+1))
 ##200003
 
 ####################10001
-
 #10000 - 100001 = 1hz#
-sleep 5
-
+sleep 0.4
 
 done

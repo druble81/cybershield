@@ -26,7 +26,9 @@ PROGRAM_OPTIONS = {
     "N4": "bash /home/pi/Desktop/n4/startall.sh &",
     "10k2": "bash /home/pi/Desktop/10k2/10k.sh &",
     "10K3": "bash /home/pi/Desktop/10k3/10k.sh &",
-    "10k4": "bash /home/pi/Desktop/10k4/10k.sh &"
+    "10k4": "bash /home/pi/Desktop/10k4/10k.sh &",
+    "PTSD": "bash /home/pi/Desktop/startPTSD.sh &",
+    "Full BAP": "bash /home/pi/Desktop/sa7.sh &"
 }
 
 FONT_STYLE = ("TkDefaultFont", 12)
@@ -97,7 +99,7 @@ class AddProgramWindow(tk.Toplevel):
         tk.Button(btn_frame, text="Add →", font=FONT_STYLE, command=self.add_script).pack(pady=10)
         tk.Button(btn_frame, text="← Remove", font=FONT_STYLE, command=self.remove_script).pack(pady=10)
 
-        self.selected_listbox = tk.Listbox(self, font=FONT_STYLE, height=18)
+        self.selected_listbox = tk.Listbox(self, font=FONT_STYLE, height=21)
         self.selected_listbox.grid(row=2, column=2, rowspan=4, sticky="ns", padx=5, pady=5)
 
         self.detail_frame = tk.Frame(self)
@@ -124,7 +126,7 @@ class AddProgramWindow(tk.Toplevel):
         tk.Button(self.detail_frame, text="Update Script Details", font=FONT_STYLE, command=self.update_script_details).grid(row=3, column=0, columnspan=2, pady=10)
 
         self.selected_listbox.bind("<<ListboxSelect>>", self.on_select_script)
-        tk.Button(self, text="Save Program", font=FONT_STYLE, command=self.save_program).grid(row=6, column=0, columnspan=5, pady=10)
+        tk.Button(self, text="Save Program", font=FONT_STYLE, command=self.save_program).grid(row=3, column=2, columnspan=5, pady=10)
 
     def center_window(self):
         self.update_idletasks()

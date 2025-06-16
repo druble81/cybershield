@@ -28,25 +28,37 @@ echo  **********----------ANTI PTSD RUNNING----------**********
 SEED=$(od -An -N2 -i /dev/urandom)
 RANDOM=$SEED
 
+#!/bin/bash
+
+# Read all non-empty lines (assumed to be numbers) into an array
+mapfile -t numbers < <(grep -Eo '[0-9]+' /tmp/ramdisk/SG3.TXT)
+
+# Check if the array has at least one number
+if [ "${#numbers[@]}" -eq 0 ]; then
+    echo "No numbers found in /tmp/ramdisk/SG3.TXT"
+    exit 1
+fi
+
+# Randomly pick a number and assign to BB
+BB="${numbers[$RANDOM % ${#numbers[@]}]}"
+
+# (Optional) Echo it to verify
+#echo "Random number selected: $BB"
 
 
-two=1600
-one=1800
+
+two=1005
+one=998
 
 
 while :
 do
 
-BB=$(($RANDOM%$(($two-$one)) + $one))
+BB="${numbers[$RANDOM % ${#numbers[@]}]}"
+echo "Random number selected: $BB"
 
-C=0
 
-for (( i=1; i<=27; i++ ))
-do
-offset=$(($offset + RANDOM % 900000))
-done
-
-#echo $offset
+offset=500000
 
 
 BB=998
@@ -93,6 +105,6 @@ BB44=$(($RANDOM%3+1))
 
 ####################10001
 #10000 - 100001 = 1hz#
-sleep 30
+sleep 0.5
 
 done
