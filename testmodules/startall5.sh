@@ -17,7 +17,7 @@ do
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
 
-C=0
+C=3
 
 for (( i=1; i<=27; i++ ))
 do

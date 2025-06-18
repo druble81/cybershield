@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /home/pi/Desktop/testmodules
-C=0
+C=3
 cd /home/pi/Desktop/testmodules
 
 clear

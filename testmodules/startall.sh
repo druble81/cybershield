@@ -43,7 +43,7 @@ echo $BB
 
 #BB=$(($RANDOM%$(($2-$1)) + $1))
 
-C=0
+C=3
 
 
 offset=500000

@@ -10,7 +10,7 @@ echo $BB
 echo QUAD H.
 
 
-C=1
+C=3
 
 
 

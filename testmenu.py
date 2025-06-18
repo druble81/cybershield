@@ -27,7 +27,6 @@ PROGRAM_OPTIONS = {
     "10k2": "bash /home/pi/Desktop/10k2/10k.sh &",
     "10K3": "bash /home/pi/Desktop/10k3/10k.sh &",
     "10k4": "bash /home/pi/Desktop/10k4/10k.sh &",
-    "PTSD": "bash /home/pi/Desktop/startPTSD.sh &",
     "Full BAP": "bash /home/pi/Desktop/sa7.sh &"
 }
 
@@ -293,10 +292,25 @@ class ProgramManager(tk.Tk):
                     subprocess.call(["bash", "/home/pi/Desktop/loadrd.sh", step['primary_low'], step['primary_high']])
                     print(f"[Runner] Running script: {step['script']}")
                     subprocess.call(step['script'], shell=True)
-                    for _ in range(int(step['duration']) * 6):
+                    try:
+                        duration_minutes = float(step['duration'])
+                    except ValueError:
+                        print(f"[Runner] Invalid duration value: {step['duration']}. Skipping step.")
+                        continue
+
+                    total_seconds = int(duration_minutes * 60)
+                    interval = 10  # seconds per wait
+                    loops = total_seconds // interval
+                    remainder = total_seconds % interval
+
+                    for _ in range(loops):
                         if self.stop_flag.is_set():
                             break
-                        threading.Event().wait(10)
+                        threading.Event().wait(interval)
+
+                    if not self.stop_flag.is_set() and remainder > 0:
+                        threading.Event().wait(remainder)
+
                 if not program.get('loop'):
                     break
 
@@ -393,10 +407,25 @@ class ProgramManager(tk.Tk):
                             print(f"[Cleanup] No process or error for: {name}")
                     subprocess.call(["bash", "/home/pi/Desktop/loadrd.sh", step['primary_low'], step['primary_high']])
                     subprocess.call(step['script'], shell=True)
-                    for _ in range(int(step['duration']) * 6):
+                    try:
+                        duration_minutes = float(step['duration'])
+                    except ValueError:
+                        print(f"[Runner] Invalid duration value: {step['duration']}. Skipping step.")
+                        continue
+
+                    total_seconds = int(duration_minutes * 60)
+                    interval = 10  # seconds per wait
+                    loops = total_seconds // interval
+                    remainder = total_seconds % interval
+
+                    for _ in range(loops):
                         if self.stop_flag.is_set():
                             break
-                        threading.Event().wait(10)
+                        threading.Event().wait(interval)
+
+                    if not self.stop_flag.is_set() and remainder > 0:
+                        threading.Event().wait(remainder)
+
                 if not program.get('loop'):
                     break
 

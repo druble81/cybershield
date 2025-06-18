@@ -18,7 +18,7 @@ RANDOM=$SEED
 
 
 
-C=0
+C=3
 E=3
 D=1
 
