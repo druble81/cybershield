@@ -311,6 +311,8 @@ class ProgramManager(tk.Tk):
                     if not self.stop_flag.is_set() and remainder > 0:
                         threading.Event().wait(remainder)
 
+                if not program.get('loop'):
+                    break
 
         self.running_thread = threading.Thread(target=run, daemon=True)
         self.running_thread.start()
@@ -424,7 +426,8 @@ class ProgramManager(tk.Tk):
                     if not self.stop_flag.is_set() and remainder > 0:
                         threading.Event().wait(remainder)
 
-
+                if not program.get('loop'):
+                    break
 
         self.running_thread = threading.Thread(target=run, daemon=True)
         self.running_thread.start()
