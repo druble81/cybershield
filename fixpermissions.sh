@@ -18,6 +18,7 @@ sudo chmod +x sa5.sh
 sudo chmod +x sa6.sh
 sudo chmod +x sa7.sh
 sudo chmod +x loadrd
+sudo chmod +x lock.py
 
 
 sudo chmod +x ramdisk.sh

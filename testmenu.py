@@ -74,14 +74,17 @@ class KeypadWindow(tk.Toplevel):
         self.destroy()
 
 class AddProgramWindow(tk.Toplevel):
-    def __init__(self, master):
+    def __init__(self, master, edit_mode=False, program_data=None, program_index=None):
         super().__init__(master)
         self.title("Add Program")
         self.geometry("1025x500")
         self.center_window()
         self.master = master
+        self.edit_mode = edit_mode
+        self.program_index = program_index
         self.selected_scripts = []
 
+        # Program name and loop checkbox
         tk.Label(self, text="Program Name:", font=FONT_STYLE).grid(row=0, column=0, sticky="w", padx=5, pady=5)
         self.name_entry = tk.Entry(self, font=FONT_STYLE)
         self.name_entry.grid(row=0, column=1, sticky="ew", padx=5, pady=5, columnspan=3)
@@ -122,9 +125,30 @@ class AddProgramWindow(tk.Toplevel):
         self.duration_entry.grid(row=2, column=1)
         self.duration_entry.bind("<Button-1>", lambda e: self.open_keypad(self.duration_var))
 
+
         tk.Button(self.detail_frame, text="Update Script Details", font=FONT_STYLE, command=self.update_script_details).grid(row=3, column=0, columnspan=2, pady=10)
 
         self.selected_listbox.bind("<<ListboxSelect>>", self.on_select_script)
+        
+        
+        if edit_mode and program_data:
+            self.name_entry.insert(0, program_data["name"])
+            self.loop_var.set(program_data["loop"])
+            self.selected_scripts = program_data.get("steps", [])
+            
+            # Ensure all required keys exist
+            for step in self.selected_scripts:
+                step.setdefault("primary_low", "35")
+                step.setdefault("primary_high", "4400")
+                step.setdefault("duration", "1")
+
+            self.update_selected_listbox()
+            if self.selected_scripts:
+                self.selected_listbox.selection_set(0)
+                self.on_select_script(None)
+
+        
+        
         tk.Button(self, text="Save Program", font=FONT_STYLE, command=self.save_program).grid(row=3, column=2, columnspan=5, pady=10)
 
     def center_window(self):
@@ -137,6 +161,37 @@ class AddProgramWindow(tk.Toplevel):
 
     def open_keypad(self, variable):
         KeypadWindow(self, variable)
+    
+    def normalize_duration(self, value):
+        if value.startswith("."):
+            return "0" + value
+        return value
+    
+    def save_program(self):
+        name = self.name_entry.get().strip()
+        if not name:
+            messagebox.showerror("Error", "Program must have a name")
+            return
+
+        program = {
+            "name": name,
+            "loop": self.loop_var.get(),
+            "steps": self.selected_scripts
+        }
+
+        if self.edit_mode and self.program_index is not None:
+            self.master.programs[self.program_index] = program
+        else:
+            self.master.programs.append(program)
+            
+        for s in self.selected_scripts:
+            s['duration'] = self.normalize_duration(s['duration'])
+
+
+        self.master.save_programs()
+        self.master.update_listbox()
+        self.destroy()
+
 
     def add_script(self):
         selection = self.available_listbox.curselection()
@@ -182,7 +237,10 @@ class AddProgramWindow(tk.Toplevel):
             return
         self.selected_scripts[selection[0]]['primary_low'] = self.primary_low_var.get()
         self.selected_scripts[selection[0]]['primary_high'] = self.primary_high_var.get()
-        self.selected_scripts[selection[0]]['duration'] = self.duration_var.get()
+        normalized = self.normalize_duration(self.duration_var.get())
+        self.duration_var.set(normalized)
+        self.selected_scripts[selection[0]]['duration'] = normalized
+
 
     def save_program(self):
         name = self.name_entry.get().strip()
@@ -216,6 +274,7 @@ class ProgramManager(tk.Tk):
         button_frame = tk.Frame(self)
         button_frame.pack(fill=tk.X)
         tk.Button(button_frame, text="Add", font=FONT_STYLE, command=self.add_program).pack(side=tk.LEFT, expand=True)
+        tk.Button(button_frame, text="Edit", font=FONT_STYLE, command=self.edit_program).pack(side=tk.LEFT, expand=True)
         tk.Button(button_frame, text="Delete", font=FONT_STYLE, command=self.delete_program).pack(side=tk.LEFT, expand=True)
         tk.Button(button_frame, text="Start", font=FONT_STYLE, command=self.start_program).pack(side=tk.LEFT, expand=True)
         tk.Button(button_frame, text="Stop", font=FONT_STYLE, command=self.stop_program).pack(side=tk.LEFT, expand=True)
@@ -227,6 +286,13 @@ class ProgramManager(tk.Tk):
         x = (self.winfo_screenwidth() // 2) - (width // 2)
         y = (self.winfo_screenheight() // 2) - (height // 2)
         self.geometry(f"{width}x{height}+{x}+{y}")
+        
+    def edit_program(self):
+        idx = self.listbox.curselection()
+        if not idx:
+            return
+        program = self.programs[idx[0]]
+        AddProgramWindow(self, edit_mode=True, program_data=program, program_index=idx[0])
 
     def load_programs(self):
         if os.path.exists(SAVE_FILE):
@@ -333,10 +399,12 @@ class ProgramManager(tk.Tk):
         button_frame = tk.Frame(self)
         button_frame.pack(fill=tk.X)
         tk.Button(button_frame, text="Add", font=FONT_STYLE, command=self.add_program).pack(side=tk.LEFT, expand=True)
+        tk.Button(button_frame, text="Edit", font=FONT_STYLE, command=self.edit_program).pack(side=tk.LEFT, expand=True)
         tk.Button(button_frame, text="Delete", font=FONT_STYLE, command=self.delete_program).pack(side=tk.LEFT, expand=True)
         tk.Button(button_frame, text="Start", font=FONT_STYLE, command=self.start_program).pack(side=tk.LEFT, expand=True)
         tk.Button(button_frame, text="Stop", font=FONT_STYLE, command=self.stop_program).pack(side=tk.LEFT, expand=True)
         
+
 
     def center_window(self):
         self.update_idletasks()
