@@ -15,7 +15,7 @@ class FullscreenLock:
 
     def create_widgets(self):
         # Display field
-        display = tk.Entry(self.root, textvariable=self.entered_code, font=("Arial", 36), justify="center", bd=6, relief="sunken", show="*", state='readonly')
+        display = tk.Entry(self.root, textvariable=self.entered_code, font=("Arial", 22), justify="center", bd=5, relief="sunken", show="*", state='readonly')
         display.pack(pady=50, ipadx=10, ipady=10)
 
         # Keypad buttons
@@ -32,7 +32,7 @@ class FullscreenLock:
 
         for i, digit in enumerate(digits):
             action = lambda x=digit: self.handle_input(x)
-            b = tk.Button(btn_frame, text=digit, font=("Arial", 28), width=5, height=2, command=action)
+            b = tk.Button(btn_frame, text=digit, font=("Arial", 20), width=5, height=2, command=action)
             b.grid(row=i//3, column=i%3, padx=10, pady=10)
 
     def handle_input(self, key):

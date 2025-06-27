@@ -124,9 +124,16 @@ class AddProgramWindow(tk.Toplevel):
         self.duration_entry = tk.Entry(self.detail_frame, textvariable=self.duration_var, font=FONT_STYLE)
         self.duration_entry.grid(row=2, column=1)
         self.duration_entry.bind("<Button-1>", lambda e: self.open_keypad(self.duration_var))
+        
+        tk.Label(self.detail_frame, text="Interval:", font=FONT_STYLE).grid(row=3, column=0, sticky="w")
+        self.interval_var = tk.StringVar(value="1")
+        self.interval_entry = tk.Entry(self.detail_frame, textvariable=self.interval_var, font=FONT_STYLE)
+        self.interval_entry.grid(row=3, column=1)
+        self.interval_entry.bind("<Button-1>", lambda e: self.open_keypad(self.interval_var))
 
 
-        tk.Button(self.detail_frame, text="Update Script Details", font=FONT_STYLE, command=self.update_script_details).grid(row=3, column=0, columnspan=2, pady=10)
+
+        tk.Button(self.detail_frame, text="Update Script Details", font=FONT_STYLE, command=self.update_script_details).grid(row=4, column=0, columnspan=2, pady=10)
 
         self.selected_listbox.bind("<<ListboxSelect>>", self.on_select_script)
         
@@ -186,7 +193,7 @@ class AddProgramWindow(tk.Toplevel):
             
         for s in self.selected_scripts:
             s['duration'] = self.normalize_duration(s['duration'])
-
+            s['interval'] = s.get('interval', '1')
 
         self.master.save_programs()
         self.master.update_listbox()
@@ -203,7 +210,8 @@ class AddProgramWindow(tk.Toplevel):
             "name": script_name,
             "primary_low": self.primary_low_var.get(),
             "primary_high": self.primary_high_var.get(),
-            "duration": self.duration_var.get()
+            "duration": self.duration_var.get(),
+            "interval": self.interval_var.get()
         })
         self.update_selected_listbox()
         self.selected_listbox.selection_clear(0, tk.END)
@@ -230,6 +238,8 @@ class AddProgramWindow(tk.Toplevel):
         self.primary_low_var.set(s['primary_low'])
         self.primary_high_var.set(s['primary_high'])
         self.duration_var.set(s['duration'])
+        self.interval_var.set(s.get('interval', '1'))
+
 
     def update_script_details(self):
         selection = self.selected_listbox.curselection()
@@ -240,6 +250,8 @@ class AddProgramWindow(tk.Toplevel):
         normalized = self.normalize_duration(self.duration_var.get())
         self.duration_var.set(normalized)
         self.selected_scripts[selection[0]]['duration'] = normalized
+        self.selected_scripts[selection[0]]['interval'] = self.interval_var.get()
+
 
 
     def save_program(self):
@@ -355,7 +367,35 @@ class ProgramManager(tk.Tk):
                     print(f"[Runner] Cleaning up before step: {step['name']}")
                     self.run_cleanup()  # <-- Kill old scripts BEFORE starting next
 
-                    subprocess.call(["bash", "/home/pi/Desktop/loadrd.sh", step['primary_low'], step['primary_high']])
+                  
+
+
+
+                    if step.get('interval', '1') != '1':
+                              # Delete SG3.TXT before running loadrd
+                        try:
+                            subprocess.call(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"])
+                            print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
+                        except Exception as e:
+                            print(f"[Runner] Failed to delete SG3.TXT: {e}")
+                            
+                        args = ["sudo", "/home/pi/Desktop/loadrd", step['primary_low'], step['primary_high']]
+                        if step.get('interval', '1') != '1':
+                            args.append(step['interval'])
+                        subprocess.call(args)
+
+                    else:
+                                                      # Delete SG3.TXT before running loadrd
+                        try:
+                            subprocess.call(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"])
+                            print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
+                        except Exception as e:
+                            print(f"[Runner] Failed to delete SG3.TXT: {e}")
+                            
+
+                        subprocess.call(["bash", "/home/pi/Desktop/loadrd.sh", step['primary_low'], step['primary_high']])
+
+                    
                     print(f"[Runner] Running script: {step['script']}")
                     subprocess.call(step['script'], shell=True)
                     try:
@@ -473,7 +513,29 @@ class ProgramManager(tk.Tk):
                             print(f"[Cleanup] Killed: {name}")
                         except subprocess.CalledProcessError:
                             print(f"[Cleanup] No process or error for: {name}")
-                    subprocess.call(["bash", "/home/pi/Desktop/loadrd.sh", step['primary_low'], step['primary_high']])
+
+
+
+                    interval = step.get('interval', '1')
+                    if interval != '1':
+                        try:
+                            subprocess.call(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"])
+                            print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
+                        except Exception as e:
+                            print(f"[Runner] Failed to delete SG3.TXT: {e}")
+                        args = ["sudo", "/home/pi/Desktop/loadrd", step['primary_low'], step['primary_high']]
+                        if step.get('interval', '1') != '1':
+                            try:
+                                subprocess.call(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"])
+                                print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
+                            except Exception as e:
+                                print(f"[Runner] Failed to delete SG3.TXT: {e}")
+                            args.append(step['interval'])
+                        subprocess.call(args)
+
+                    else:
+                        subprocess.call(["bash", "/home/pi/Desktop/loadrd.sh", step['primary_low'], step['primary_high']])
+                    
                     subprocess.call(step['script'], shell=True)
                     try:
                         duration_minutes = float(step['duration'])
