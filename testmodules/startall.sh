@@ -34,9 +34,6 @@ do
     if [ "$index" -ge "$size" ]; then
         load_and_shuffle_array
     fi
-   
-    BB=${numbers[$index]}
-echo $BB
 
 
 
@@ -46,22 +43,48 @@ echo $BB
 C=3
 
 
-offset=500000
+offset=100000
 #echo $offset
 
 #echo $offset
 
 
 
-BB1=$(($BB+1))
-BB2=$(($BB+2))
-BB3=$(($BB+3))
+BB=${numbers[$index]}
+    # Increment the index
+    ((index++))
+
+    # If we've reached the end, reshuffle
+    if [ "$index" -ge "$size" ]; then
+        load_and_shuffle_array
+    fi
+BB1=${numbers[$index]}
+    # Increment the index
+    ((index++))
+
+    # If we've reached the end, reshuffle
+    if [ "$index" -ge "$size" ]; then
+        load_and_shuffle_array
+    fi
+BB2=${numbers[$index]}
+    # Increment the index
+    ((index++))
+
+    # If we've reached the end, reshuffle
+    if [ "$index" -ge "$size" ]; then
+        load_and_shuffle_array
+    fi
+BB3=${numbers[$index]}
+echo "Random number selected: $BB"
+echo "Random number selected: $BB1"
+echo "Random number selected: $BB2"
+echo "Random number selected: $BB3"
 
 
-hz1=5
-hz2=7
-hz3=5
-hz4=7
+hz1=$(($RANDOM%5+1))
+hz2=$(($RANDOM%2+5))
+hz3=$(($RANDOM%2+10))
+hz4=$(($RANDOM%2+3))
 
 x=$((RANDOM % 2 + 1))
 
