@@ -12,7 +12,6 @@ PROGRAM_OPTIONS = {
     "Normal": "bash /home/pi/Desktop/startall.sh &",
     "Burst": "bash /home/pi/Desktop/sa.sh &",
     "Full Coverage": "bash /home/pi/Desktop/sa2.sh &",
-    "Random": "bash /home/pi/Desktop/sa3.sh &",
     "DLPFC": "bash /home/pi/Desktop/startDLPFC.sh &",
     "Anti-PTSD": "bash /home/pi/Desktop/startPTSD.sh &",
     "Sleep": "bash /home/pi/Desktop/startall5.sh &",
@@ -27,7 +26,9 @@ PROGRAM_OPTIONS = {
     "10k2": "bash /home/pi/Desktop/10k2/10k.sh &",
     "10K3": "bash /home/pi/Desktop/10k3/10k.sh &",
     "10k4": "bash /home/pi/Desktop/10k4/10k.sh &",
-    "Full BAP": "bash /home/pi/Desktop/sa7.sh &"
+    "Full BAP": "bash /home/pi/Desktop/sa7.sh &",
+    "N4 Burst Mode": "bash /home/pi/Desktop/sa5.sh&",
+    "N4 Burst pulse": "bash /home/pi/Desktop/sa4.sh&"
 }
 
 FONT_STYLE = ("TkDefaultFont", 12)
