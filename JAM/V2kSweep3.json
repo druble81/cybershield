@@ -1,0 +1,110 @@
+[
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "35",
+    "sweep_end": "335",
+    "sweep_step": "0.00019",
+    "sweep_dwell": "1",
+    "sweep_dir": "forward",
+    "mod": "off"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "335",
+    "sweep_end": "635",
+    "sweep_step": "0.00018",
+    "sweep_dwell": "1",
+    "sweep_dir": "backward",
+    "mod": "off"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "635",
+    "sweep_end": "935",
+    "sweep_step": "0.0017",
+    "sweep_dwell": "1",
+    "sweep_dir": "forward",
+    "mod": "off"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "935",
+    "sweep_end": "1235",
+    "sweep_step": "0.000188",
+    "sweep_dwell": "1",
+    "sweep_dir": "forward",
+    "mod": "off"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "1235",
+    "sweep_end": "1535",
+    "sweep_step": "0.000199",
+    "sweep_dwell": "1",
+    "sweep_dir": "backward",
+    "mod": "off"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "1535",
+    "sweep_end": "1835",
+    "sweep_step": "0.00021",
+    "sweep_dwell": "1",
+    "sweep_dir": "backward",
+    "mod": "off"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "1835",
+    "sweep_end": "2135",
+    "sweep_step": "0.00019",
+    "sweep_dwell": "1",
+    "sweep_dir": "backward",
+    "mod": "off"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "2135",
+    "sweep_end": "2435",
+    "sweep_step": "0.00022",
+    "sweep_dwell": "1",
+    "sweep_dir": "forward",
+    "mod": "off"
+  },
+  {
+    "freq": "1000.0",
+    "ref": "25000000",
+    "power": "2",
+    "mode": "sweep",
+    "sweep_start": "2435",
+    "sweep_end": "2735",
+    "sweep_step": "0.00023",
+    "sweep_dwell": "1",
+    "sweep_dir": "backward",
+    "mod": "off"
+  }
+]
