@@ -4,7 +4,7 @@
         exit
     fi
 
-
+amixer set Master mute
 
 sudo bash /home/pi/Desktop/ramdisk.sh
 cd /home/pi/Desktop
