@@ -34,9 +34,9 @@ BB3=$(($BB))
 
 
 hz1=$(($RANDOM%3+9))
-hz2=5
-hz3=1
-hz4=3
+hz2=1
+hz3=2
+hz4=2
 
 
 #echo $BB1.$offset
