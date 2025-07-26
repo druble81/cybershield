@@ -42,7 +42,7 @@ B=2325
 /tmp/ramdisk/adf43518 1000 25000000 $C&
 /tmp/ramdisk/adf43519 1000 25000000 $C&
 
-sleep 300
+sleep 10
 
 
 done
