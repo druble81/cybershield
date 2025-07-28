@@ -25,7 +25,7 @@ echo $A
 ##then
 
 
-C=3
+C=2
 
 echo "Normal Burst" 
 A=1600

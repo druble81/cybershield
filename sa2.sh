@@ -25,7 +25,7 @@ sudo pkill -f adf435
 
 
 
-C=3
+C=2
 #C=$(($RANDOM % 4 + 1))
 
 D=142857

@@ -25,7 +25,7 @@ echo "......................NORMAL MODE......................$D"
 
 sudo pkill -f adf4351
 
-C=3
+C=2
 echo "C is " $C
 
 A=7692
