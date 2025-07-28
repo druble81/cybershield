@@ -28,7 +28,8 @@ PROGRAM_OPTIONS = {
     "10k4": "bash /home/pi/Desktop/10k4/10k.sh &",
     "Full BAP": "bash /home/pi/Desktop/sa7.sh &",
     "N4 Burst Mode": "bash /home/pi/Desktop/sa5.sh&",
-    "N4 Burst pulse": "bash /home/pi/Desktop/sa4.sh&"
+    "N4 Burst pulse": "bash /home/pi/Desktop/sa4.sh&",
+    "Full Burst": "bash /home/pi/Desktop/sa6.sh&"
 }
 
 FONT_STYLE = ("TkDefaultFont", 12)
@@ -78,7 +79,7 @@ class AddProgramWindow(tk.Toplevel):
     def __init__(self, master, edit_mode=False, program_data=None, program_index=None):
         super().__init__(master)
         self.title("Add Program")
-        self.geometry("1025x500")
+        self.geometry("1035x510")
         self.center_window()
         self.master = master
         self.edit_mode = edit_mode
@@ -92,7 +93,7 @@ class AddProgramWindow(tk.Toplevel):
         self.loop_var = tk.BooleanVar()
         tk.Checkbutton(self, text="Loop Program", variable=self.loop_var, font=FONT_STYLE).grid(row=0, column=4, sticky="w", padx=5, pady=5)
 
-        self.available_listbox = tk.Listbox(self, font=FONT_STYLE, selectmode=tk.SINGLE, height=19)
+        self.available_listbox = tk.Listbox(self, font=FONT_STYLE, selectmode=tk.SINGLE, height=22)
         for key in PROGRAM_OPTIONS.keys():
             self.available_listbox.insert(tk.END, key)
         self.available_listbox.grid(row=2, column=0, rowspan=4, sticky="ns", padx=5, pady=5)

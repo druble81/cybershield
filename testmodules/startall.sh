@@ -81,10 +81,10 @@ echo "Random number selected: $BB2"
 echo "Random number selected: $BB3"
 
 
-hz1=$(($RANDOM%5+1))
+hz1=$(($RANDOM%5+6))
 hz2=$(($RANDOM%2+5))
 hz3=$(($RANDOM%2+10))
-hz4=$(($RANDOM%2+3))
+hz4=$(($RANDOM%2+7))
 
 x=$((RANDOM % 2 + 1))
 
@@ -123,7 +123,7 @@ BB44=$(($RANDOM%3+1))
 ####################10001
 
 #10000 - 100001 = 1hz#
-sleep 0.5
+sleep 3
 
 done
 
