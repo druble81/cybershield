@@ -6,7 +6,7 @@ myarray=(1 2 3 4 5 6 7 8 9)
 #shuf -e ${myarray[@]}
 
 /tmp/ramdisk/adf43513 1000 25000000 $C&
-
+sudo pkill -f adf4351
 while :
 do
 
@@ -23,9 +23,9 @@ echo "......................NORMAL MODE......................$D"
 echo "......................NORMAL MODE......................$D"
 echo "......................NORMAL MODE......................$D"
 
-sudo pkill -f adf4351
 
-C=2
+
+C=1
 echo "C is " $C
 
 A=7692
@@ -42,7 +42,8 @@ B=2325
 /tmp/ramdisk/adf43518 1000 25000000 $C&
 /tmp/ramdisk/adf43519 1000 25000000 $C&
 
-sleep 10
+sleep $(($RANDOM % 5 + 5))
+sudo pkill -f adf4351
 
 
 done

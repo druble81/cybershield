@@ -8,8 +8,8 @@ RANDOM=$SEED
 
 
 
-two=800
-one=35
+two=2000
+one=85
 
 
 while :
@@ -19,10 +19,7 @@ BB=$(($RANDOM%$(($two-$one)) + $one))
 
 C=2
 
-for (( i=1; i<=27; i++ ))
-do
-offset=$(($offset + RANDOM % 900000))
-done
+offset=500000
 
 #echo $offset
 
@@ -34,20 +31,13 @@ BB3=$(($BB))
 
 
 hz1=$(($RANDOM%3+9))
-hz2=1
+hz2=2
 hz3=2
 hz4=2
 
 
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
-
-
-
-BB44=$(($RANDOM%3+1))
-
-
-
 
 
 
@@ -69,13 +59,13 @@ BB44=$(($RANDOM%3+1))
 ./adf4351 $BB.$offset 25000000 $C&
 ./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
 ##100000
-sleep 0.2
+sleep 0.1
 ./adf43512 off
 ./adf4351 off
 ####################10001
 
 #10000 - 100001 = 1hz#
-##sleep 0.$BB44
+sleep 0.05
 
 done
 

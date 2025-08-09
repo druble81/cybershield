@@ -25,8 +25,8 @@ RANDOM=$SEED
 
 
 
-two=37
-one=35
+two=2000
+one=85
 
 
 while :
@@ -36,10 +36,9 @@ BB=$(($RANDOM%$(($two-$one)) + $one))
 
 C=3
 
-for (( i=1; i<=27; i++ ))
-do
-offset=$(($offset + RANDOM % 900000))
-done
+
+offset=500000
+
 
 #echo $offset
 
@@ -50,11 +49,10 @@ BB2=$(($BB))
 BB3=$(($BB))
 
 
-hz1=12
-hz2=7
-hz3=5
-hz4=13
-
+hz1=8
+hz2=8
+hz3=8
+hz4=11
 
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
