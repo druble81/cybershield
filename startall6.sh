@@ -34,7 +34,7 @@ do
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
 
-C=3
+C=1
 
 
 offset=500000

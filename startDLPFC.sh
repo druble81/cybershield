@@ -68,7 +68,7 @@ hz4=2
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
 
-C=2
+C=1
 
 
 BB44=$(($RANDOM%3+1))

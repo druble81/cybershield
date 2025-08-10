@@ -1,60 +1,50 @@
 #!/bin/bash
 
+RANDOM=$$
+myarray=(1 2 3 4 5 6 7 8 9)
 
+#shuf -e ${myarray[@]}
 
-
-
-
+/tmp/ramdisk/adf43513 1000 25000000 $C&
+sudo pkill -f adf4351
 while :
 do
 
-A=$(($RANDOM % 2))
-A=1
-echo $A
 
-RANDOM=$$
-
-sudo pkill -f adf4351
-
-
-
-/home/pi/Desktop/testmodules/adf43519& 
-/home/pi/Desktop/testmodules/adf43516&
-/home/pi/Desktop/testmodules/adf43515& 
-/home/pi/Desktop/testmodules/adf43517& 
-/home/pi/Desktop/testmodules/adf43518& 
-
-/home/pi/Desktop/testmodules/adf43514& 
-/home/pi/Desktop/testmodules/adf43513&
-
-
-/home/pi/Desktop/testmodules/adf4351& 
-/home/pi/Desktop/testmodules/adf43512
-
-sleep 1
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
+echo "......................LOW EMF MODE......................$D"
 
 
 
-
-C=$(($RANDOM % 4 ))
 C=0
-echo "lowEMF"
+echo "C is " $C
 
-/home/pi/Desktop/startall2/adf4351 1000 25000000 $C&
-/home/pi/Desktop/startall2/adf43512 1000 25000000 $C&
-/home/pi/Desktop/startall2/adf43513 1000 25000000 $C&
-/home/pi/Desktop/startall2/adf43514 1000 25000000 $C&
-/home/pi/Desktop/startall2/adf43515 1000 25000000 $C&
-/home/pi/Desktop/startall2/adf43516 1000 25000000 $C&
-/home/pi/Desktop/startall2/adf43517 1000 25000000 $C&
-/home/pi/Desktop/startall2/adf43518 1000 25000000 $C&
-/home/pi/Desktop/startall2/adf43519 1000 25000000 $C&
+A=7692
+B=2325
 
 
+/tmp/ramdisk/adf4351 1000 25000000 $C&
+/tmp/ramdisk/adf43512 1000 25000000 $C&
+/tmp/ramdisk/adf43513 1000 25000000 $C&
+/tmp/ramdisk/adf43514 1000 25000000 $C&
+/tmp/ramdisk/adf43515 1000 25000000 $C&
+/tmp/ramdisk/adf43516 1000 25000000 $C&
+/tmp/ramdisk/adf43517 1000 25000000 $C&
+/tmp/ramdisk/adf43518 1000 25000000 $C&
+/tmp/ramdisk/adf43519 1000 25000000 $C&
 
-sleep 1
-
-
-
+sleep $(($RANDOM % 2 + 1))
+sudo pkill -f adf4351
+sleep $(($RANDOM % 2 + 1))
 
 done
+

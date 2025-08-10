@@ -45,6 +45,30 @@ printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 A=$(($A+1))
 done
 
+A=1750
+B=2200
+while [[ $A -lt $B ]]
+do
+printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
+A=$(($A+1))
+done
+
+A=995
+B=1005
+while [[ $A -lt $B ]]
+do
+printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
+A=$(($A+1))
+done
+
+A=85
+B=109
+while [[ $A -lt $B ]]
+do
+printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
+A=$(($A+1))
+done
+
 A=185
 B=278
 while [[ $A -lt $B ]]
@@ -68,6 +92,7 @@ do
 printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
 A=$(($A+1))
 done
+
 
 
 A=$(($A+$((1))))

@@ -27,7 +27,7 @@ while [[ "$A" -lt "$1" ]]
 do
 
 
-A=$(($A+10))
+A=$(($A+1))
 echo $A"hz Entrainment"
 
 if [[ "$A" -lt "100" ]]
@@ -66,7 +66,7 @@ then
 /home/pi/Desktop/testmodules/adf43514 320.000$A 25000000 $C&
 fi
 
-sleep 1
+sleep 0.5
 
 done
 

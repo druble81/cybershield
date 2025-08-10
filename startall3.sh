@@ -13,7 +13,7 @@ RANDOM=$$
 sudo pkill -f adf4351
 
 C=$(($RANDOM % 4 ))
-C=3
+C=1
 echo "PFC"
 
 /home/pi/Desktop/startall3/adf4351 200 25000000 $C&
@@ -28,7 +28,7 @@ echo "PFC"
 
 
 
-sleep 300
+sleep 30
 
 
 
