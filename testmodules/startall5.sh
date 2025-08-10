@@ -8,16 +8,17 @@ RANDOM=$SEED
 
 
 
-two=2000
-one=85
+two=102
+one=98
 
+BB=$(($RANDOM%$(($two-$one)) + $one))
 
 while :
 do
 
-BB=$(($RANDOM%$(($two-$one)) + $one))
 
-C=2
+
+C=0
 
 offset=500000
 

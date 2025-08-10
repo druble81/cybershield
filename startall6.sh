@@ -33,7 +33,7 @@ while :
 do
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
-
+BB=100
 C=1
 
 

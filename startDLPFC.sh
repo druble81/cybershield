@@ -54,7 +54,7 @@ echo "Random number selected: $BB"
 offset=500000
 
 
-BB=998
+BB=98
 BB1=$(($BB+1))
 BB2=$(($BB+2))
 BB3=$(($BB+3))
