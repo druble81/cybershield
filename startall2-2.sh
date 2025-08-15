@@ -1,7 +1,7 @@
 cd /home/pi/Desktop/testmodules
 D=0
 E=3
-C=1
+C=2
 while :
 do
 

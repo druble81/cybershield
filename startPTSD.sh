@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /home/pi/Desktop/testmodules
-C=1
+C=2
 cd /home/pi/Desktop/testmodules
 
 clear
@@ -58,7 +58,7 @@ BB="${numbers[$RANDOM % ${#numbers[@]}]}"
 echo "Random number selected: $BB"
 
 
-offset=500000
+offset=700000
 
 
 BB=98

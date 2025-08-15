@@ -51,7 +51,7 @@ BB="${numbers[$RANDOM % ${#numbers[@]}]}"
 echo "Random number selected: $BB"
 
 
-offset=500000
+offset=700000
 
 
 BB=98
@@ -68,7 +68,7 @@ hz4=2
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
 
-C=1
+C=2
 
 
 BB44=$(($RANDOM%3+1))
