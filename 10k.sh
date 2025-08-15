@@ -32,7 +32,7 @@ echo "......................FULL 10K MODE......................$D"
 /tmp/ramdisk/adf435182 3000 25000000 $C&
 /tmp/ramdisk/adf435192 3000 25000000 $C&
 
-sleep 10
+sleep $(($RANDOM % 5 + 5))
 sudo pkill -f adf4351
 
 done
