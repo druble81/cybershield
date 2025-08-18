@@ -25,7 +25,7 @@ offset=500000
 #echo $offset
 
 
-
+BB=100
 BB1=$(($BB))
 BB2=$(($BB))
 BB3=$(($BB))

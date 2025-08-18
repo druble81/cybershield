@@ -28,6 +28,8 @@ cat /dev/null > /tmp/ramdisk/SG3.TXT
 
 sudo pkill -f loadrd.sh
 
+echo loadrd2
+
 A=4200
 B=4400
 while [[ $A -lt $B ]]

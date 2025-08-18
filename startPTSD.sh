@@ -61,10 +61,13 @@ echo "Random number selected: $BB"
 offset=700000
 
 
-BB=98
-BB1=$(($BB+1))
-BB2=$(($BB+2))
-BB3=$(($BB+3))
+BB=100
+BB1=100
+#$(($BB+1))
+BB2=100
+#$(($BB+2))
+BB3=100
+#$(($BB+3))
 
 
 hz1=130
