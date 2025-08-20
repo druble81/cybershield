@@ -97,9 +97,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 
 
 BB=$(($RANDOM % 10 + 495))
-BB1=$(($RANDOM % 10 + 495))
-BB2=$(($RANDOM % 10 + 495))
-BB3=$(($RANDOM % 10 + 495))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 
 echo V2K
@@ -131,14 +131,51 @@ echo V2K
 #10000 - 100001 = 1hz
 sleep 0.00$(($RANDOM % 9 + 1))
 
+BB=$(($RANDOM % 200 + 4200))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
+hz1=$(($offset+$(($RANDOM%3+5))))
+hz2=$(($offset+$(($RANDOM%3+19))))
+hz3=$(($offset+$(($RANDOM%3+12))))
+hz4=$(($offset+$(($RANDOM%3+7))))
+
+echo V2K
+
+#./adf43519 4130 25000000 $C
+
+
+./adf4351 $BB 25000000 $C&
+./adf43512 $BB".000010" 25000000 $C&
+##100000
+
+./adf43513 $BB1".000011" 25000000 $C&
+./adf43514 $BB1 25000000 $C&
+##110000
+
+####################10000
+
+./adf43515 $BB2 25000000 $C&
+./adf43516 $BB2".000017" 25000000 $C&
+#echo ./adf43516 $BB".210001" 25000000 $C&
+##210001
+
+./adf43517 $BB3".000019" 25000000 $C&
+./adf43518 $BB3 25000000 $C
+##200003
+
+####################10001
+
+#10000 - 100001 = 1hz
+sleep 0.00$(($RANDOM % 9 + 1))
 
 
 
 BB=$(($RANDOM % 55 + 85))
-BB1=$(($RANDOM % 55 + 85))
-BB2=$(($RANDOM % 55 + 85))
-BB3=$(($RANDOM % 55 + 85))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -174,10 +211,48 @@ echo V2K
 sleep 0.00$(($RANDOM % 9 + 1))
 
 
+BB=$(($RANDOM % 190 + 4200))
+BB1=$BB
+BB2=$BB
+BB3=$BB
+
+hz1=$(($offset+$(($RANDOM%3+5))))
+hz2=$(($offset+$(($RANDOM%3+19))))
+hz3=$(($offset+$(($RANDOM%3+12))))
+hz4=$(($offset+$(($RANDOM%3+7))))
+echo V2K
+
+#./adf43519 4130 25000000 $C
+
+
+./adf4351 $BB 25000000 $C&
+./adf43512 $BB.$hz1 25000000 $C&
+##100000
+
+./adf43513 $BB1.$hz2 25000000 $C&
+./adf43514 $BB1 25000000 $C&
+##110000
+
+####################10000
+
+./adf43515 $BB2 25000000 $C&
+./adf43516 $BB2.$hz3 25000000 $C&
+#echo ./adf43516 $BB".210001" 25000000 $C&
+##210001
+
+./adf43517 $BB3.$hz4 25000000 $C&
+./adf43518 $BB3 25000000 $C
+##200003
+
+####################10001
+
+#10000 - 100001 = 1hz
+sleep 0.00$(($RANDOM % 9 + 1))
+
 BB=$(($RANDOM % 100 + 950))
-BB1=$(($RANDOM % 100 + 950))
-BB2=$(($RANDOM % 100 + 950))
-BB3=$(($RANDOM % 100 + 950))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -213,9 +288,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep 0.00$(($RANDOM % 9 + 1))
 
 BB=$(($RANDOM % 200 + 1500))
-BB1=$(($RANDOM % 200 + 1500))
-BB2=$(($RANDOM % 200 + 1500))
-BB3=$(($RANDOM % 200 + 1500))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -250,10 +325,10 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 #10000 - 100001 = 1hz
 sleep 0.00$(($RANDOM % 9 + 1))
 
-BB=$(($RANDOM % 1200 + 3000))
-BB1=$(($RANDOM % 1200 + 3000))
-BB2=$(($RANDOM % 1200 + 3000))
-BB3=$(($RANDOM % 1200 + 3000))
+BB=$(($RANDOM % 200 + 3000))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -288,11 +363,124 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 #10000 - 100001 = 1hz
 sleep 0.00$(($RANDOM % 9 + 1))
 
+BB=$(($RANDOM % 200 + 3400))
+BB1=$BB
+BB2=$BB
+BB3=$BB
+
+hz1=$(($offset+$(($RANDOM%3+5))))
+hz2=$(($offset+$(($RANDOM%3+19))))
+hz3=$(($offset+$(($RANDOM%3+12))))
+hz4=$(($offset+$(($RANDOM%3+7))))
+#echo QUAD H
+
+#./adf43519 4130 25000000 $C
+
+
+./adf4351 $BB 25000000 $C&
+./adf43512 $BB.$hz1 25000000 $C&
+##100000
+
+./adf43513 $BB1.$hz2 25000000 $C&
+./adf43514 $BB1 25000000 $C&
+##110000
+
+####################10000
+
+./adf43515 $BB2 25000000 $C&
+./adf43516 $BB2.$hz3 25000000 $C&
+#echo ./adf43516 $BB".210001" 25000000 $C&
+##210001
+
+./adf43517 $BB3.$hz4 25000000 $C&
+./adf43518 $BB3 25000000 $C
+##200003
+
+####################10001
+
+#10000 - 100001 = 1hz
+sleep 0.00$(($RANDOM % 9 + 1))
+
+BB=$(($RANDOM % 200 + 3800))
+BB1=$BB
+BB2=$BB
+BB3=$BB
+
+hz1=$(($offset+$(($RANDOM%3+5))))
+hz2=$(($offset+$(($RANDOM%3+19))))
+hz3=$(($offset+$(($RANDOM%3+12))))
+hz4=$(($offset+$(($RANDOM%3+7))))
+#echo QUAD H
+
+#./adf43519 4130 25000000 $C
+
+
+./adf4351 $BB 25000000 $C&
+./adf43512 $BB.$hz1 25000000 $C&
+##100000
+
+./adf43513 $BB1.$hz2 25000000 $C&
+./adf43514 $BB1 25000000 $C&
+##110000
+
+####################10000
+
+./adf43515 $BB2 25000000 $C&
+./adf43516 $BB2.$hz3 25000000 $C&
+#echo ./adf43516 $BB".210001" 25000000 $C&
+##210001
+
+./adf43517 $BB3.$hz4 25000000 $C&
+./adf43518 $BB3 25000000 $C
+##200003
+
+####################10001
+
+#10000 - 100001 = 1hz
+sleep 0.00$(($RANDOM % 9 + 1))
+
+BB=$(($RANDOM % 195 + 4000))
+BB1=$BB
+BB2=$BB
+BB3=$BB
+
+hz1=$(($offset+$(($RANDOM%3+5))))
+hz2=$(($offset+$(($RANDOM%3+19))))
+hz3=$(($offset+$(($RANDOM%3+12))))
+hz4=$(($offset+$(($RANDOM%3+7))))
+#echo QUAD H
+
+#./adf43519 4130 25000000 $C
+
+
+./adf4351 $BB 25000000 $C&
+./adf43512 $BB.$hz1 25000000 $C&
+##100000
+
+./adf43513 $BB1.$hz2 25000000 $C&
+./adf43514 $BB1 25000000 $C&
+##110000
+
+####################10000
+
+./adf43515 $BB2 25000000 $C&
+./adf43516 $BB2.$hz3 25000000 $C&
+#echo ./adf43516 $BB".210001" 25000000 $C&
+##210001
+
+./adf43517 $BB3.$hz4 25000000 $C&
+./adf43518 $BB3 25000000 $C
+##200003
+
+####################10001
+
+#10000 - 100001 = 1hz
+sleep 0.00$(($RANDOM % 9 + 1))
 
 BB=$(($RANDOM % 35 + 85))
-BB1=$(($RANDOM % 35 + 85))
-BB2=$(($RANDOM % 35 + 85))
-BB3=$(($RANDOM % 35 + 85))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -329,9 +517,9 @@ sleep 0.00$(($RANDOM % 9 + 1))
 
 
 BB=$(($RANDOM % 195 + 2800))
-BB1=$(($RANDOM % 195 + 2800))
-BB2=$(($RANDOM % 195 + 2800))
-BB3=$(($RANDOM % 195 + 2800))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -367,9 +555,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep 0.00$(($RANDOM % 9 + 1))
 
 BB=$(($RANDOM % 550 + 1760))
-BB1=$(($RANDOM % 550 + 1760))
-BB2=$(($RANDOM % 550 + 1760))
-BB3=$(($RANDOM % 550 + 1760))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -404,12 +592,48 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 #10000 - 100001 = 1hz
 sleep 0.00$(($RANDOM % 9 + 1))
 
+BB=$(($RANDOM % 11 + 995))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
+hz1=$(($offset+$(($RANDOM%3+5))))
+hz2=$(($offset+$(($RANDOM%3+19))))
+hz3=$(($offset+$(($RANDOM%3+12))))
+hz4=$(($offset+$(($RANDOM%3+7))))
+#echo QUAD H
+
+#./adf43519 4130 25000000 $C
+
+
+./adf4351 $BB 25000000 $C&
+./adf43512 $BB.$hz1 25000000 $C&
+##100000
+
+./adf43513 $BB1.$hz2 25000000 $C&
+./adf43514 $BB1 25000000 $C&
+##110000
+
+####################10000
+
+./adf43515 $BB2 25000000 $C&
+./adf43516 $BB2.$hz3 25000000 $C&
+#echo ./adf43516 $BB".210001" 25000000 $C&
+##210001
+
+./adf43517 $BB3.$hz4 25000000 $C&
+./adf43518 $BB3 25000000 $C
+##200003
+
+####################10001
+
+#10000 - 100001 = 1hz
+sleep 0.00$(($RANDOM % 9 + 1))
 
 BB=$(($RANDOM % 15 + 89))
-BB1=$(($RANDOM % 15 + 89))
-BB2=$(($RANDOM % 15 + 89))
-BB3=$(($RANDOM % 15 + 89))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -443,6 +667,8 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 
 #10000 - 100001 = 1hz
 sleep 0.00$(($RANDOM % 9 + 1))
+
+
 done
 /home/pi/Desktop/testmodules/adf43519& 
 /home/pi/Desktop/testmodules/adf43516& 

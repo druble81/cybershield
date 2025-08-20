@@ -97,9 +97,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 
 
 BB=$(($RANDOM % 10 + 495))
-BB1=$(($RANDOM % 10 + 495))
-BB2=$(($RANDOM % 10 + 495))
-BB3=$(($RANDOM % 10 + 495))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 
 echo V2K
@@ -132,9 +132,9 @@ echo V2K
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 200 + 4200))
-BB1=$(($RANDOM % 200 + 4200))
-BB2=$(($RANDOM % 200 + 4200))
-BB3=$(($RANDOM % 200 + 4200))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -173,9 +173,9 @@ sleep $(($RANDOM % 2 + 1))
 
 
 BB=$(($RANDOM % 55 + 85))
-BB1=$(($RANDOM % 55 + 85))
-BB2=$(($RANDOM % 55 + 85))
-BB3=$(($RANDOM % 55 + 85))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -212,9 +212,9 @@ sleep $(($RANDOM % 2 + 1))
 
 
 BB=$(($RANDOM % 190 + 4200))
-BB1=$(($RANDOM % 190 + 4200))
-BB2=$(($RANDOM % 190 + 4200))
-BB3=$(($RANDOM % 190 + 4200))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -250,9 +250,9 @@ echo V2K
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 100 + 950))
-BB1=$(($RANDOM % 100 + 950))
-BB2=$(($RANDOM % 100 + 950))
-BB3=$(($RANDOM % 100 + 950))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -288,9 +288,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 200 + 1500))
-BB1=$(($RANDOM % 200 + 1500))
-BB2=$(($RANDOM % 200 + 1500))
-BB3=$(($RANDOM % 200 + 1500))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -326,9 +326,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 200 + 3000))
-BB1=$(($RANDOM % 200 + 3000))
-BB2=$(($RANDOM % 200 + 3000))
-BB3=$(($RANDOM % 200 + 3000))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -364,9 +364,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 200 + 3400))
-BB1=$(($RANDOM % 200 + 3400))
-BB2=$(($RANDOM % 200 + 3400))
-BB3=$(($RANDOM % 200 + 3400))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -402,9 +402,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 200 + 3800))
-BB1=$(($RANDOM % 200 + 3800))
-BB2=$(($RANDOM % 200 + 3800))
-BB3=$(($RANDOM % 200 + 3800))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -440,9 +440,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 195 + 4000))
-BB1=$(($RANDOM % 195 + 4000))
-BB2=$(($RANDOM % 195 + 4000))
-BB3=$(($RANDOM % 195 + 4000))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -478,9 +478,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 35 + 85))
-BB1=$(($RANDOM % 35 + 85))
-BB2=$(($RANDOM % 35 + 85))
-BB3=$(($RANDOM % 35 + 85))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -517,9 +517,9 @@ sleep $(($RANDOM % 2 + 1))
 
 
 BB=$(($RANDOM % 195 + 2800))
-BB1=$(($RANDOM % 195 + 2800))
-BB2=$(($RANDOM % 195 + 2800))
-BB3=$(($RANDOM % 195 + 2800))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -555,9 +555,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 550 + 1760))
-BB1=$(($RANDOM % 550 + 1760))
-BB2=$(($RANDOM % 550 + 1760))
-BB3=$(($RANDOM % 550 + 1760))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -593,9 +593,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 11 + 995))
-BB1=$(($RANDOM % 11 + 995))
-BB2=$(($RANDOM % 11 + 995))
-BB3=$(($RANDOM % 11 + 995))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))
@@ -631,9 +631,9 @@ hz4=$(($offset+$(($RANDOM%3+7))))
 sleep $(($RANDOM % 2 + 1))
 
 BB=$(($RANDOM % 15 + 89))
-BB1=$(($RANDOM % 15 + 89))
-BB2=$(($RANDOM % 15 + 89))
-BB3=$(($RANDOM % 25 + 89))
+BB1=$BB
+BB2=$BB
+BB3=$BB
 
 hz1=$(($offset+$(($RANDOM%3+5))))
 hz2=$(($offset+$(($RANDOM%3+19))))

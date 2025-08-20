@@ -35,7 +35,7 @@ fi
 
 
 
-two=2000
+two=320
 one=85
 
 
@@ -43,7 +43,7 @@ one=85
 #do
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
-BB=100
+
 
 
 

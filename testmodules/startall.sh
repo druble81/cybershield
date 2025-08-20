@@ -68,33 +68,19 @@ BB=${numbers[$index]}
     if [ "$index" -ge "$size" ]; then
         load_and_shuffle_array
     fi
-BB1=${numbers[$index]}
-    # Increment the index
-    ((index++))
-
-    # If we've reached the end, reshuffle
-    if [ "$index" -ge "$size" ]; then
-        load_and_shuffle_array
-    fi
-BB2=${numbers[$index]}
-    # Increment the index
-    ((index++))
-
-    # If we've reached the end, reshuffle
-    if [ "$index" -ge "$size" ]; then
-        load_and_shuffle_array
-    fi
-BB3=${numbers[$index]}
+BB1=$(($BB))
+BB2=$(($BB))
+BB3=$(($BB))
 echo "Random number selected: $BB"
 echo "Random number selected: $BB1"
 echo "Random number selected: $BB2"
 echo "Random number selected: $BB3"
 
 
-hz1=$(($RANDOM%5+6))
-hz2=$(($RANDOM%2+5))
-hz3=$(($RANDOM%2+10))
-hz4=$(($RANDOM%2+7))
+hz1=$(($RANDOM%5+19))
+hz2=$(($RANDOM%2+17))
+hz3=$(($RANDOM%2+15))
+hz4=$(($RANDOM%2+13))
 
 x=$((RANDOM % 2 + 1))
 
