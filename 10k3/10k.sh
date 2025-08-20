@@ -1,5 +1,15 @@
 #!/bin/bash
 
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
 
 RANDOM=$$
 myarray=(1 2 3 4 5 6 7 8 9)
@@ -16,7 +26,6 @@ do
 
 D=$(($RANDOM % 30 + 1))
 
-C=2
 #C=$(($RANDOM % 4 + 1))
 echo "......................FULL 10K3 MODE......................$D"
 echo "......................FULL 10K3 MODE......................$D"
