@@ -13,12 +13,23 @@ two=300
 one=35
 
 
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
+
+
 while :
 do
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
 
-C=2
 
 for (( i=1; i<=27; i++ ))
 do

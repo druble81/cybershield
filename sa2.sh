@@ -11,6 +11,18 @@ myarray=(1 2 4 3 5 6 7 8 9)
 
 #shuf -e ${myarray[@]}
 
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
+
+
 while :
 do
 #shuf -e ${myarray[@]}
@@ -25,7 +37,7 @@ sudo pkill -f adf435
 
 
 
-C=2
+
 #C=$(($RANDOM % 4 + 1))
 
 D=142857

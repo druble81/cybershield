@@ -43,6 +43,18 @@ BB="${numbers[$RANDOM % ${#numbers[@]}]}"
 two=1005
 one=998
 
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
+
+
 
 while :
 do
@@ -71,7 +83,7 @@ hz4=2
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
 
-C=2
+
 
 
 BB44=$(($RANDOM%3+1))

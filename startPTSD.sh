@@ -1,6 +1,20 @@
 #!/bin/bash
 cd /home/pi/Desktop/testmodules
-C=2
+
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
+echo "C is set to: $C"
+
+
+
 cd /home/pi/Desktop/testmodules
 
 clear

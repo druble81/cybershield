@@ -10,6 +10,7 @@ myarray=(1 2 3 4 5 6 7 8 9)
 #shuf -e ${myarray[@]}
 
 #sudo /home/pi/Desktop/loadrdDEW.sh
+
 FILE="/home/pi/Desktop/power.txt"
 
 if [[ -f "$FILE" ]]; then
@@ -36,7 +37,6 @@ echo $A
 
 
 
-
 echo "Normal Burst" 
 A=1600
 B=800
@@ -60,7 +60,7 @@ echo "......................N BURST MODE......................"
 echo "......................N BURST MODE......................"
 echo "......................N BURST MODE......................"
 
-sleep 1
+sleep 3
 
 sudo pkill -f adf4351
 
@@ -68,34 +68,26 @@ sudo pkill -f adf4351
 B=25000
 A=8264
 
-echo "10k" 
-/tmp/ramdisk/adf43512s 3000 25000000 $C&
-/tmp/ramdisk/adf435132 3000 25000000 $C&
-/tmp/ramdisk/adf435122 3000 25000000 $C&
-/tmp/ramdisk/adf435142 3000 25000000 $C&
-/tmp/ramdisk/adf435152 3000 25000000 $C&
-/tmp/ramdisk/adf435162 3000 25000000 $C&
-/tmp/ramdisk/adf435172 3000 25000000 $C&
-/tmp/ramdisk/adf435182 3000 25000000 $C&
-/tmp/ramdisk/adf435192 3000 25000000 $C&
+echo "PFC" 
+/home/pi/Desktop/startall3/adf4351 200 25000000 $C&
+/home/pi/Desktop/startall3/adf43512 200 25000000 $C&
+/home/pi/Desktop/startall3/adf43513 200 25000000 $C&
+/home/pi/Desktop/startall3/adf43514 200 25000000 $C&
+/home/pi/Desktop/startall3/adf43515 200 25000000 $C&
+/home/pi/Desktop/startall3/adf43516 200 25000000 $C&
+/home/pi/Desktop/startall3/adf43517 200 25000000 $C&
+/home/pi/Desktop/startall3/adf43518 200 25000000 $C&
+/home/pi/Desktop/startall3/adf43519 200 25000000 $C&
 D=$(($RANDOM % 30 + 1))
-echo "......................10K BURST MODE......................$D"
-echo "......................10K BURST MODE......................$D"
-echo "......................10K BURST MODE......................$D"
-echo "......................10K BURST MODE......................$D"
-echo "......................10K BURST MODE......................$D"
-echo "......................10K BURST MODE......................$D"
+echo "......................PFC BURST MODE......................$D"
+echo "......................PFC BURST MODE......................$D"
+echo "......................PFC BURST MODE......................$D"
+echo "......................PFC BURST MODE......................$D"
+echo "......................PFC BURST MODE......................$D"
+echo "......................PFC BURST MODE......................$D"
 
-sleep 1
+sleep 3
 
 sudo pkill -f adf4351
-
-
-
-
-
-
-
-
 
 done

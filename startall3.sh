@@ -3,6 +3,16 @@
 
 
 
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
 
 
 while :
@@ -13,7 +23,7 @@ RANDOM=$$
 sudo pkill -f adf4351
 
 C=$(($RANDOM % 4 ))
-C=2
+
 echo "PFC"
 
 /home/pi/Desktop/startall3/adf4351 200 25000000 $C&

@@ -1,5 +1,20 @@
 cd /home/pi/Desktop/testmodules
 echo QUAD H.
+
+
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
+
+
+
 while :
 do
 
@@ -8,38 +23,6 @@ BB=0
 BB=$(($RANDOM%$(($2-$1)) + $1))
 echo $BB
 echo QUAD H.
-
-
-C=2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

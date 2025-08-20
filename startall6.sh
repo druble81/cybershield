@@ -23,18 +23,28 @@ echo  **********----------WAKE- RUNNING----------**********
 SEED=$(od -An -N2 -i /dev/urandom)
 RANDOM=$SEED
 
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
 
 
 two=2000
 one=85
 
 
-while :
-do
+#while :
+#do
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
 BB=100
-C=2
+
 
 
 offset=500000
@@ -49,10 +59,10 @@ BB2=$(($BB))
 BB3=$(($BB))
 
 
-hz1=8
-hz2=8
-hz3=8
-hz4=11
+hz1=20
+hz2=19
+hz3=21
+hz4=19
 
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
@@ -89,4 +99,4 @@ BB44=$(($RANDOM%3+1))
 #10000 - 100001 = 1hz#
 sleep 0.$BB44
 
-done
+#done

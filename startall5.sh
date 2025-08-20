@@ -8,7 +8,17 @@ BB1=841
 BB2=1572
 BB3=1593
 
-C=2
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
+
 
 ./adf4351 $BB 25000000 $C
 ./adf43512 $BB.000003 25000000 $C

@@ -1,7 +1,17 @@
 cd /home/pi/Desktop/testmodules
 D=0
 E=3
-C=2
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
+
 while :
 do
 

@@ -22,6 +22,16 @@ RANDOM=$SEED
 mapfile -t numbers < <(grep -v '^[[:space:]]*$' /tmp/ramdisk/SG3.TXT | shuf)
 index=0
 size=$((${#numbers[@]}-2))
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
 
 
 while :
@@ -40,7 +50,7 @@ do
 
 #BB=$(($RANDOM%$(($2-$1)) + $1))
 
-C=2
+
 
 
 offset=100000

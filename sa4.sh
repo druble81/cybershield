@@ -10,6 +10,16 @@ myarray=(1 2 3 4 5 6 7 8 9)
 #shuf -e ${myarray[@]}
 
 #sudo /home/pi/Desktop/loadrdDEW.sh
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
 
 
 while :
@@ -25,7 +35,7 @@ echo $A
 ##then
 
 
-C=2
+
 
 echo "Normal Burst" 
 A=1600
