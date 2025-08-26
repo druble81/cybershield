@@ -29,7 +29,7 @@ PROGRAM_OPTIONS = {
     "Full BAP": "bash /home/pi/Desktop/sa7.sh &",
     "N4 Burst Mode": "bash /home/pi/Desktop/sa5.sh&",
     "N4 Burst pulse": "bash /home/pi/Desktop/sa4.sh&",
-    "Full Burst": "bash /home/pi/Desktop/sa6.sh&"
+    "Full Burst": "bash /home/pi/Desktop/sa6.sh&",
     "Pain Mode": "bash /home/pi/Desktop/startDLPFC2.sh&"
 }
 
