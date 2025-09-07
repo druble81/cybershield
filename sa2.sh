@@ -40,12 +40,12 @@ sudo pkill -f adf435
 
 #C=$(($RANDOM % 4 + 1))
 
-D=142857
+
 B=8333
 
 ##ALWAYS ON
 
-/tmp/ramdisk/adf43513 3000 25000000 $C $D&
+/tmp/ramdisk/adf43513 3000 25000000 $C&
 ##
 
 
@@ -146,7 +146,7 @@ fi
 echo "......................Full Coverage MODE......................"
 
 
-sleep $(($RANDOM % 5 + 5))
+sleep $(($RANDOM % 15 + 1))
 
 
 done

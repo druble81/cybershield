@@ -66,18 +66,14 @@ echo "Random number selected: $BB"
 offset=700000
 
 
-BB=100
-BB1=100
-#$(($BB+1))
-BB2=100
-#$(($BB+2))
-BB3=100
-#$(($BB+3))
+BB1=$(($BB-2))
+BB2=$(($BB+1))
+BB3=$(($BB-1))
 
 
 hz1=3
 hz2=2
-hz3=1
+hz3=4
 hz4=2
 
 #echo $BB1.$offset
@@ -113,6 +109,6 @@ BB44=$(($RANDOM%3+1))
 
 ####################10001
 #10000 - 100001 = 1hz#
-sleep $(($RANDOM % 5 + 5))
+sleep $(($RANDOM % 15 + 1))
 
 done

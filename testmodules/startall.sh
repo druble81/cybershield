@@ -68,9 +68,9 @@ BB=${numbers[$index]}
     if [ "$index" -ge "$size" ]; then
         load_and_shuffle_array
     fi
-BB1=$(($BB))
-BB2=$(($BB))
-BB3=$(($BB))
+BB1=$(($BB-1))
+BB2=$(($BB+1))
+BB3=$(($BB-2))
 echo "Random number selected: $BB"
 echo "Random number selected: $BB1"
 echo "Random number selected: $BB2"
@@ -119,7 +119,7 @@ BB44=$(($RANDOM%3+1))
 ####################10001
 
 #10000 - 100001 = 1hz#
-sleep $(($RANDOM % 3 + 1))
+sleep $(($RANDOM % 5 + 1))
 
 done
 
