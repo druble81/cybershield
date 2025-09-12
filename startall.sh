@@ -55,7 +55,7 @@ B=2325
 /tmp/ramdisk/adf43518 1000 25000000 $C&
 /tmp/ramdisk/adf43519 1000 25000000 $C&
 
-sleep $(($RANDOM % 5 + 5))
+sleep $(($RANDOM % 10 + 5))
 sudo pkill -f adf4351
 
 
