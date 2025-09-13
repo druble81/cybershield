@@ -58,9 +58,9 @@ A=$(($RANDOM % 2))
 #A=1
 echo $A
 if [[ $A -gt 0 ]]
-/tmp/ramdisk/adf43514 3000 25000000 $C&
 then
-
+/tmp/ramdisk/adf43514 3000 25000000 $C&
+else
 /tmp/ramdisk/adf435142 3000 25000000 $C&
 fi
 

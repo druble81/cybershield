@@ -16,8 +16,7 @@ fi
 
 
 RANDOM=$$
-while :
-do
+
 #shuf -e ${myarray[@]}
 
 
@@ -28,10 +27,7 @@ do
 D=$(($RANDOM % 30 + 1))
 
 #C=$(($RANDOM % 4 + 1))
-echo "......................FULL 10K MODE......................$D"
-echo "......................FULL 10K MODE......................$D"
-echo "......................FULL 10K MODE......................$D"
-echo "......................FULL 10K MODE......................$D"
+
 /tmp/ramdisk/adf43512s 3000 25000000 $C&
 /tmp/ramdisk/adf435132 3000 25000000 $C&
 /tmp/ramdisk/adf435122 3000 25000000 $C&
@@ -41,9 +37,16 @@ echo "......................FULL 10K MODE......................$D"
 /tmp/ramdisk/adf435172 3000 25000000 $C&
 /tmp/ramdisk/adf435182 3000 25000000 $C&
 /tmp/ramdisk/adf435192 3000 25000000 $C&
+while :
+do
 
-sleep $(($RANDOM % 15 + 5))
-sudo pkill -f adf4351
+echo "......................FULL 10K MODE......................$D"
+echo "......................FULL 10K MODE......................$D"
+echo "......................FULL 10K MODE......................$D"
+echo "......................FULL 10K MODE......................$D"
+
+sleep $(($RANDOM % 3 + 1))
+#sudo pkill -f adf4351
 
 done
 

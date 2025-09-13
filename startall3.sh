@@ -13,19 +13,6 @@ else
     C=2
 fi
 
-
-
-while :
-do
-
-RANDOM=$$
-
-sudo pkill -f adf4351
-
-C=$(($RANDOM % 4 ))
-
-echo "PFC"
-
 /home/pi/Desktop/startall3/adf4351 200 25000000 $C&
 /home/pi/Desktop/startall3/adf43512 200 25000000 $C&
 /home/pi/Desktop/startall3/adf43513 200 25000000 $C&
@@ -36,9 +23,16 @@ echo "PFC"
 /home/pi/Desktop/startall3/adf43518 200 25000000 $C&
 /home/pi/Desktop/startall3/adf43519 200 25000000 $C&
 
+while :
+do
 
 
-sleep 30
+#sudo pkill -f adf4351
+
+echo "PFC"
+
+
+sleep 5
 
 
 

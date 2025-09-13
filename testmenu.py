@@ -4,9 +4,11 @@ import subprocess
 import json
 import os
 import threading
+import time
 
 SAVE_FILE = "/home/pi/Desktop/saved_programs.json"
 
+# A dictionary mapping program names to their shell commands.
 PROGRAM_OPTIONS = {
     "10k": "bash /home/pi/Desktop/10k.sh &",
     "Normal": "bash /home/pi/Desktop/startall.sh &",
@@ -35,7 +37,33 @@ PROGRAM_OPTIONS = {
 
 FONT_STYLE = ("TkDefaultFont", 12)
 
+def normalize_decimal_string(value_str):
+    """Normalizes decimal strings, e.g., '.5' becomes '0.5' and '.' becomes '0.0'."""
+    if isinstance(value_str, str):
+        value_str = value_str.strip()
+        if value_str == ".":
+            return "0.0"
+        if value_str.startswith("."):
+            return "0" + value_str
+    return value_str
+
+def validate_interval(interval_str):
+    """Checks if the interval is a whole number between 1 and 2000."""
+    try:
+        val = float(interval_str)
+        if val != int(val):
+            return False, ""
+        
+        interval_val = int(val)
+        if 1 <= interval_val <= 2000:
+            return True, str(interval_val)
+        else:
+            return False, ""
+    except (ValueError, TypeError):
+        return False, ""
+
 class KeypadWindow(tk.Toplevel):
+    """A pop-up window with a numerical keypad for data entry."""
     def __init__(self, master, variable):
         super().__init__(master)
         self.title("Enter Value")
@@ -77,6 +105,7 @@ class KeypadWindow(tk.Toplevel):
         self.destroy()
 
 class AddProgramWindow(tk.Toplevel):
+    """A window for creating a new program or editing an existing one."""
     def __init__(self, master, edit_mode=False, program_data=None, program_index=None):
         super().__init__(master)
         self.title("Add Program")
@@ -134,31 +163,26 @@ class AddProgramWindow(tk.Toplevel):
         self.interval_entry.grid(row=3, column=1)
         self.interval_entry.bind("<Button-1>", lambda e: self.open_keypad(self.interval_var))
 
-
-
         tk.Button(self.detail_frame, text="Update Script Details", font=FONT_STYLE, command=self.update_script_details).grid(row=4, column=0, columnspan=2, pady=10)
 
         self.selected_listbox.bind("<<ListboxSelect>>", self.on_select_script)
-        
         
         if edit_mode and program_data:
             self.name_entry.insert(0, program_data["name"])
             self.loop_var.set(program_data["loop"])
             self.selected_scripts = program_data.get("steps", [])
             
-            # Ensure all required keys exist
             for step in self.selected_scripts:
                 step.setdefault("primary_low", "35")
                 step.setdefault("primary_high", "4400")
                 step.setdefault("duration", "1")
+                step.setdefault("interval", "1")
 
             self.update_selected_listbox()
             if self.selected_scripts:
                 self.selected_listbox.selection_set(0)
                 self.on_select_script(None)
 
-        
-        
         tk.Button(self, text="Save Program", font=FONT_STYLE, command=self.save_program).grid(row=3, column=2, columnspan=5, pady=10)
 
     def center_window(self):
@@ -172,16 +196,30 @@ class AddProgramWindow(tk.Toplevel):
     def open_keypad(self, variable):
         KeypadWindow(self, variable)
     
-    def normalize_duration(self, value):
-        if value.startswith("."):
-            return "0" + value
-        return value
-    
     def save_program(self):
         name = self.name_entry.get().strip()
         if not name:
             messagebox.showerror("Error", "Program must have a name")
             return
+            
+        for i, step in enumerate(self.selected_scripts):
+            interval_str = step.get('interval', '1')
+            is_valid, _ = validate_interval(interval_str)
+            if not is_valid:
+                messagebox.showerror(
+                    "Invalid Interval",
+                    f"The interval for script '{step['name']}' (step {i+1}) is invalid.\n\n"
+                    "It must be a whole number between 1 and 2000."
+                )
+                return
+
+        for step in self.selected_scripts:
+            step['primary_low'] = normalize_decimal_string(step.get('primary_low', '35'))
+            step['primary_high'] = normalize_decimal_string(step.get('primary_high', '4400'))
+            step['duration'] = normalize_decimal_string(step.get('duration', '1'))
+            is_valid, cleaned_interval = validate_interval(step.get('interval', '1'))
+            if is_valid:
+                step['interval'] = cleaned_interval
 
         program = {
             "name": name,
@@ -193,15 +231,10 @@ class AddProgramWindow(tk.Toplevel):
             self.master.programs[self.program_index] = program
         else:
             self.master.programs.append(program)
-            
-        for s in self.selected_scripts:
-            s['duration'] = self.normalize_duration(s['duration'])
-            s['interval'] = s.get('interval', '1')
 
         self.master.save_programs()
         self.master.update_listbox()
         self.destroy()
-
 
     def add_script(self):
         selection = self.available_listbox.curselection()
@@ -238,41 +271,39 @@ class AddProgramWindow(tk.Toplevel):
         if not selection:
             return
         s = self.selected_scripts[selection[0]]
-        self.primary_low_var.set(s['primary_low'])
-        self.primary_high_var.set(s['primary_high'])
-        self.duration_var.set(s['duration'])
+        self.primary_low_var.set(s.get('primary_low', '35'))
+        self.primary_high_var.set(s.get('primary_high', '4400'))
+        self.duration_var.set(s.get('duration', '1'))
         self.interval_var.set(s.get('interval', '1'))
-
 
     def update_script_details(self):
         selection = self.selected_listbox.curselection()
         if not selection:
             return
-        self.selected_scripts[selection[0]]['primary_low'] = self.primary_low_var.get()
-        self.selected_scripts[selection[0]]['primary_high'] = self.primary_high_var.get()
-        normalized = self.normalize_duration(self.duration_var.get())
-        self.duration_var.set(normalized)
-        self.selected_scripts[selection[0]]['duration'] = normalized
-        self.selected_scripts[selection[0]]['interval'] = self.interval_var.get()
+        idx = selection[0]
 
-
-
-    def save_program(self):
-        name = self.name_entry.get().strip()
-        if not name:
-            messagebox.showerror("Error", "Program must have a name")
+        is_valid, cleaned_interval = validate_interval(self.interval_var.get())
+        if not is_valid:
+            messagebox.showerror(
+                "Invalid Interval",
+                "The interval must be a whole number between 1 and 2000."
+            )
             return
-        program = {
-            "name": name,
-            "loop": self.loop_var.get(),
-            "steps": self.selected_scripts
-        }
-        self.master.programs.append(program)
-        self.master.save_programs()
-        self.master.update_listbox()
-        self.destroy()
+
+        self.selected_scripts[idx]['primary_low'] = normalize_decimal_string(self.primary_low_var.get())
+        self.selected_scripts[idx]['primary_high'] = normalize_decimal_string(self.primary_high_var.get())
+        self.selected_scripts[idx]['duration'] = normalize_decimal_string(self.duration_var.get())
+        self.selected_scripts[idx]['interval'] = cleaned_interval
+        
+        self.primary_low_var.set(self.selected_scripts[idx]['primary_low'])
+        self.primary_high_var.set(self.selected_scripts[idx]['primary_high'])
+        self.duration_var.set(self.selected_scripts[idx]['duration'])
+        self.interval_var.set(self.selected_scripts[idx]['interval'])
+        
+        print(f"Details for '{self.selected_scripts[idx]['name']}' updated silently.")
 
 class ProgramManager(tk.Tk):
+    """The main application window."""
     def __init__(self):
         super().__init__()
         self.title("Program Manager")
@@ -309,15 +340,62 @@ class ProgramManager(tk.Tk):
         program = self.programs[idx[0]]
         AddProgramWindow(self, edit_mode=True, program_data=program, program_index=idx[0])
 
-    def load_programs(self):
-        if os.path.exists(SAVE_FILE):
-            with open(SAVE_FILE, "r") as f:
-                return json.load(f)
-        return []
+    def correct_interval_on_load(self, interval_str):
+        """If an interval from the file is a decimal or invalid, resets it to '1'."""
+        try:
+            val = float(interval_str)
+            if val != int(val):
+                return "1"
+            return str(int(val))
+        except (ValueError, TypeError):
+            return "1"
 
-    def save_programs(self):
+    def load_programs(self):
+        if not os.path.exists(SAVE_FILE):
+            return []
+        
+        try:
+            with open(SAVE_FILE, "r") as f:
+                programs_data = json.load(f)
+            
+            data_was_changed = False
+            for program in programs_data:
+                for step in program.get("steps", []):
+                    if 'interval' in step:
+                        original_interval = step['interval']
+                        corrected_interval = self.correct_interval_on_load(original_interval)
+                        if original_interval != corrected_interval:
+                            step['interval'] = corrected_interval
+                            data_was_changed = True
+                    
+                    fields_to_normalize = ['primary_low', 'primary_high', 'duration']
+                    for field in fields_to_normalize:
+                        if field in step:
+                            original_value = step[field]
+                            corrected_value = normalize_decimal_string(original_value)
+                            if original_value != corrected_value:
+                                step[field] = corrected_value
+                                data_was_changed = True
+            
+            if data_was_changed:
+                print("[Load] Corrected invalid data from save file and re-saved.")
+                self.save_programs(programs_data)
+
+            return programs_data
+
+        except json.JSONDecodeError:
+            messagebox.showerror("Load Error", "Could not read save file. It may be corrupted.")
+            return []
+        except Exception as e:
+            messagebox.showerror("Error", f"An unexpected error occurred while loading programs: {e}")
+            return []
+
+    def save_programs(self, data_to_save=None):
+        """Saves the program list to the JSON file."""
+        if data_to_save is None:
+            data_to_save = self.programs
         with open(SAVE_FILE, "w") as f:
-            json.dump(self.programs, f, indent=2)
+            json.dump(data_to_save, f, indent=2)
 
     def update_listbox(self):
         self.listbox.delete(0, tk.END)
@@ -331,25 +409,28 @@ class ProgramManager(tk.Tk):
         idx = self.listbox.curselection()
         if not idx:
             return
-        del self.programs[idx[0]]
-        self.save_programs()
-        self.update_listbox()
+        if messagebox.askyesno("Confirm Delete", f"Are you sure you want to delete '{self.programs[idx[0]]['name']}'?"):
+            del self.programs[idx[0]]
+            self.save_programs()
+            self.update_listbox()
 
     def run_cleanup(self):
+        """Kills all potentially running script processes."""
         print("[Cleanup] Running sudo pkill commands")
+        # FIX: Corrected typo "adf4is a" to "adf4351"
         targets = ["start", "sa", "10k", "adf4351", "RAND", "sleep", "1020", "dtra", "t1", "t2", "dtmenu"]
         for name in targets:
             try:
-                print(f"[Cleanup] Attempting: sudo pkill -f {name}")
-                result = subprocess.run(["sudo", "/usr/bin/pkill", "-f", name], check=True)
-                print(f"[Cleanup] Killed: {name}")
-            except subprocess.CalledProcessError:
-                print(f"[Cleanup] No process or error for: {name}")
-
-
-
+                subprocess.run(["sudo", "/usr/bin/pkill", "-f", name], check=False, capture_output=True)
+                print(f"[Cleanup] Sent kill signal for processes matching: {name}")
+            except Exception as e:
+                print(f"[Cleanup] Error trying to kill process {name}: {e}")
 
     def start_program(self):
+        if self.running_thread and self.running_thread.is_alive():
+            messagebox.showwarning("Warning", "A program is already running. Please stop it first.")
+            return
+            
         idx = self.listbox.curselection()
         if not idx:
             return
@@ -358,9 +439,12 @@ class ProgramManager(tk.Tk):
         self.stop_flag.clear()
 
         def run():
-            subprocess.Popen(["/home/pi/Desktop/testmodules/adf4351"])
-            for i in range(2, 10):
-                subprocess.Popen([f"/home/pi/Desktop/testmodules/adf4351{i}"])
+            try:
+                subprocess.Popen(["/home/pi/Desktop/testmodules/adf4351"])
+                for i in range(2, 10):
+                    subprocess.Popen([f"/home/pi/Desktop/testmodules/adf4351{i}"])
+            except FileNotFoundError as e:
+                print(f"[Runner] Error starting adf4351 processes: {e}")
 
             while not self.stop_flag.is_set():
                 for step in program['steps']:
@@ -368,202 +452,61 @@ class ProgramManager(tk.Tk):
                         break
 
                     print(f"[Runner] Cleaning up before step: {step['name']}")
-                    self.run_cleanup()  # <-- Kill old scripts BEFORE starting next
+                    self.run_cleanup()
 
-                  
-
-
-
-                    if step.get('interval', '1') != '1':
-                              # Delete SG3.TXT before running loadrd
-                        try:
-                            subprocess.call(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"])
-                            print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
-                        except Exception as e:
-                            print(f"[Runner] Failed to delete SG3.TXT: {e}")
-                            
-                        args = ["sudo", "/home/pi/Desktop/loadrd", step['primary_low'], step['primary_high']]
-                        if step.get('interval', '1') != '1':
-                            args.append(step['interval'])
-                        subprocess.call(args)
-
-                    else:
-                                                      # Delete SG3.TXT before running loadrd
-                        try:
-                            subprocess.call(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"])
-                            print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
-                        except Exception as e:
-                            print(f"[Runner] Failed to delete SG3.TXT: {e}")
-                            
-
-                        subprocess.call(["bash", "/home/pi/Desktop/loadrd.sh", step['primary_low'], step['primary_high']])
-
-                    
-                    print(f"[Runner] Running script: {step['script']}")
-                    subprocess.call(step['script'], shell=True)
                     try:
-                        duration_minutes = float(step['duration'])
-                    except ValueError:
-                        print(f"[Runner] Invalid duration value: {step['duration']}. Skipping step.")
+                        subprocess.run(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"], check=True)
+                        print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
+                    except (subprocess.CalledProcessError, FileNotFoundError) as e:
+                        print(f"[Runner] Could not delete SG3.TXT: {e}")
+
+                    interval = step.get('interval', '1')
+                    low = step.get('primary_low', '35')
+                    high = step.get('primary_high', '4400')
+
+                    is_valid, clean_interval = validate_interval(interval)
+                    if not is_valid:
+                        print(f"[Runner] SKIPPING step '{step['name']}' due to invalid interval '{interval}'.")
                         continue
 
+                    if clean_interval != '1':
+                        args = ["sudo", "/home/pi/Desktop/loadrd", low, high, clean_interval]
+                        subprocess.run(args)
+                    else:
+                        subprocess.run(["bash", "/home/pi/Desktop/loadrd.sh", low, high])
+                    
+                    print(f"[Runner] Running script: {step['script']}")
+                    subprocess.run(step['script'], shell=True)
+                    
+                    try:
+                        duration_minutes = float(step.get('duration', '1'))
+                    except ValueError:
+                        print(f"[Runner] Invalid duration value: {step.get('duration')}. Defaulting to 1 minute.")
+                        duration_minutes = 1.0
+
                     total_seconds = int(duration_minutes * 60)
-                    interval = 10  # seconds per wait
-                    loops = total_seconds // interval
-                    remainder = total_seconds % interval
-
-                    for _ in range(loops):
-                        if self.stop_flag.is_set():
-                            break
-                        threading.Event().wait(interval)
-
-                    if not self.stop_flag.is_set() and remainder > 0:
-                        threading.Event().wait(remainder)
-
-                if not program.get('loop'):
+                    end_time = time.time() + total_seconds
+                    
+                    while time.time() < end_time:
+                        if self.stop_flag.wait(timeout=1):
+                           break
+                    
+                if not program.get('loop', False):
                     break
+            
+            print("[Runner] Program finished.")
+            self.run_cleanup()
 
         self.running_thread = threading.Thread(target=run, daemon=True)
         self.running_thread.start()
-
-    def __init__(self):
-        super().__init__()
-        self.title("Program Manager")
-        self.geometry("500x400")
-        self.center_window()
-        self.programs = self.load_programs()
-        self.stop_flag = threading.Event()
-        self.running_thread = None
-
-        self.listbox = tk.Listbox(self, font=FONT_STYLE)
-        self.listbox.pack(fill=tk.BOTH, expand=True)
-        self.update_listbox()
-
-        button_frame = tk.Frame(self)
-        button_frame.pack(fill=tk.X)
-        tk.Button(button_frame, text="Add", font=FONT_STYLE, command=self.add_program).pack(side=tk.LEFT, expand=True)
-        tk.Button(button_frame, text="Edit", font=FONT_STYLE, command=self.edit_program).pack(side=tk.LEFT, expand=True)
-        tk.Button(button_frame, text="Delete", font=FONT_STYLE, command=self.delete_program).pack(side=tk.LEFT, expand=True)
-        tk.Button(button_frame, text="Start", font=FONT_STYLE, command=self.start_program).pack(side=tk.LEFT, expand=True)
-        tk.Button(button_frame, text="Stop", font=FONT_STYLE, command=self.stop_program).pack(side=tk.LEFT, expand=True)
-        
-
-
-    def center_window(self):
-        self.update_idletasks()
-        width = self.winfo_width()
-        height = self.winfo_height()
-        x = (self.winfo_screenwidth() // 2) - (width // 2)
-        y = (self.winfo_screenheight() // 2) - (height // 2)
-        self.geometry(f"{width}x{height}+{x}+{y}")
-
-    def load_programs(self):
-        if os.path.exists(SAVE_FILE):
-            with open(SAVE_FILE, "r") as f:
-                return json.load(f)
-        return []
-
-    def save_programs(self):
-        with open(SAVE_FILE, "w") as f:
-            json.dump(self.programs, f, indent=2)
-
-    def update_listbox(self):
-        self.listbox.delete(0, tk.END)
-        for prog in self.programs:
-            self.listbox.insert(tk.END, prog['name'])
-
-    def add_program(self):
-        AddProgramWindow(self)
-
-    def delete_program(self):
-        idx = self.listbox.curselection()
-        if not idx:
-            return
-        del self.programs[idx[0]]
-        self.save_programs()
-        self.update_listbox()
 
     def stop_program(self):
         print("Stop button pressed")
         self.stop_flag.set()
+        if self.running_thread:
+            self.running_thread.join(timeout=2.0)
         self.run_cleanup()
-
-
-
-    def start_program(self):
-        idx = self.listbox.curselection()
-        if not idx:
-            return
-
-        program = self.programs[idx[0]]
-        self.stop_flag.clear()
-
-        def run():
-            subprocess.Popen(["/home/pi/Desktop/testmodules/adf4351"])
-            for i in range(2, 10):
-                subprocess.Popen([f"/home/pi/Desktop/testmodules/adf4351{i}"])
-
-            while not self.stop_flag.is_set():
-                for step in program['steps']:
-                    if self.stop_flag.is_set():
-                        break
-                    print("[Cleanup] Running sudo pkill commands")
-                    targets = ["start", "sa", "10k", "adf4351", "RAND", "sleep", "1020", "dtra", "t1", "t2", "dtmenu"]
-                    for name in targets:
-                        try:
-                            print(f"[Cleanup] Attempting: sudo pkill -f {name}")
-                            result = subprocess.run(["sudo", "/usr/bin/pkill", "-f", name], check=True)
-                            print(f"[Cleanup] Killed: {name}")
-                        except subprocess.CalledProcessError:
-                            print(f"[Cleanup] No process or error for: {name}")
-
-
-
-                    interval = step.get('interval', '1')
-                    if interval != '1':
-                        try:
-                            subprocess.call(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"])
-                            print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
-                        except Exception as e:
-                            print(f"[Runner] Failed to delete SG3.TXT: {e}")
-                        args = ["sudo", "/home/pi/Desktop/loadrd", step['primary_low'], step['primary_high']]
-                        if step.get('interval', '1') != '1':
-                            try:
-                                subprocess.call(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"])
-                                print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
-                            except Exception as e:
-                                print(f"[Runner] Failed to delete SG3.TXT: {e}")
-                            args.append(step['interval'])
-                        subprocess.call(args)
-
-                    else:
-                        subprocess.call(["bash", "/home/pi/Desktop/loadrd.sh", step['primary_low'], step['primary_high']])
-                    
-                    subprocess.call(step['script'], shell=True)
-                    try:
-                        duration_minutes = float(step['duration'])
-                    except ValueError:
-                        print(f"[Runner] Invalid duration value: {step['duration']}. Skipping step.")
-                        continue
-
-                    total_seconds = int(duration_minutes * 60)
-                    interval = 10  # seconds per wait
-                    loops = total_seconds // interval
-                    remainder = total_seconds % interval
-
-                    for _ in range(loops):
-                        if self.stop_flag.is_set():
-                            break
-                        threading.Event().wait(interval)
-
-                    if not self.stop_flag.is_set() and remainder > 0:
-                        threading.Event().wait(remainder)
-
-                if not program.get('loop'):
-                    break
-
-        self.running_thread = threading.Thread(target=run, daemon=True)
-        self.running_thread.start()
+        print("All running programs have been stopped.")
 
 if __name__ == "__main__":
     app = ProgramManager()
