@@ -71,10 +71,10 @@ BB2=$(($BB+1))
 BB3=$(($BB-1))
 
 
-hz1=3
-hz2=2
-hz3=4
-hz4=2
+hz1=5
+hz2=5
+hz3=5
+hz4=5
 
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))

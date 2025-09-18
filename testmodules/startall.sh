@@ -77,10 +77,10 @@ echo "Random number selected: $BB2"
 echo "Random number selected: $BB3"
 
 
-hz1=$(($RANDOM%5+19))
-hz2=$(($RANDOM%2+17))
-hz3=$(($RANDOM%2+15))
-hz4=$(($RANDOM%2+13))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 
 x=$((RANDOM % 2 + 1))
 
