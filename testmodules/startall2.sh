@@ -88,10 +88,10 @@ BB=$((RANDOM % 20 + 1))
 
 
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 
 
 
@@ -136,10 +136,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 
 echo V2K
 
@@ -177,10 +177,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 echo V2K
 
 #./adf43519 4130 25000000 $C
@@ -216,10 +216,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 echo V2K
 
 #./adf43519 4130 25000000 $C
@@ -254,10 +254,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -292,10 +292,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -330,10 +330,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -368,10 +368,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -406,10 +406,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -444,10 +444,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -482,10 +482,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -521,10 +521,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -559,10 +559,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -597,10 +597,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
@@ -635,10 +635,10 @@ BB1=$BB
 BB2=$BB
 BB3=$BB
 
-hz1=$(($offset+$(($RANDOM%3+5))))
-hz2=$(($offset+$(($RANDOM%3+19))))
-hz3=$(($offset+$(($RANDOM%3+12))))
-hz4=$(($offset+$(($RANDOM%3+7))))
+hz1=5
+hz2=6
+hz3=20
+hz4=130
 #echo QUAD H
 
 #./adf43519 4130 25000000 $C
