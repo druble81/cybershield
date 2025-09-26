@@ -49,16 +49,16 @@ hz4=2
 
 ####################10000
 
-./adf43515 $BB2.$offset 25000000 $C&
-./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
+#./adf43515 $BB2.$offset 25000000 $C&
+#./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
 #echo ./adf43516 $BB".210001" 25000000 $C&
 ##210001
 
-./adf43517 $BB3.$(($offset+$hz4)) 25000000 $C&
-./adf43518 $BB3.$offset 25000000 $C
+#./adf43517 $BB3.$(($offset+$hz4)) 25000000 $C&
+#./adf43518 $BB3.$offset 25000000 $C
 ##200003
-./adf4351 $BB.$offset 25000000 $C&
-./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
+#./adf4351 $BB.$offset 25000000 $C&
+#./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
 ##100000
 sleep 0.1
 ./adf43512 off
