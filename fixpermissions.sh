@@ -20,6 +20,8 @@ sudo chmod +x sa7.sh
 sudo chmod +x loadrd
 sudo chmod +x lock.py
 sudo chmod +x powertest
+sudo chmod +x timing.py
+sudo chmod +x timing10.py
 
 
 sudo chmod +x ramdisk.sh
