@@ -21,6 +21,21 @@ RANDOM=$$
 
 
 
+# Path to the file
+FILE="/home/pi/Desktop/10values.txt"
+
+# Default values
+DEFAULT_T1=140
+DEFAULT_T2=65
+
+# Check if file exists and load values, otherwise use defaults
+if [[ -f "$FILE" ]]; then
+    # Read first two values from the file
+    read T1 T2 < "$FILE"
+else
+    T1=$DEFAULT_T1
+    T2=$DEFAULT_T2
+fi
 
 
 
@@ -28,15 +43,15 @@ D=$(($RANDOM % 30 + 1))
 
 #C=$(($RANDOM % 4 + 1))
 
-/tmp/ramdisk/adf43512s 3000 25000000 $C&
-/tmp/ramdisk/adf435132 3000 25000000 $C&
-/tmp/ramdisk/adf435122 3000 25000000 $C&
-/tmp/ramdisk/adf435142 3000 25000000 $C&
-/tmp/ramdisk/adf435152 3000 25000000 $C&
-/tmp/ramdisk/adf435162 3000 25000000 $C&
-/tmp/ramdisk/adf435172 3000 25000000 $C&
-/tmp/ramdisk/adf435182 3000 25000000 $C&
-/tmp/ramdisk/adf435192 3000 25000000 $C&
+/tmp/ramdisk/adf43512s 3000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf435132 3000 25000000 $C $T3 $T4&
+/tmp/ramdisk/adf435122 3000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf435142 3000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf435152 3000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf435162 3000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf435172 3000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf435182 3000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf435192 3000 25000000 $C $T1 $T2&
 while :
 do
 

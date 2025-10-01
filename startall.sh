@@ -1,11 +1,33 @@
 #!/bin/bash
 
+
+cd /home/pi/Desktop
+
 RANDOM=$$
-myarray=(1 2 3 4 5 6 7 8 9)
 
-#shuf -e ${myarray[@]}
 
-/tmp/ramdisk/adf43513 1000 25000000 $C&
+# Path to the file
+FILE="/home/pi/Desktop/nvalues.txt"
+
+# Default values
+DEFAULT_T1=140
+DEFAULT_T2=65
+
+# Check if file exists and load values, otherwise use defaults
+if [[ -f "$FILE" ]]; then
+    # Read first two values from the file
+    read T1 T2 < "$FILE"
+else
+    T1=$DEFAULT_T1
+    T2=$DEFAULT_T2
+fi
+
+
+T3=$((T1*2))
+T4=$((T2*2))
+
+
+/tmp/ramdisk/adf43513 1000 25000000 $C $T1 $T2&
 sudo pkill -f adf4351
 
 FILE="/home/pi/Desktop/power.txt"
@@ -25,15 +47,15 @@ fi
 
 
 
-/tmp/ramdisk/adf4351 1000 25000000 $C&
-/tmp/ramdisk/adf43512 1000 25000000 $C&
-/tmp/ramdisk/adf43513 1000 25000000 $C&
-/tmp/ramdisk/adf43514 1000 25000000 $C&
-/tmp/ramdisk/adf43515 1000 25000000 $C&
-/tmp/ramdisk/adf43516 1000 25000000 $C&
-/tmp/ramdisk/adf43517 1000 25000000 $C&
-/tmp/ramdisk/adf43518 1000 25000000 $C&
-/tmp/ramdisk/adf43519 1000 25000000 $C&
+/tmp/ramdisk/adf4351 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43512 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43513 1000 25000000 $C $T3 $T4&
+/tmp/ramdisk/adf43514 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43515 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43516 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43517 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43518 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2&
 
 
 
@@ -59,6 +81,6 @@ echo "......................NORMAL MODE......................$D"
 
 
 echo "C is " $C
-sleep $(($RANDOM % 3 + 1))
+sleep $(($RANDOM % 5 + 1))
 done
 
