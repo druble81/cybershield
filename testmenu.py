@@ -120,7 +120,7 @@ class AddProgramWindow(tk.Toplevel):
         tk.Label(self, text="Program Name:", font=FONT_STYLE).grid(row=0, column=0, sticky="w", padx=5, pady=5)
         self.name_entry = tk.Entry(self, font=FONT_STYLE)
         self.name_entry.grid(row=0, column=1, sticky="ew", padx=5, pady=5, columnspan=3)
-        self.loop_var = tk.BooleanVar()
+        self.loop_var = tk.BooleanVar(value=True)
         tk.Checkbutton(self, text="Loop Program", variable=self.loop_var, font=FONT_STYLE).grid(row=0, column=4, sticky="w", padx=5, pady=5)
 
         self.available_listbox = tk.Listbox(self, font=FONT_STYLE, selectmode=tk.SINGLE, height=22)
@@ -511,3 +511,4 @@ class ProgramManager(tk.Tk):
 if __name__ == "__main__":
     app = ProgramManager()
     app.mainloop()
+
