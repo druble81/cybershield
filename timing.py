@@ -1,6 +1,7 @@
-#!/usr/bin/env python3
+ #!/usr/bin/env python3
 import tkinter as tk
 import os
+import random
 
 FILE_PATH = "/home/pi/Desktop/nvalues.txt"
 DEFAULT_T1 = 140
@@ -38,12 +39,25 @@ def inc_entry(entry, step):
     entry.delete(0, tk.END)
     entry.insert(0, str(val))
 
+def set_random_defaults():
+    """Set T1 and T2 to random defaults and save"""
+    t1 = random.randint(40, 80)
+    t2 = random.randint(40, 65)
+    entry_t1.delete(0, tk.END)
+    entry_t2.delete(0, tk.END)
+    entry_t1.insert(0, str(t1))
+    entry_t2.insert(0, str(t2))
+
+    # Save immediately
+    with open(FILE_PATH, "w") as f:
+        f.write(f"{t1} {t2}\n")
+
 # GUI setup
 root = tk.Tk()
 root.title("Pick T1 and T2")
 
 # Center window
-win_w, win_h = 400, 400
+win_w, win_h = 400, 450
 screen_w = root.winfo_screenwidth()
 screen_h = root.winfo_screenheight()
 pos_x = int((screen_w / 2) - (win_w / 2))
@@ -96,9 +110,18 @@ entry_t1 = make_spinbox(root, "T1", start_t1)
 # T2 control
 entry_t2 = make_spinbox(root, "T2", start_t2)
 
+# Buttons frame
+btn_frame_main = tk.Frame(root)
+btn_frame_main.pack(pady=20)
+
 # Submit button
-submit_btn = tk.Button(root, text="Submit", command=pick_values,
-                       font=("Arial", 14), width=12, height=2)
-submit_btn.pack(pady=20)
+submit_btn = tk.Button(btn_frame_main, text="Submit", command=pick_values,
+                       font=("Arial", 14), width=10, height=2)
+submit_btn.pack(side=tk.LEFT, padx=10)
+
+# Default random button
+default_btn = tk.Button(btn_frame_main, text="Default", command=set_random_defaults,
+                        font=("Arial", 14), width=10, height=2, bg="#ddd")
+default_btn.pack(side=tk.LEFT, padx=10)
 
 root.mainloop()
