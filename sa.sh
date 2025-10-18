@@ -24,21 +24,21 @@ T4=$((T2*2))
 FILE="/home/pi/Desktop/10values.txt"
 
 # Default values
-DEFAULT_T1=140
-DEFAULT_T2=65
+DEFAULT_T3=140
+DEFAULT_T4=65
 
 # Check if file exists and load values, otherwise use defaults
 if [[ -f "$FILE" ]]; then
     # Read first two values from the file
     read T5 T6 < "$FILE"
 else
-    T5=$DEFAULT_T1
-    T6=$DEFAULT_T2
+    T5=$DEFAULT_T3
+    T6=$DEFAULT_T4
 fi
 
 
-T7=$((T5*2))
-T8=$((T6*2))
+T7=$((T1*2))
+T8=$((T2*2))
 
 
 cd /tmp/ramdisk
@@ -84,7 +84,7 @@ B=800
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $T1 $T2&
 /tmp/ramdisk/adf43512 1000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf43513 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43513 1000 25000000 $C $T3 $T4&
 /tmp/ramdisk/adf43514 1000 25000000 $C $T1 $T2&
 /tmp/ramdisk/adf43515 1000 25000000 $C $T1 $T2&
 /tmp/ramdisk/adf43516 1000 25000000 $C $T1 $T2&
