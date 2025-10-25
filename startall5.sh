@@ -3,10 +3,10 @@ cd /home/pi/Desktop/testmodules
 
 echo sleep
 
-BB=500
-BB1=841
-BB2=1572
-BB3=1593
+BB=85
+BB1=110
+BB2=300
+BB3=900
 
 FILE="/home/pi/Desktop/power.txt"
 

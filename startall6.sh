@@ -35,12 +35,12 @@ fi
 
 
 
-two=320
-one=85
+two=99
+one=95
 
 
-#while :
-#do
+while :
+do
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
 
@@ -59,9 +59,9 @@ BB2=$(($BB))
 BB3=$(($BB))
 
 
-hz1=20
-hz2=19
-hz3=21
+hz1=7
+hz2=11
+hz3=15
 hz4=19
 
 #echo $BB1.$offset
@@ -97,6 +97,6 @@ BB44=$(($RANDOM%3+1))
 ####################10001
 
 #10000 - 100001 = 1hz#
-sleep 0.$BB44
+sleep $(($RANDOM%5+1))
 
-#done
+done
