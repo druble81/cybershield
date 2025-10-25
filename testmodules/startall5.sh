@@ -8,17 +8,29 @@ RANDOM=$SEED
 
 
 
-two=320
-one=85
+two=100
+one=90
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
+
+
+FILE="/home/pi/Desktop/power.txt"
+
+if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
+    C=$(<"$FILE")
+else
+    # Default to 2 if file not found
+    C=2
+fi
+
+echo "C is set to: $C"
+
 
 while :
 do
 
 
-
-C=2
 
 offset=500000
 
@@ -31,10 +43,10 @@ BB2=$(($BB))
 BB3=$(($BB))
 
 
-hz1=$(($RANDOM%3+9))
+hz1=1
 hz2=2
-hz3=2
-hz4=2
+hz3=1
+hz4=1
 
 
 #echo $BB1.$offset
@@ -49,24 +61,23 @@ hz4=2
 
 ####################10000
 
-#./adf43515 $BB2.$offset 25000000 $C&
-#./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
+./adf43515 $BB2.$offset 25000000 $C&
+./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
 #echo ./adf43516 $BB".210001" 25000000 $C&
 ##210001
 
-#./adf43517 $BB3.$(($offset+$hz4)) 25000000 $C&
-#./adf43518 $BB3.$offset 25000000 $C
+./adf43517 $BB3.$(($offset+$hz4)) 25000000 $C&
+./adf43518 $BB3.$offset 25000000 $C
 ##200003
-#./adf4351 $BB.$offset 25000000 $C&
-#./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
+./adf4351 $BB.$offset 25000000 $C&
+./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
 ##100000
 sleep 0.1
-./adf43512 off
-./adf4351 off
+
 ####################10001
 
 #10000 - 100001 = 1hz#
-sleep 0.05
+sleep $(($RANDOM%5+1))
 
 done
 
