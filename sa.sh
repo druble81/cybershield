@@ -18,7 +18,7 @@ fi
 
 
 T3=$((T1*2))
-T4=$((T2*2))
+T4=$((T2*3))
 
 # Path to the file
 FILE="/home/pi/Desktop/10values.txt"
@@ -37,8 +37,8 @@ else
 fi
 
 
-T7=$((T1*2))
-T8=$((T2*2))
+T7=$((T5*2))
+T8=$((T6*2))
 
 
 cd /tmp/ramdisk

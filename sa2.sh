@@ -19,7 +19,7 @@ fi
 
 
 T3=$((T1*2))
-T4=$((T2*2))
+T4=$((T2*3))
 
 # Path to the file
 FILE="/home/pi/Desktop/10values.txt"
