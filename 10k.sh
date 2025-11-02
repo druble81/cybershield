@@ -37,7 +37,8 @@ else
     T2=$DEFAULT_T2
 fi
 
-
+T3=$((T1*2))
+T4=$((T2*3))
 
 D=$(($RANDOM % 30 + 1))
 

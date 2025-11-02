@@ -71,10 +71,10 @@ BB2=$(($BB+1))
 BB3=$(($BB-1))
 
 
-hz1=5
-hz2=5
-hz3=5
-hz4=5
+hz1=$(($RANDOM % 2 + 4))
+hz2=$(($RANDOM % 2 + 4))
+hz3=$(($RANDOM % 2 + 4))
+hz4=$(($RANDOM % 2 + 4))
 
 #echo $BB1.$offset
 #echo $BB1.$(($offset+$hz1))
@@ -108,5 +108,5 @@ BB44=$(($RANDOM%3+1))
 
 ####################10001
 #10000 - 100001 = 1hz#
-sleep $(($RANDOM % 2 + 1))
+sleep $(($RANDOM % 2)).$(($RANDOM % 10))
 done
