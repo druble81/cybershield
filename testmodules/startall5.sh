@@ -8,7 +8,7 @@ RANDOM=$SEED
 
 
 
-two=100
+two=500
 one=90
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
@@ -36,7 +36,7 @@ offset=500000
 
 #echo $offset
 
-
+BB=$(($RANDOM%$(($two-$one)) + $one))
 
 BB1=$(($BB))
 BB2=$(($BB))
