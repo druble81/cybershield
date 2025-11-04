@@ -35,8 +35,8 @@ fi
 
 
 
-two=99
-one=95
+two=150
+one=430
 
 
 while :

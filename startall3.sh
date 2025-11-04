@@ -32,7 +32,7 @@ do
 echo "PFC"
 
 
-sleep 5
+sleep 10
 
 
 
