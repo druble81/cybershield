@@ -1,13 +1,13 @@
 #!/bin/bash
 
 
-cd /home/pi/Desktop
 
 
 RANDOM=$$
 
 while :
 do
+cd /home/pi/Desktop
 #RANDOM=$$
 sudo pkill -f sa2.sh
 sudo pkill -f sa.sh
