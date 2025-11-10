@@ -185,7 +185,7 @@ fi
 echo "......................Full Coverage MODE......................"
 
 
-sleep $(($RANDOM % 2)).$(($RANDOM % 10))
+sleep 1.$(($RANDOM % 4))
 
 
 done
