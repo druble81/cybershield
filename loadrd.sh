@@ -1,6 +1,7 @@
 #!/bin/bash
     if [ -f /tmp/ramdisk/adf4351 ]; then
-        sudo /home/pi/Desktop/loadrd $1 $2
+        sudo /home/pi/Desktop/loadrd $1 $2 1
+	#$(($RANDOM % 5 + 1))
         exit
     fi
 

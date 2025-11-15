@@ -117,6 +117,6 @@ BB44=$(($RANDOM%3+1))
 
 ####################10001
 #10000 - 100001 = 1hz#
-sleep $(($RANDOM % 2)).$(($RANDOM % 10))
+sleep $(($RANDOM % 4)).$(($RANDOM % 10))
 
 done
