@@ -61,14 +61,14 @@ fi
 
 
 # --- Define your three sets of numbers ---
-set1_t1=(300 400 500)
-set1_t2=(600 800 1000)
+set1_t1=($(($RANDOM % 100 + 200)) $(($RANDOM % 100 + 400)) $(($RANDOM % 100 + 500)))
+set1_t2=($(($RANDOM % 100 + 200)) $(($RANDOM % 500 + 500)) $(($RANDOM % 1000 + 1000)))
 
-set2_t1=(40 50 90)
-set2_t2=(80 100 120)
+set2_t1=($(($RANDOM % 40 + 40)) $(($RANDOM % 75 + 75)) $(($RANDOM % 100 + 100)))
+set2_t2=($(($RANDOM % 50 + 120)) $(($RANDOM % 120 + 150)) $(($RANDOM % 100 + 200)))
 
-set3_t1=(100 200 300)
-set3_t2=(200 400 1000)
+set3_t1=($(($RANDOM % 1000 + 500)) $(($RANDOM % 5000 + 10000)) $(($RANDOM % 50000 + 100000)))
+set4_t2=($(($RANDOM % 500 + 1000)) $(($RANDOM % 2500 + 20000)) $(($RANDOM % 100000 + 200000)))
 
 # Put all sets into arrays of arrays
 all_t1=(set1_t1[@] set2_t1[@] set3_t1[@])
@@ -91,8 +91,8 @@ while true; do
 
         # --- Your logic here ---
 
-T3=$((T1*5))
-T4=$((T2*4))
+T3=$((T1*3))
+T4=$((T2*3))
 T5=$((T1))
 T6=$((T2))
 T7=$((T1*2))
@@ -103,16 +103,12 @@ A=1
 echo $A
 
 
-
 ##if [[ $A -gt 0 ]]
 ##then
 
 
 
-
 echo "Normal Burst" 
-A=1600
-B=800
 
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $T1 $T2&
@@ -138,9 +134,6 @@ sleep 1
 
 sudo pkill -f adf4351
 
-
-B=25000
-A=8264
 
 echo "10k" 
 /tmp/ramdisk/adf43512s 3000 25000000 $C $T5 $T6&
@@ -171,8 +164,16 @@ cycle_count=$((cycle_count+1))
 echo cycle count $cycle_count
 
         # After 10 cycles, move to the next set
-        if (( cycle_count >= $(($RANDOM % 7 + 7)) )); then
+        if (( cycle_count >= $(($RANDOM % 7 + 3)) )); then
             set_index=$(( (set_index + 1) % 3 ))
+            set1_t1=($(($RANDOM % 100 + 200)) $(($RANDOM % 100 + 400)) $(($RANDOM % 100 + 500)))
+set1_t2=($(($RANDOM % 100 + 200)) $(($RANDOM % 500 + 500)) $(($RANDOM % 1000 + 1000)))
+
+set2_t1=($(($RANDOM % 40 + 40)) $(($RANDOM % 75 + 75)) $(($RANDOM % 100 + 100)))
+set2_t2=($(($RANDOM % 50 + 120)) $(($RANDOM % 120 + 150)) $(($RANDOM % 100 + 200)))
+
+set3_t1=($(($RANDOM % 1000 + 500)) $(($RANDOM % 5000 + 10000)) $(($RANDOM % 50000 + 100000)))
+set4_t2=($(($RANDOM % 500 + 1000)) $(($RANDOM % 2500 + 20000)) $(($RANDOM % 100000 + 200000)))
             echo "---- Switching to set $((set_index+1)) ----"
 		cycle_count=0
         fi
