@@ -34,7 +34,7 @@ do
 
 offset=500000
 
-#echo $offset
+
 
 BB=$(($RANDOM%$(($two-$one)) + $one))
 
@@ -46,7 +46,7 @@ BB3=$(($BB))
 hz1=1
 hz2=2
 hz3=1
-hz4=1
+hz4=3
 
 
 #echo $BB1.$offset
@@ -55,19 +55,19 @@ hz4=1
 
 
 
-./adf43513 $BB1.$(($offset+$hz2)) 25000000 $C&
-./adf43514 $BB1.$offset 25000000 $C&
+./adf43513 $BB.$(($offset+$hz2)) 25000000 $C&
+./adf43514 $BB.$offset 25000000 $C&
 ##110000
 
 ####################10000
 
-./adf43515 $BB2.$offset 25000000 $C&
-./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
+./adf43515 $BB.$offset 25000000 $C&
+./adf43516 $BB.$(($offset+$hz3))25000000 $C&
 #echo ./adf43516 $BB".210001" 25000000 $C&
 ##210001
 
-./adf43517 $BB3.$(($offset+$hz4)) 25000000 $C&
-./adf43518 $BB3.$offset 25000000 $C
+./adf43517 $BB.$(($offset+$hz4)) 25000000 $C&
+./adf43518 $BB.$offset 25000000 $C
 ##200003
 ./adf4351 $BB.$offset 25000000 $C&
 ./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
