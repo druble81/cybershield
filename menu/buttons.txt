@@ -20,3 +20,4 @@ New Lock Screen |python3 /home/pi/Desktop/lock.py
 Reboot|sudo reboot
 Normal Timing|python3 /home/pi/Desktop/timing.py
 10k timing|python3 /home/pi/Desktop/timing10.py
+Special Burst|bash /home/pi/Desktop/sa11.sh&
