@@ -4,11 +4,8 @@ echo QUAD H.
 
 # Function to load and shuffle numbers into an array
 load_and_shuffle_array() {
-    # Use 'shuf' to randomly shuffle lines before storing them
     mapfile -t numbers < <(grep -v '^[[:space:]]*$' /tmp/ramdisk/SG3.TXT | shuf)
-    # Track the size of the array
     size=${#numbers[@]}
-    # Start index back at 0
     index=0
 }
 
@@ -18,109 +15,52 @@ load_and_shuffle_array
 SEED=$(od -An -N2 -i /dev/urandom)
 RANDOM=$SEED
 
-
-mapfile -t numbers < <(grep -v '^[[:space:]]*$' /tmp/ramdisk/SG3.TXT | shuf)
-index=0
-size=$((${#numbers[@]}-2))
 FILE="/home/pi/Desktop/power.txt"
-
 if [[ -f "$FILE" ]]; then
-    # Read the value from the file into C
     C=$(<"$FILE")
 else
-    # Default to 2 if file not found
     C=2
 fi
 
-
-
-while :
-do
-
-    # Increment the index
-    ((index++))
-
-    # If we've reached the end, reshuffle
-    if [ "$index" -ge "$size" ]; then
-        load_and_shuffle_array
-    fi
-
-
-
-
-#BB=$(($RANDOM%$(($2-$1)) + $1))
-
-
-
-
 offset=100000
-#echo $offset
-
-#echo $offset
-
-
-
-BB=${numbers[$index]}
-    # Increment the index
-    ((index++))
-
-    # If we've reached the end, reshuffle
-    if [ "$index" -ge "$size" ]; then
-        load_and_shuffle_array
-    fi
-BB1=$(($BB))
-BB2=$(($BB+1))
-BB3=$(($BB))
-echo "Random number selected: $BB"
-echo "Random number selected: $BB1"
-echo "Random number selected: $BB2"
-echo "Random number selected: $BB3"
-
-
 hz1=5
 hz2=6
 hz3=20
 hz4=130
 
-x=$((RANDOM % 2 + 1))
+while :
+do
+    # If index at end → reshuffle
+    if (( index >= size )); then
+        load_and_shuffle_array
+    fi
 
+    BB=${numbers[$index]}
 
-#echo $BB1.$offset
-#echo $BB1.$(($offset+$hz1))
-echo QUAD H.
+    BB1=$((BB))
+    BB2=$((BB+1))
+    BB3=$((BB))
 
+    echo "Random number selected: $BB"
+    echo "Random number selected: $BB1"
+    echo "Random number selected: $BB2"
+    echo "Random number selected: $BB3"
 
-BB44=$(($RANDOM%3+1))
+    echo QUAD H.
 
+    # ---- 8 MODULE COMMANDS ----
 
+    ./adf4351  $BB.$offset                  25000000 $C &
+    ./adf43512 $BB.$((offset+hz1))          25000000 $C &
+    ./adf43513 $BB1.$((offset+hz2))         25000000 $C &
+    ./adf43514 $BB1.$offset                 25000000 $C &
+    ./adf43515 $BB2.$offset                 25000000 $C &
+    ./adf43516 $BB2.$((offset+hz3))         25000000 $C &
+    ./adf43517 $BB3.$((offset+hz4))         25000000 $C &
+    ./adf43518 $BB3.$offset                 25000000 $C &
 
-#./adf43519 4130 25000000 $C
+    # sleep after each block
+    sleep 0.2
 
-
-./adf4351 $BB.$offset 25000000 $C&
-./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
-##100000
-
-./adf43513 $BB1.$(($offset+$hz2)) 25000000 $C&
-./adf43514 $BB1.$offset 25000000 $C&
-##110000
-
-####################10000
-
-./adf43515 $BB2.$offset 25000000 $C&
-./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
-#echo ./adf43516 $BB".210001" 25000000 $C&
-##210001
-
-./adf43517 $BB3.$(($offset+$hz4)) 25000000 $C&
-./adf43518 $BB3.$offset 25000000 $C
-##200003
-
-####################10001
-
-#10000 - 100001 = 1hz#
-#sleep $(($RANDOM % 2)).$(($RANDOM % 10))
-
+    ((index++))
 done
-
-
