@@ -3,15 +3,12 @@ cd /home/pi/Desktop/testmodules
 
 echo sleep 5
 
-SEED=$(od -An -N2 -i /dev/urandom)
-RANDOM=$SEED
-
 
 
 two=500
 one=90
 
-BB=$(($RANDOM%$(($two-$one)) + $one))
+BB=$(($RANDOM%$(($two-$one+1)) + $one))
 
 
 FILE="/home/pi/Desktop/power.txt"
@@ -30,13 +27,11 @@ echo "C is set to: $C"
 while :
 do
 
-
-
-offset=500000
+offset=$((RANDOM % (990000 - 100000 + 1) + 100000))
 
 
 
-BB=$(($RANDOM%$(($two-$one)) + $one))
+BB=$(($RANDOM%$(($two-$one+1)) + $one))
 
 BB1=$(($BB))
 BB2=$(($BB))
@@ -48,35 +43,15 @@ hz2=2
 hz3=1
 hz4=3
 
-
-#echo $BB1.$offset
-#echo $BB1.$(($offset+$hz1))
-
-
-
-
 ./adf43513 $BB.$(($offset+$hz2)) 25000000 $C&
 ./adf43514 $BB.$offset 25000000 $C&
-##110000
-
-####################10000
-
 ./adf43515 $BB.$offset 25000000 $C&
-./adf43516 $BB.$(($offset+$hz3))25000000 $C&
-#echo ./adf43516 $BB".210001" 25000000 $C&
-##210001
-
+./adf43516 $BB.$(($offset+$hz3)) 25000000 $C&
 ./adf43517 $BB.$(($offset+$hz4)) 25000000 $C&
-./adf43518 $BB.$offset 25000000 $C
-##200003
-./adf4351 $BB.$offset 25000000 $C&
+./adf43518 $BB.$offset 25000000 $C&
+./adf4351  $BB.$offset 25000000 $C&
 ./adf43512 $BB.$(($offset+$hz1)) 25000000 $C&
-##100000
-sleep 0.1
 
-####################10001
-
-#10000 - 100001 = 1hz#
 sleep $(($RANDOM%5+1))
 
 done
