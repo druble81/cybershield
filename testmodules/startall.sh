@@ -22,11 +22,11 @@ else
     C=2
 fi
 
-offset=100000
-hz1=5
-hz2=6
-hz3=20
-hz4=130
+offset = 0
+hz1="000005"
+hz2="000006"
+hz3="000020"
+hz4="000130"
 
 while :
 do
@@ -50,14 +50,14 @@ do
 
     # ---- 8 MODULE COMMANDS ----
 
-    ./adf4351  $BB.$offset                  25000000 $C &
-    ./adf43512 $BB.$((offset+hz1))          25000000 $C &
-    ./adf43513 $BB1.$((offset+hz2))         25000000 $C &
-    ./adf43514 $BB1.$offset                 25000000 $C &
-    ./adf43515 $BB2.$offset                 25000000 $C &
-    ./adf43516 $BB2.$((offset+hz3))         25000000 $C &
-    ./adf43517 $BB3.$((offset+hz4))         25000000 $C &
-    ./adf43518 $BB3.$offset                 25000000 $C &
+    ./adf4351  $BB                  25000000 $C &
+    ./adf43512 $BB.$hz1          25000000 $C &
+    ./adf43513 $BB1.$hz2         25000000 $C &
+    ./adf43514 $BB1                 25000000 $C &
+    ./adf43515 $BB2                 25000000 $C &
+    ./adf43516 $BB2.$hz3         25000000 $C &
+    ./adf43517 $BB3.$hz4         25000000 $C &
+    ./adf43518 $BB3                 25000000 $C &
 
     # sleep after each block
     sleep 0.2
