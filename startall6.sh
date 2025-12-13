@@ -40,7 +40,7 @@ hz2=11
 hz3=15
 hz4=19
 
-hz1=0
+hz1=10
 
 
 
@@ -62,7 +62,7 @@ BB3=$(($BB))
     hz1=$((hz1 + 10))
 
     # Stop or reset when reaching 660
-    if [ $hz1 -gt 1000 ]; then
+    if [ $hz1 -gt 660 ]; then
         hz1=0   # reset to 0, or you could break the loop instead
 	exit
     fi
