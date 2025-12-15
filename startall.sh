@@ -28,7 +28,7 @@ T4=$((T2*4))
 
 
 /tmp/ramdisk/adf43513 1000 25000000 0 $T1 $T2&
-#sudo pkill -f "adf4351[0-9]*"
+sudo pkill -f "adf4351[0-9]*"
 
 FILE="/home/pi/Desktop/power.txt"
 
@@ -82,6 +82,17 @@ echo "......................NORMAL MODE......................$D"
 
 
 echo "C is " $C
-sleep $(($RANDOM % 5 + 1))
+sleep $(($RANDOM % 30 + 30))
+sudo pkill -f "adf4351[0-9]*"
+
+/tmp/ramdisk/adf4351 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43512 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43513 1000 25000000 $C $T3 $T4&
+/tmp/ramdisk/adf43514 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43515 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43516 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43517 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43518 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2&
 done
 
