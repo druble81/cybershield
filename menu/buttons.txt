@@ -1,4 +1,4 @@
-Update|lxterminal -e /home/pi/Desktop/update_gui&
+Update|python3 /home/pi/Desktop/testupdate.py&
 Power Level|/home/pi/Desktop/powertest
 Primary Scan|lxterminal -e bash /home/pi/Desktop/testscan.sh 25&
 Special Primary 1|bash /home/pi/Desktop/loadrd2.sh&
