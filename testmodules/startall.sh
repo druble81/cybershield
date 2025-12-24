@@ -28,6 +28,8 @@ hz2="000006"
 hz3="000020"
 hz4="000130"
 
+echo QUAD H.
+
 while :
 do
     # If index at end → reshuffle
@@ -41,12 +43,12 @@ do
     BB2=$((BB+1))
     BB3=$((BB))
 
-    echo "Random number selected: $BB"
-    echo "Random number selected: $BB1"
-    echo "Random number selected: $BB2"
-    echo "Random number selected: $BB3"
+    #echo "Random number selected: $BB"
+    #echo "Random number selected: $BB1"
+    #echo "Random number selected: $BB2"
+    #echo "Random number selected: $BB3"
 
-    echo QUAD H.
+    
 
     # ---- 8 MODULE COMMANDS ----
 
@@ -60,7 +62,7 @@ do
     ./adf43518 $BB3                 25000000 $C &
 
     # sleep after each block
-    sleep 0.2
+    sleep 0.00005
 
     ((index++))
 done
