@@ -39,8 +39,6 @@ echo  **********----------ANTI PTSD RUNNING----------**********
 echo  **********----------ANTI PTSD RUNNING----------**********
 echo  **********----------ANTI PTSD RUNNING----------**********
 
-SEED=$(od -An -N2 -i /dev/urandom)
-RANDOM=$SEED
 
 #!/bin/bash
 
@@ -107,7 +105,7 @@ BB44=$(($RANDOM%3+1))
 ####################10000
 
 ./adf43515 $BB2.$offset 25000000 $C&
-./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
+./adf43516 $BB2.$(($offset+$hz3)) 25000000 $C&
 #echo ./adf43516 $BB".210001" 25000000 $C&
 ##210001
 

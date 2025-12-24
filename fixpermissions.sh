@@ -22,6 +22,7 @@ sudo chmod +x lock.py
 sudo chmod +x powertest
 sudo chmod +x timing.py
 sudo chmod +x timing10.py
+sudo chmod +x testupdate.py
 
 
 sudo chmod +x ramdisk.sh
