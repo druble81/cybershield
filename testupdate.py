@@ -12,6 +12,9 @@ import json
 import threading
 import subprocess
 
+import os
+os.chdir("/tmp")
+
 # ================= CONFIG =================
 OWNER = "druble81"
 REPO = "cybershield"
