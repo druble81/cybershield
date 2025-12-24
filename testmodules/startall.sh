@@ -23,7 +23,7 @@ else
 fi
 
 
-hz1="000005"
+hz1="007000"
 hz2="000006"
 hz3="000020"
 hz4="000130"
@@ -62,7 +62,7 @@ do
     ./adf43518 $BB3                 25000000 $C &
 
     # sleep after each block
-    sleep 0.00005
+    sleep 0.00000$((RANDOM % 9+ 1))
 
     ((index++))
 done
