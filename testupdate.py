@@ -179,7 +179,7 @@ class UpdaterGUI(Gtk.Window):
     def run_post_install(self):
         commands = [
             "sudo bash /home/pi/Desktop/fixpermissions.sh",
-            "[ -f /home/pi/VNC.done ] || (sudo dpkg -i VNC-Server-7.13.1-Linux-ARM.deb && touch /home/pi/VNC.done)",
+            "[ -f /home/pi/VNC.done ] || (sudo dpkg -i /home/pi/Desktop/VNC-Server-7.13.1-Linux-ARM.deb && touch /home/pi/VNC.done)",
             "[ -f /home/pi/ttf.done ] || (sudo apt-get update && sudo apt install libsdl2-ttf-dev -y && touch /home/pi/ttf.done)",
             "sudo chown -R pi:pi /home/pi/Desktop",
             "sudo reboot"
