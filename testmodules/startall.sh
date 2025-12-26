@@ -62,7 +62,7 @@ do
     ./adf43518 $BB3                 25000000 $C &
 
     # sleep after each block
-    sleep 0.00000$((RANDOM % 9+ 1))
+    sleep 0.000$((RANDOM % 9+ 1))$((RANDOM % 9+ 1))$((RANDOM % 9+ 1))
 
     ((index++))
 done

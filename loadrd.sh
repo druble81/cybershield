@@ -1,6 +1,6 @@
 #!/bin/bash
     if [ -f /tmp/ramdisk/adf4351 ]; then
-        sudo /home/pi/Desktop/loadrd $1 $2 1
+        sudo /home/pi/Desktop/loadrd $1 $2 3
 	#$(($RANDOM % 5 + 1))
         exit
     fi
@@ -125,6 +125,7 @@ A=$1
     # Output the result 
 
     B=$divisor
+    B=2
     echo "$B"
 
     rand_num=0
