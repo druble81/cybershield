@@ -2,18 +2,26 @@ cd /home/pi/Desktop/testmodules
 
 echo QUAD H.
 
-# Function to load and shuffle numbers into an array
-load_and_shuffle_array() {
-    mapfile -t numbers < <(grep -v '^[[:space:]]*$' /tmp/ramdisk/SG3.TXT | shuf)
-    size=${#numbers[@]}
-    index=0
-}
+# Read all numbers from SG3.TXT into array
+mapfile -t numbers < <(grep -Eo '[0-9]+' /tmp/ramdisk/SG3.TXT)
 
-# Initial load and shuffle
-load_and_shuffle_array
+# Validate
+if [ "${#numbers[@]}" -eq 0 ]; then
+    echo "No numbers found in /tmp/ramdisk/SG3.TXT"
+    exit 1
+fi
 
-SEED=$(od -An -N2 -i /dev/urandom)
-RANDOM=$SEED
+# ---- MIN / MAX FROM FILE (FIRST AND LAST) ----
+MIN_BB="${numbers[0]}"
+MAX_BB="${numbers[${#numbers[@]}-1]}"
+
+GROUP_STEP=10     # 100 MHz groups
+CURRENT_GROUP=$MIN_BB
+GROUP_DIR=1        # 1 = up, -1 = down
+
+GROUP_HOLD=20      # loops per group
+GROUP_COUNT=0
+
 
 FILE="/home/pi/Desktop/power.txt"
 if [[ -f "$FILE" ]]; then
@@ -32,12 +40,29 @@ echo QUAD H.
 
 while :
 do
-    # If index at end → reshuffle
-    if (( index >= size )); then
-        load_and_shuffle_array
-    fi
 
-    BB=${numbers[$index]}
+# ---- GROUP HOLD COUNTER ----
+GROUP_COUNT=$((GROUP_COUNT + 1))
+
+if (( GROUP_COUNT >= GROUP_HOLD )); then
+    GROUP_COUNT=0
+    CURRENT_GROUP=$((CURRENT_GROUP + GROUP_DIR * GROUP_STEP))
+
+    # Reverse direction at bounds
+    if (( CURRENT_GROUP >= MAX_BB )); then
+        CURRENT_GROUP=$MAX_BB
+        GROUP_DIR=-1
+    elif (( CURRENT_GROUP <= MIN_BB )); then
+        CURRENT_GROUP=$MIN_BB
+        GROUP_DIR=1
+    fi
+fi
+
+# ---- RANDOMIZE WITHIN CURRENT GROUP ----
+BB=$(( CURRENT_GROUP + RANDOM % GROUP_STEP ))
+
+echo "BB Group: $CURRENT_GROUP  |  BB: $BB"
+
 
     BB1=$((BB))
     BB2=$((BB+1))
@@ -62,7 +87,6 @@ do
     ./adf43518 $BB3                 25000000 $C &
 
     # sleep after each block
-    sleep 0.000$((RANDOM % 9+ 1))$((RANDOM % 9+ 1))$((RANDOM % 9+ 1))
+    sleep 0.00000$((RANDOM % 9+ 1))$((RANDOM % 9+ 1))$((RANDOM % 9+ 1))
 
-    ((index++))
-done
+   done
