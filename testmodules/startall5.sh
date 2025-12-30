@@ -15,7 +15,120 @@ FILE="/home/pi/Desktop/power.txt"
 
 if [[ -f "$FILE" ]]; then
     # Read the value from the file into C
-    C=$(<"$FILE")
+    C=$(<"$FILE")#!/bin/bash
+
+cd /home/pi/Desktop/testmodules
+
+# -------------------------------
+# USER TUNABLES
+# -------------------------------
+
+TARGET_HZ=1          # final beat frequency to converge to
+START_HZ=12          # starting beat frequency
+STEP_HZ=1            # ramp step
+DWELL_BASE=6         # base dwell seconds
+DWELL_VAR=4          # random additional dwell
+PHASE_STEP=3         # phase rotation increment (Hz offset)
+
+REFCLK=25000000
+POWER_FILE="/home/pi/Desktop/power.txt"
+SG3_FILE="/tmp/ramdisk/SG3.TXT"
+
+# -------------------------------
+# POWER LEVEL
+# -------------------------------
+
+if [[ -f "$POWER_FILE" ]]; then
+    C=$(<"$POWER_FILE")
+else
+    C=2
+fi
+
+# -------------------------------
+# RANGE FROM SG3
+# -------------------------------
+
+MIN=$(head -n 1 "$SG3_FILE")
+MAX=$(tail -n 1 "$SG3_FILE")
+
+echo "SG3 Range: $MIN to $MAX"
+echo "Power: $C"
+
+# -------------------------------
+# MODULE GROUPS
+# -------------------------------
+
+GROUP1=(adf43513 adf43514 adf43515 adf43516)
+GROUP2=(adf43517 adf43518 adf4351  adf43512)
+
+# -------------------------------
+# INITIAL VALUES
+# -------------------------------
+
+CURRENT_HZ=$START_HZ
+PHASE=0
+
+# -------------------------------
+# MAIN LOOP
+# -------------------------------
+
+while true; do
+
+    # Clamp current hz
+    if (( CURRENT_HZ < TARGET_HZ )); then
+        CURRENT_HZ=$TARGET_HZ
+    fi
+
+    # Random base carrier inside SG3 range
+    BB=$(($RANDOM % ($MAX - $MIN + 1) + $MIN))
+
+    # Base offset (kept stable)
+    OFFSET=$((RANDOM % 500000 + 200000))
+
+    echo "Carrier: $BB  Beat: $CURRENT_HZ Hz  Phase: $PHASE"
+
+    # ---------------------------
+    # GROUP 1
+    # ---------------------------
+    i=0
+    for MOD in "${GROUP1[@]}"; do
+        ./"$MOD" $BB.$((OFFSET + PHASE + i)) $REFCLK $C &
+        ((i+=CURRENT_HZ))
+    done
+
+    sleep 1
+
+    # ---------------------------
+    # GROUP 2 (phase rotated)
+    # ---------------------------
+    i=0
+    for MOD in "${GROUP2[@]}"; do
+        ./"$MOD" $BB.$((OFFSET + PHASE + PHASE_STEP + i)) $REFCLK $C &
+        ((i+=CURRENT_HZ))
+    done
+
+    # ---------------------------
+    # DWELL
+    # ---------------------------
+    sleep $((DWELL_BASE + RANDOM % DWELL_VAR))
+
+    # ---------------------------
+    # PHASE ROTATION
+    # ---------------------------
+    PHASE=$((PHASE + PHASE_STEP))
+    if (( PHASE > 20 )); then
+        PHASE=0
+    fi
+
+    # ---------------------------
+    # RAMP DOWN TOWARD TARGET
+    # ---------------------------
+    if (( CURRENT_HZ > TARGET_HZ )); then
+        CURRENT_HZ=$((CURRENT_HZ - STEP_HZ))
+    fi
+
+done
+
 else
     # Default to 2 if file not found
     C=2
