@@ -101,9 +101,9 @@ BB2=$(($BB+1))
 BB3=$(($BB-1))
 
 
-hz1=$(($RANDOM % 2 + 4))
-hz2=$(($RANDOM % 2 + 4))
-hz3=$(($RANDOM % 2 + 4))
+hz1=5
+hz2=3
+hz3=4
 hz4=$(($RANDOM % 2 + 4))
 
 #echo $BB1.$offset
