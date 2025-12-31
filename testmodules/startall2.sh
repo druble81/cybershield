@@ -18,16 +18,15 @@ else
 fi
 
 # ----------------------------------------
-# FIXED OFFSETS
+# FIXED OFFSETS (HETERODYNE MAGNITUDES)
 # ----------------------------------------
-hz1="008000"
-hz2="010000"
-hz3="009000"
-hz4="000380"
+hz1="00800"     # Layer 1
+hz2="010000"    # Layer 2
+hz3="009000"    # Layer 2
+hz4="000005"    # Layer 3 (collapse)
 
 # ----------------------------------------
 # RANGE DEFINITIONS
-# format: BASE WIDTH
 # ----------------------------------------
 RANGES=(
   "495 10"
@@ -40,25 +39,25 @@ RANGES=(
   "3400 200"
   "3800 200"
   "4000 195"
+  "4400 4200"
   "85 35"
 )
 
 # ----------------------------------------
-# SHUFFLE RANGES (fast global coverage)
+# SHUFFLE RANGES
 # ----------------------------------------
 shuffle_ranges() {
   mapfile -t SHUFFLED < <(printf "%s\n" "${RANGES[@]}" | shuf)
 }
 shuffle_ranges
-
 RANGE_INDEX=0
 
 # ----------------------------------------
 # PHASE-ROTATED BIN STEPPING
 # ----------------------------------------
-SUB_BINS=8            # number of bins per range
-BIN_INDEX=0           # stepping index
-PHASE=0               # rotating phase offset
+SUB_BINS=8
+BIN_INDEX=0
+PHASE=0
 
 while :
 do
@@ -71,7 +70,7 @@ do
     if (( RANGE_INDEX >= ${#SHUFFLED[@]} )); then
         RANGE_INDEX=0
         shuffle_ranges
-        PHASE=$(( (PHASE + 1) % SUB_BINS ))   # 🔄 phase rotation
+        PHASE=$(( (PHASE + 1) % SUB_BINS ))
     fi
 
     # ----------------------------
@@ -81,29 +80,45 @@ do
     BIN=$(( (BIN_INDEX + PHASE) % SUB_BINS ))
 
     BB=$(( BASE + BIN * BIN_WIDTH + RANDOM % BIN_WIDTH ))
-
     BIN_INDEX=$(( (BIN_INDEX + 1) % SUB_BINS ))
 
-    BB1=$BB
-    BB2=$BB
-    BB3=$BB
+    # ==================================================
+    # 🔗 HIERARCHICAL HETERODYNE CASCADE
+    # ==================================================
+
+    # ----- Layer 1 (2 → 4 freqs) -----
+    L1A="$BB.$hz1$((RANDOM % 2 + 1))"
+    L1B="$BB.$hz1$((RANDOM % 2 + 1))"
+
+    # ----- Layer 2 (4 → 2 freqs) -----
+    L2A="$BB.$hz2"
+    L2B="$BB.$hz3"
+
+    # ----- Layer 3 (2 → 1 collapse) -----
+    L3="$BB.$hz4"
 
     # ----------------------------
-    # TRANSMIT (UNCHANGED CALLS)
+    # TRANSMIT (CASCADED)
     # ----------------------------
-    ./adf4351  $BB        25000000 $C &
-    ./adf43512 $BB.$hz1   25000000 $C &
-    ./adf43513 $BB1.$hz2  25000000 $C &
-    ./adf43514 $BB1       25000000 $C &
-    ./adf43515 $BB2       25000000 $C &
-    ./adf43516 $BB2.$hz3  25000000 $C &
-    ./adf43517 $BB3.$hz4  25000000 $C &
-    ./adf43518 $BB3       25000000 $C
+    ./adf4351   $BB        25000000 $C &   # Primary
+
+    # Layer 1
+    ./adf43512  $L1A       25000000 $C &
+    ./adf43513  $L1B       25000000 $C &
+
+    # Layer 2
+    ./adf43514  $L2A       25000000 $C &
+    ./adf43515  $L2A       25000000 $C &
+    ./adf43516  $L2B       25000000 $C &
+    ./adf43517  $L2B       25000000 $C &
+
+    # Layer 3 (final convergence)
+    ./adf43518  $L3        25000000 $C
 
     # ----------------------------
-    # JITTERED DWELL (UNCHANGED)
+    # JITTERED DWELL
     # ----------------------------
-    sleep 0.0000$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
-echo V2K
+    sleep 0.00000$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
+    echo "V2K"
 
 done
