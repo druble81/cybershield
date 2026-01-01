@@ -17,8 +17,8 @@ else
 fi
 
 
-T3=$((T1*5))
-T4=$((T2*4))
+T3=$((T1*2))
+T4=$((T2*2))
 
 # Path to the file
 FILE="/home/pi/Desktop/10values.txt"
