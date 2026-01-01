@@ -21,6 +21,8 @@ echo  **********----------DLPFC RUNNING----------**********
 echo  **********----------DLPFC RUNNING----------**********
 echo  **********----------DLPFC RUNNING----------**********
 
+SEED=$(od -An -N2 -i /dev/urandom)
+RANDOM=$SEED
 # Read all non-empty lines (assumed to be numbers) into an array
 mapfile -t numbers < <(grep -Eo '[0-9]+' /tmp/ramdisk/SG3.TXT)
 
@@ -96,7 +98,7 @@ BB44=$(($RANDOM%3+1))
 
 ####################10000
 ./adf43515 $BB2.$offset 25000000 $C&
-./adf43516 $BB2.$(($offset+$hz3)) 25000000 $C&
+./adf43516 $BB2.$(($offset+$hz3))25000000 $C&
 #echo ./adf43516 $BB".210001" 25000000 $C&
 ##210001
 
@@ -106,5 +108,5 @@ BB44=$(($RANDOM%3+1))
 
 ####################10001
 #10000 - 100001 = 1hz#
-sleep 0.00000$(($RANDOM % 9))
+sleep $(($RANDOM % 2)).$(($RANDOM % 10))
 done
