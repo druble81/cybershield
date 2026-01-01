@@ -42,7 +42,7 @@ hz4=19
 
 hz1=10
 
-
+gethz=$(python3 /home/pi/Desktop/selecthz.py)
 
 while :
 do
@@ -59,10 +59,10 @@ BB3=$(($BB))
 
 
     # Increment hz1 by 10 each loop
-    hz1=$((hz1 + 10))
+    hz1=$((hz1 + 1))
 
     # Stop or reset when reaching 660
-    if [ $hz1 -gt 660 ]; then
+    if [ $hz1 -gt $gethz ]; then
         hz1=0   # reset to 0, or you could break the loop instead
 	exit
     fi
