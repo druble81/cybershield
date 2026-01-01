@@ -99,9 +99,9 @@ echo "BB Group: $CURRENT_GROUP  |  BB: $BB"
 
 offset=700000
 
-BB1=$(($BB-2))
+BB1=$(($BB+2))
 BB2=$(($BB+1))
-BB3=$(($BB-1))
+BB3=$(($BB+3))
 
 
 hz1=$(($RANDOM % 11 + 120))
@@ -142,6 +142,6 @@ BB44=$(($RANDOM%3+1))
 
 ####################10001
 #10000 - 100001 = 1hz#
-sleep 0.0$(($RANDOM % 9))$(($RANDOM % 9))$(($RANDOM % 9))
+sleep 0.0000$(($RANDOM % 9))$(($RANDOM % 9))$(($RANDOM % 9))
 
 done
