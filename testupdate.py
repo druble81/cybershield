@@ -11,6 +11,7 @@ import os
 import json
 import threading
 import subprocess
+import time
 
 os.chdir("/tmp")
 
@@ -27,16 +28,15 @@ TOKEN = os.getenv("github_pat_11AA7THIQ0aSOsSghqi6TD_ECyTg1KsOmgnC4P5wgJhRXE3MWI
 
 
 def get_extraction_root(zip_path):
-    with zipfile.ZipFile(zip_path, 'r') as z:
-        all_paths = z.namelist()
-        if not all_paths:
+    with zipfile.ZipFile(zip_path, "r") as z:
+        paths = z.namelist()
+        if not paths:
             raise RuntimeError("Zip archive is empty")
-        return os.path.commonpath(all_paths)
+        return os.path.commonpath(paths)
 
 
 # ---------------- Update Log ----------------
 def ensure_update_log_exists():
-    """Create updatelevel.json if it does not exist"""
     if not os.path.exists(UPDATE_LOG):
         data = {
             "tag": "none",
@@ -45,6 +45,8 @@ def ensure_update_log_exists():
         }
         with open(UPDATE_LOG, "w") as f:
             json.dump(data, f, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
 
 
 def load_update_log():
@@ -66,8 +68,11 @@ def save_update_log(release):
         "installed_at": GLib.DateTime.new_now_utc().format_iso8601(),
         "comments": release.get("body", "").strip()
     }
+
     with open(UPDATE_LOG, "w") as f:
         json.dump(data, f, indent=2)
+        f.flush()
+        os.fsync(f.fileno())
 
 
 class UpdaterGUI(Gtk.Window):
@@ -207,7 +212,12 @@ class UpdaterGUI(Gtk.Window):
             save_update_log(release)
             GLib.idle_add(self.update_installed_display)
 
+            self.set_status("Syncing filesystem…")
+            subprocess.run("sync", shell=True)
+            time.sleep(2)
+
             self.set_status("Update installed. Rebooting…")
+            subprocess.run("sudo reboot", shell=True)
 
         except Exception as e:
             self.set_status(f"Install failed: {e}")
@@ -239,8 +249,7 @@ class UpdaterGUI(Gtk.Window):
             "sudo bash /home/pi/Desktop/fixpermissions.sh",
             "[ -f /home/pi/VNC.done ] || (sudo dpkg -i /home/pi/Desktop/VNC-Server-7.13.1-Linux-ARM.deb && touch /home/pi/VNC.done)",
             "[ -f /home/pi/ttf.done ] || (sudo apt-get update && sudo apt install libsdl2-ttf-dev -y && touch /home/pi/ttf.done)",
-            "sudo chown -R pi:pi /home/pi/Desktop",
-            "sudo reboot"
+            "sudo chown -R pi:pi /home/pi/Desktop"
         ]
 
         for cmd in commands:
