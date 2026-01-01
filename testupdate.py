@@ -2,7 +2,7 @@
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, Pango
 
 import requests
 import zipfile
@@ -68,7 +68,6 @@ def save_update_log(release):
         "installed_at": GLib.DateTime.new_now_utc().format_iso8601(),
         "comments": release.get("body", "").strip()
     }
-
     with open(UPDATE_LOG, "w") as f:
         json.dump(data, f, indent=2)
         f.flush()
@@ -79,7 +78,7 @@ class UpdaterGUI(Gtk.Window):
     def __init__(self):
         super().__init__(title="CyberShield Updater")
         self.set_border_width(10)
-        self.set_default_size(520, 450)
+        self.set_default_size(700, 500)
 
         ensure_update_log_exists()
 
@@ -93,15 +92,29 @@ class UpdaterGUI(Gtk.Window):
         self.vbox.pack_start(self.installed_label, False, False, 0)
 
         # -------- Release list --------
-        self.liststore = Gtk.ListStore(str, str)
+        self.liststore = Gtk.ListStore(str, str, str)
         self.tree = Gtk.TreeView(model=self.liststore)
 
-        for i, title in enumerate(["Tag", "Published"]):
+        columns = [
+            ("Tag", 0, False, 120),
+            ("Published", 1, False, 160),
+            ("Comments", 2, True, 360),
+        ]
+
+        for title, idx, wrap, width in columns:
             renderer = Gtk.CellRendererText()
-            col = Gtk.TreeViewColumn(title, renderer, text=i)
+            if wrap:
+                renderer.set_property("wrap-mode", Pango.WrapMode.WORD_CHAR)
+                renderer.set_property("wrap-width", width)
+            col = Gtk.TreeViewColumn(title, renderer, text=idx)
+            col.set_resizable(True)
+            col.set_min_width(width)
             self.tree.append_column(col)
 
-        self.vbox.pack_start(self.tree, True, True, 0)
+        scroller = Gtk.ScrolledWindow()
+        scroller.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scroller.add(self.tree)
+        self.vbox.pack_start(scroller, True, True, 0)
 
         # -------- Status --------
         self.status = Gtk.Label(label="Idle")
@@ -129,7 +142,6 @@ class UpdaterGUI(Gtk.Window):
         headers = {"Accept": "application/vnd.github+json"}
         if TOKEN:
             headers["Authorization"] = f"Bearer {TOKEN}"
-
         r = requests.get(API_URL, headers=headers)
         r.raise_for_status()
         return r.json()
@@ -150,19 +162,17 @@ class UpdaterGUI(Gtk.Window):
     def populate_list(self):
         self.liststore.clear()
         for r in self.releases:
-            self.liststore.append([r["tag_name"], r["published_at"]])
+            self.liststore.append([
+                r["tag_name"],
+                r["published_at"],
+                (r.get("body") or "").strip()
+            ])
 
     def update_installed_display(self):
         log = load_update_log()
-
-        text = (
-            f"Installed: {log['tag']}\n"
-            f"Installed at: {log['installed_at']}"
-        )
-
+        text = f"Installed: {log['tag']}\nInstalled at: {log['installed_at']}"
         if log.get("comments"):
             text += f"\n\nRelease notes:\n{log['comments']}"
-
         self.installed_label.set_text(text)
 
     # ---------------- INSTALL ----------------
@@ -212,11 +222,8 @@ class UpdaterGUI(Gtk.Window):
             save_update_log(release)
             GLib.idle_add(self.update_installed_display)
 
-            self.set_status("Syncing filesystem…")
             subprocess.run("sync", shell=True)
             time.sleep(2)
-
-            self.set_status("Update installed. Rebooting…")
             subprocess.run("sudo reboot", shell=True)
 
         except Exception as e:
@@ -227,7 +234,6 @@ class UpdaterGUI(Gtk.Window):
         headers = {}
         if TOKEN:
             headers["Authorization"] = f"Bearer {TOKEN}"
-
         with requests.get(url, headers=headers, stream=True) as r:
             r.raise_for_status()
             with open(dest, "wb") as f:
@@ -251,7 +257,6 @@ class UpdaterGUI(Gtk.Window):
             "[ -f /home/pi/ttf.done ] || (sudo apt-get update && sudo apt install libsdl2-ttf-dev -y && touch /home/pi/ttf.done)",
             "sudo chown -R pi:pi /home/pi/Desktop"
         ]
-
         for cmd in commands:
             self.set_status(f"Running: {cmd}")
             subprocess.run(cmd, shell=True, check=True)
