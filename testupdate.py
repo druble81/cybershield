@@ -12,7 +12,6 @@ import json
 import threading
 import subprocess
 
-import os
 os.chdir("/tmp")
 
 # ================= CONFIG =================
@@ -20,6 +19,8 @@ OWNER = "druble81"
 REPO = "cybershield"
 INSTALL_DIR = "/home/pi/Desktop"
 TMP_DIR = "/tmp"
+UPDATE_LOG = "/home/pi/Desktop/updatelevel.json"
+
 API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/releases"
 TOKEN = os.getenv("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")
 # ==========================================
@@ -30,21 +31,63 @@ def get_extraction_root(zip_path):
         all_paths = z.namelist()
         if not all_paths:
             raise RuntimeError("Zip archive is empty")
-        root = os.path.commonpath(all_paths)
-        if not root:
-            raise RuntimeError("No single root folder in archive")
-        return root
+        return os.path.commonpath(all_paths)
+
+
+# ---------------- Update Log ----------------
+def ensure_update_log_exists():
+    """Create updatelevel.json if it does not exist"""
+    if not os.path.exists(UPDATE_LOG):
+        data = {
+            "tag": "none",
+            "installed_at": "never",
+            "comments": ""
+        }
+        with open(UPDATE_LOG, "w") as f:
+            json.dump(data, f, indent=2)
+
+
+def load_update_log():
+    ensure_update_log_exists()
+    try:
+        with open(UPDATE_LOG, "r") as f:
+            return json.load(f)
+    except Exception:
+        return {
+            "tag": "unknown",
+            "installed_at": "unknown",
+            "comments": ""
+        }
+
+
+def save_update_log(release):
+    data = {
+        "tag": release.get("tag_name"),
+        "installed_at": GLib.DateTime.new_now_utc().format_iso8601(),
+        "comments": release.get("body", "").strip()
+    }
+    with open(UPDATE_LOG, "w") as f:
+        json.dump(data, f, indent=2)
 
 
 class UpdaterGUI(Gtk.Window):
     def __init__(self):
         super().__init__(title="CyberShield Updater")
         self.set_border_width(10)
-        self.set_default_size(500, 400)
+        self.set_default_size(520, 450)
+
+        ensure_update_log_exists()
 
         self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.add(self.vbox)
 
+        # -------- Installed info --------
+        self.installed_label = Gtk.Label()
+        self.installed_label.set_xalign(0)
+        self.installed_label.set_line_wrap(True)
+        self.vbox.pack_start(self.installed_label, False, False, 0)
+
+        # -------- Release list --------
         self.liststore = Gtk.ListStore(str, str)
         self.tree = Gtk.TreeView(model=self.liststore)
 
@@ -55,9 +98,12 @@ class UpdaterGUI(Gtk.Window):
 
         self.vbox.pack_start(self.tree, True, True, 0)
 
+        # -------- Status --------
         self.status = Gtk.Label(label="Idle")
+        self.status.set_xalign(0)
         self.vbox.pack_start(self.status, False, False, 0)
 
+        # -------- Buttons --------
         btn_box = Gtk.Box(spacing=6)
         self.vbox.pack_start(btn_box, False, False, 0)
 
@@ -70,6 +116,7 @@ class UpdaterGUI(Gtk.Window):
         btn_box.pack_start(self.install_btn, True, True, 0)
 
         self.releases = []
+        self.update_installed_display()
         self.refresh(None)
 
     # ---------------- GitHub ----------------
@@ -80,12 +127,7 @@ class UpdaterGUI(Gtk.Window):
 
         r = requests.get(API_URL, headers=headers)
         r.raise_for_status()
-        data = r.json()
-
-        with open("current.json", "w") as f:
-            json.dump(data, f, indent=2)
-
-        return data
+        return r.json()
 
     # ---------------- GUI ----------------
     def refresh(self, _):
@@ -104,6 +146,19 @@ class UpdaterGUI(Gtk.Window):
         self.liststore.clear()
         for r in self.releases:
             self.liststore.append([r["tag_name"], r["published_at"]])
+
+    def update_installed_display(self):
+        log = load_update_log()
+
+        text = (
+            f"Installed: {log['tag']}\n"
+            f"Installed at: {log['installed_at']}"
+        )
+
+        if log.get("comments"):
+            text += f"\n\nRelease notes:\n{log['comments']}"
+
+        self.installed_label.set_text(text)
 
     # ---------------- INSTALL ----------------
     def install_selected(self, _):
@@ -148,6 +203,9 @@ class UpdaterGUI(Gtk.Window):
 
             self.set_status("Running post-install steps…")
             self.run_post_install()
+
+            save_update_log(release)
+            GLib.idle_add(self.update_installed_display)
 
             self.set_status("Update installed. Rebooting…")
 
