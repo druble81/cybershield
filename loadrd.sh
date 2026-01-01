@@ -125,7 +125,6 @@ A=$1
     # Output the result 
 
     B=$divisor
-    B=2
     echo "$B"
 
     rand_num=0

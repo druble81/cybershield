@@ -17,8 +17,8 @@ else
 fi
 
 
-T3=$((T1*2))
-T4=$((T2*2))
+T3=$((T1*5))
+T4=$((T2*4))
 
 # Path to the file
 FILE="/home/pi/Desktop/10values.txt"
@@ -96,7 +96,8 @@ echo "......................N BURST MODE......................"
 echo "......................N BURST MODE......................"
 
 #sleep 1.$(($RANDOM % 3))
-sleep 1
+sleep 0.25
+
 sudo pkill -f adf4351
 
 
@@ -119,7 +120,7 @@ echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 
 #sleep 1.$(($RANDOM % 3))
-sleep 1
+sleep 0.25
 
 sudo pkill -f adf4351
 

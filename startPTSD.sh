@@ -14,6 +14,7 @@ fi
 echo "C is set to: $C"
 
 
+
 cd /home/pi/Desktop/testmodules
 
 clear
@@ -41,28 +42,20 @@ echo  **********----------ANTI PTSD RUNNING----------**********
 
 #!/bin/bash
 
-
-# Read all numbers from SG3.TXT into array
+# Read all non-empty lines (assumed to be numbers) into an array
 mapfile -t numbers < <(grep -Eo '[0-9]+' /tmp/ramdisk/SG3.TXT)
 
-# Validate
+# Check if the array has at least one number
 if [ "${#numbers[@]}" -eq 0 ]; then
     echo "No numbers found in /tmp/ramdisk/SG3.TXT"
     exit 1
 fi
 
-# ---- MIN / MAX FROM FILE (FIRST AND LAST) ----
-MIN_BB="${numbers[0]}"
-MAX_BB="${numbers[${#numbers[@]}-1]}"
+# Randomly pick a number and assign to BB
+BB="${numbers[$RANDOM % ${#numbers[@]}]}"
 
-GROUP_STEP=25     # 100 MHz groups
-CURRENT_GROUP=$MIN_BB
-GROUP_DIR=1        # 1 = up, -1 = down
-
-GROUP_HOLD=25      # loops per group
-GROUP_COUNT=0
-
-
+# (Optional) Echo it to verify
+#echo "Random number selected: $BB"
 
 
 
@@ -73,41 +66,21 @@ one=998
 while :
 do
 
-
-# ---- GROUP HOLD COUNTER ----
-GROUP_COUNT=$((GROUP_COUNT + 1))
-
-if (( GROUP_COUNT >= GROUP_HOLD )); then
-    GROUP_COUNT=0
-    CURRENT_GROUP=$((CURRENT_GROUP + GROUP_DIR * GROUP_STEP))
-
-    # Reverse direction at bounds
-    if (( CURRENT_GROUP >= MAX_BB )); then
-        CURRENT_GROUP=$MAX_BB
-        GROUP_DIR=-1
-    elif (( CURRENT_GROUP <= MIN_BB )); then
-        CURRENT_GROUP=$MIN_BB
-        GROUP_DIR=1
-    fi
-fi
-
-# ---- RANDOMIZE WITHIN CURRENT GROUP ----
-BB=$(( CURRENT_GROUP + RANDOM % GROUP_STEP ))
-
-echo "BB Group: $CURRENT_GROUP  |  BB: $BB"
+BB="${numbers[$RANDOM % ${#numbers[@]}]}"
+echo "Random number selected: $BB"
 
 
 offset=700000
 
-BB1=$(($BB+2))
+BB1=$(($BB-2))
 BB2=$(($BB+1))
-BB3=$(($BB+3))
+BB3=$(($BB-1))
 
 
-hz1=120
-hz2=5
+hz1=$(($RANDOM % 11 + 120))
+hz2=$(($RANDOM % 2 + 6))
 hz3=$(($RANDOM % 2 + 19))
-hz4=420
+hz4=$(($RANDOM % 11 + 420))
 
 
 #echo $BB1.$offset
@@ -142,6 +115,6 @@ BB44=$(($RANDOM%3+1))
 
 ####################10001
 #10000 - 100001 = 1hz#
-sleep 0.0000$(($RANDOM % 9))$(($RANDOM % 9))$(($RANDOM % 9))
+sleep 0.00000$(($RANDOM % 9))
 
 done
