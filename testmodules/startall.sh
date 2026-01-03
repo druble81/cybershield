@@ -20,7 +20,7 @@ MAX_BB="${numbers[${#numbers[@]}-1]}"
 GROUP_STEP=25     # Frequency group step
 CURRENT_GROUP=$MIN_BB
 GROUP_DIR=1        # 1 = up, -1 = down
-GROUP_HOLD=$((RANDOM % 15 + 15))
+GROUP_HOLD=$((RANDOM % 50 + 50))
 GROUP_COUNT=0
 
 FILE="/home/pi/Desktop/power.txt"
@@ -86,5 +86,5 @@ while :; do
     wait
 
     # --- Optional random sleep for timing jitter ---
-    sleep 0.00000$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
+    sleep 0.0000$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
 done
