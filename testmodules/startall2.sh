@@ -118,7 +118,7 @@ do
     # ----------------------------
     # JITTERED DWELL
     # ----------------------------
-    sleep 0.00000$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
+    sleep 0.0$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
     echo "V2K"
 
 done

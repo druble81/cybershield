@@ -96,7 +96,7 @@ echo "......................N BURST MODE......................"
 echo "......................N BURST MODE......................"
 
 #sleep 1.$(($RANDOM % 3))
-sleep 1
+sleep 10
 sudo pkill -f adf4351
 
 
@@ -119,7 +119,7 @@ echo "......................10K BURST MODE......................$D"
 echo "......................10K BURST MODE......................$D"
 
 #sleep 1.$(($RANDOM % 3))
-sleep 1
+sleep 10
 
 sudo pkill -f adf4351
 
