@@ -20,7 +20,7 @@ MAX_BB="${numbers[${#numbers[@]}-1]}"
 GROUP_STEP=25     # Frequency group step
 CURRENT_GROUP=$MIN_BB
 GROUP_DIR=1        # 1 = up, -1 = down
-GROUP_HOLD=35
+GROUP_HOLD=10
 GROUP_COUNT=0
 
 FILE="/home/pi/Desktop/power.txt"
@@ -74,17 +74,25 @@ while :; do
 
     # --- Run modules (synchronously, wait for all) ---
     ./adf4351  $BB       25000000 $C &
+    sleep 0.001
     ./adf43512 $FREQ1   25000000 $C &
+    sleep 0.001
     ./adf43513 $FREQ2   25000000 $C &
+    sleep 0.001
     ./adf43514 $FREQ3   25000000 $C &
+    sleep 0.001
     ./adf43515 $FREQ4   25000000 $C &
+    sleep 0.001
     ./adf43516 $FREQ5   25000000 $C &
+    sleep 0.001
     ./adf43517 $FREQ6   25000000 $C &
+    sleep 0.001
     ./adf43518 $FREQ7   25000000 $C &
+    
 
     # Wait for all modules to complete update
     wait
 
     # --- Optional random sleep for timing jitter ---
-    sleep 0.0$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
+    sleep 0.00$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
 done

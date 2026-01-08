@@ -101,24 +101,29 @@ do
     # TRANSMIT (CASCADED)
     # ----------------------------
     ./adf4351   $BB        25000000 $C &   # Primary
+    sleep 0.001
 
     # Layer 1
     ./adf43512  $L1A       25000000 $C &
+sleep 0.001
     ./adf43513  $L1B       25000000 $C &
-
+sleep 0.001
     # Layer 2
     ./adf43514  $L2A       25000000 $C &
+sleep 0.001
     ./adf43515  $L2A       25000000 $C &
+sleep 0.001
     ./adf43516  $L2B       25000000 $C &
+sleep 0.001
     ./adf43517  $L2B       25000000 $C &
-
+sleep 0.001
     # Layer 3 (final convergence)
     ./adf43518  $L3        25000000 $C
-
+sleep 0.001
     # ----------------------------
     # JITTERED DWELL
     # ----------------------------
-    sleep 0.0$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
+    sleep 0.00$((RANDOM % 9 + 1))$((RANDOM % 9 + 1))
     echo "V2K"
 
 done

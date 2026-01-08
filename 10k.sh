@@ -49,15 +49,15 @@ do
 
 sudo pkill -f "adf4351[0-9]*"
 
-/tmp/ramdisk/adf43512s 3000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf435132 3000 25000000 $C $T3 $T4&
-/tmp/ramdisk/adf435122 3000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf435142 3000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf435152 3000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf435162 3000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf435172 3000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf435182 3000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf435192 3000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf4351 3000 25000000 $C $T1 $T2 3&
+/tmp/ramdisk/adf43513 3000 25000000 $C $T3 $T4 3&
+/tmp/ramdisk/adf43512 3000 25000000 $C $T1 $T2 3&
+/tmp/ramdisk/adf43514 3000 25000000 $C $T1 $T2 3&
+/tmp/ramdisk/adf43515 3000 25000000 $C $T1 $T2 3&
+/tmp/ramdisk/adf43516 3000 25000000 $C $T1 $T2 3&
+/tmp/ramdisk/adf43517 3000 25000000 $C $T1 $T2 3&
+/tmp/ramdisk/adf43518 3000 25000000 $C $T1 $T2 3&
+/tmp/ramdisk/adf43519 3000 25000000 $C $T1 $T2 3&
 
 
 
