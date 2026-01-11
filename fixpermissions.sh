@@ -208,6 +208,8 @@ sudo chmod +x adf43517-2
 sudo chmod +x adf43518-2
 sudo chmod +x adf43519-2
 
+sudo chmod +x startall22.sh
+sudo chmod +x startallf.sh
 sudo chmod +x startall2.sh
 sudo chmod +x startall2-2.sh
 

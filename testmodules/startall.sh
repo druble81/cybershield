@@ -1,6 +1,13 @@
 #!/bin/bash
 cd /home/pi/Desktop/testmodules
 
+
+python3 startallf.sh
+
+
+done
+exit
+
 echo "Starting 8-module hierarchical heterodyne cascade..."
 
 # --- Read SG3 base frequencies into array ---
@@ -58,19 +65,23 @@ while :; do
     BB=$(( CURRENT_GROUP + RANDOM % GROUP_STEP ))
     echo "BB Group: $CURRENT_GROUP  |  BB: $BB"
 
-    # --- Layer 1: Modules 1-2 ---
-    FREQ1=$(( BB + O1 + RANDOM % (2*JITTER+1) - JITTER ))
-    FREQ2=$(( BB - O1 + RANDOM % (2*JITTER+1) - JITTER ))
+O1=0.000003      # Layer 1 offset in MHz = 3 Hz
+O2=0.010000      # Layer 2 offset in MHz = 10 kHz
+O3=0.000003      # Layer 3 offset in MHz = 3 Hz
 
-    # --- Layer 2: Modules 3-6 ---
-    FREQ3=$(( FREQ1 + O2 + RANDOM % (2*JITTER+1) - JITTER ))
-    FREQ4=$(( FREQ1 - O2 + RANDOM % (2*JITTER+1) - JITTER ))
-    FREQ5=$(( FREQ2 + O2 + RANDOM % (2*JITTER+1) - JITTER ))
-    FREQ6=$(( FREQ2 - O2 + RANDOM % (2*JITTER+1) - JITTER ))
+# Layer 1
+FREQ1=$(echo "$BB + $O1" | bc -l)
+FREQ2=$(echo "$BB - $O1" | bc -l)
 
-    # --- Layer 3: Modules 7-8 ---
-    FREQ7=$(( FREQ3 + O3 + RANDOM % (2*JITTER+1) - JITTER ))
-    FREQ8=$(( FREQ4 - O3 + RANDOM % (2*JITTER+1) - JITTER ))
+# Layer 2
+FREQ3=$(echo "$FREQ1 + $O2" | bc -l)
+FREQ4=$(echo "$FREQ1 - $O2" | bc -l)
+FREQ5=$(echo "$FREQ2 + $O2" | bc -l)
+FREQ6=$(echo "$FREQ2 - $O2" | bc -l)
+
+# Layer 3
+FREQ7=$(echo "$FREQ3 + $O3" | bc -l)
+FREQ8=$(echo "$FREQ4 - $O3" | bc -l)
 
     # --- Run modules (synchronously, wait for all) ---
     ./adf4351  $BB       25000000 $C &
