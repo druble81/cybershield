@@ -1,98 +1,102 @@
-cd /home/pi/Desktop/testmodules
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE- RUNNING----------**********
-echo  **********----------WAKE-- RUNNING----------**********
+#!/bin/bash
 
+cd /home/pi/Desktop/testmodules
+echo "**********----------WAKE- RUNNING----------**********"
 
 FILE="/home/pi/Desktop/power.txt"
-
 if [[ -f "$FILE" ]]; then
-    # Read the value from the file into C
     C=$(<"$FILE")
 else
-    # Default to 2 if file not found
     C=2
 fi
 
 two=150
 one=430
 
-
-hz1=7
+hz1=10
 hz2=11
 hz3=15
 hz4=19
 
-hz1=10
+# --- Determine gethz value ---
+if [[ -n "$1" ]]; then
+    gethz=$1
+else
+    gethz=$(python3 /home/pi/Desktop/selecthz.py)
+fi
 
-gethz=$(python3 /home/pi/Desktop/selecthz.py)
+echo "[Wake] Using gethz = $gethz"
 
+# --------------------------------------------------
+# MODE: argument == 0 → bidirectional 18–25 Hz
+# --------------------------------------------------
+if [[ "$gethz" -eq 0 ]]; then
+    hz1=18
+    direction=1   # 1 = up, -1 = down
+
+    while :
+    do
+        BB=$(($RANDOM % ($two - $one + 1) + $one))
+        offset=$((RANDOM % (990000 - 100000 + 1) + 100000))
+
+        hz2=$hz1
+        hz3=$hz1
+        hz4=$hz1
+
+        ./adf4351   $BB.$offset               25000000 $C &
+        ./adf43512  $BB.$(($offset+hz1))      25000000 $C &
+        ./adf43513  $BB.$(($offset+hz2))      25000000 $C &
+        ./adf43514  $BB.$offset               25000000 $C &
+        ./adf43515  $BB.$offset               25000000 $C &
+        ./adf43516  $BB.$(($offset+hz3))      25000000 $C &
+        ./adf43517  $BB.$(($offset+hz4))      25000000 $C &
+        ./adf43518  $BB.$offset               25000000 $C &
+
+        echo "[Cascade] hz = $hz1"
+
+        # Bounce logic
+        if [[ "$hz1" -ge 25 ]]; then
+            direction=-1
+        elif [[ "$hz1" -le 18 ]]; then
+            direction=1
+        fi
+
+        hz1=$((hz1 + direction))
+
+        # Slightly different random delay (20–60 ms)
+        sleep_ms=$((RANDOM % 40 + 20))
+        sleep 0.$(printf "%02d" "$sleep_ms")
+    done
+fi
+
+# --------------------------------------------------
+# NORMAL MODE (unchanged behavior)
+# --------------------------------------------------
 while :
 do
+    BB=$(($RANDOM % ($two - $one + 1) + $one))
+    offset=$((RANDOM % (990000 - 100000 + 1) + 100000))
 
-BB=$(($RANDOM % ($two-$one+1) + $one))
-
-offset=$((RANDOM % (990000 - 100000 + 1) + 100000))
-
-BB1=$(($BB))
-BB2=$(($BB))
-BB3=$(($BB))
-
-
-
-
-    # Increment hz1 by 10 each loop
     hz1=$((hz1 + 1))
 
-    # Stop or reset when reaching 660
-    if [ $hz1 -gt $gethz ]; then
-        hz1=0   # reset to 0, or you could break the loop instead
-	exit
+    if [[ "$hz1" -gt "$gethz" ]]; then
+        hz1=0
+        exit
     fi
 
+    hz2=$hz1
+    hz3=$hz1
+    hz4=$hz1
 
-hz2=$hz1
-hz3=$hz1
-hz4=$hz1
+    ./adf4351   $BB.$offset               25000000 $C &
+    ./adf43512  $BB.$(($offset+hz1))      25000000 $C &
+    ./adf43513  $BB.$(($offset+hz2))      25000000 $C &
+    ./adf43514  $BB.$offset               25000000 $C &
+    ./adf43515  $BB.$offset               25000000 $C &
+    ./adf43516  $BB.$(($offset+hz3))      25000000 $C &
+    ./adf43517  $BB.$(($offset+hz4))      25000000 $C &
+    ./adf43518  $BB.$offset               25000000 $C &
 
-
-
-#echo $BB1.$offset
-#echo $BB1.$(($offset+$hz1))
-
-
-
-BB44=$(($RANDOM%3+1))
-
-
-  ./adf4351 $BB.$offset 25000000 $C &
-  ./adf43512 $BB.$(($offset+hz1)) 25000000 $C &
-  ./adf43513 $BB1.$(($offset+hz2)) 25000000 $C &
-  ./adf43514 $BB1.$offset 25000000 $C &
-  ./adf43515 $BB2.$offset 25000000 $C &
-  ./adf43516 $BB2.$(($offset+hz3)) 25000000 $C &
-  ./adf43517 $BB3.$(($offset+hz4)) 25000000 $C &
-  ./adf43518 $BB3.$offset 25000000 $C &
-
-sleep 0.2
-echo $hz1
-#sleep $(($RANDOM%5+1))
-
+    sleep 0.02
+    echo "hz1 = $hz1"
 done

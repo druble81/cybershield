@@ -17,7 +17,7 @@ PROGRAM_OPTIONS = {
     "DLPFC": "bash /home/pi/Desktop/startDLPFC.sh &",
     "Anti-PTSD": "bash /home/pi/Desktop/startPTSD.sh &",
     "Sleep": "bash /home/pi/Desktop/startall5.sh &",
-    "Wake": "bash /home/pi/Desktop/startall6.sh &",
+    "Wake": "bash /home/pi/Desktop/startall6.sh ",
     "PFC": "bash /home/pi/Desktop/startall3.sh &",
     "Quad H": "bash /home/pi/Desktop/testmodules/startall.sh &",
     "V2K": "bash /home/pi/Desktop/testmodules/startall2.sh &",
@@ -32,6 +32,10 @@ PROGRAM_OPTIONS = {
     "N4 Burst Mode": "bash /home/pi/Desktop/sa5.sh&",
     "N4 Burst pulse": "bash /home/pi/Desktop/sa4.sh&",
     "Full Burst": "bash /home/pi/Desktop/sa6.sh&",
+    "Low Emf": "bash /home/pi/Desktop/startall2.sh &",
+    "Resistance mode": "bash /home/pi/Desktop/testmodules/startall4.sh&",
+    "Special Burst": "bash /home/pi/Desktop/sa11.sh&",
+    "Random": "bash /home/pi/Desktop/sa3.sh&",
     "Pain Mode": "bash /home/pi/Desktop/startDLPFC2.sh&"
 }
 
@@ -108,6 +112,7 @@ class AddProgramWindow(tk.Toplevel):
     """A window for creating a new program or editing an existing one."""
     def __init__(self, master, edit_mode=False, program_data=None, program_index=None):
         super().__init__(master)
+
         self.title("Add Program")
         self.geometry("1035x510")
         self.center_window()
@@ -123,10 +128,35 @@ class AddProgramWindow(tk.Toplevel):
         self.loop_var = tk.BooleanVar(value=True)
         tk.Checkbutton(self, text="Loop Program", variable=self.loop_var, font=FONT_STYLE).grid(row=0, column=4, sticky="w", padx=5, pady=5)
 
-        self.available_listbox = tk.Listbox(self, font=FONT_STYLE, selectmode=tk.SINGLE, height=22)
+        
+        # ---- Available Programs (with scrollbar) ----
+        available_frame = tk.Frame(self)
+        available_frame.grid(row=2, column=0, rowspan=4, sticky="nsew", padx=5, pady=5)
+
+        available_scrollbar = tk.Scrollbar(
+            available_frame,
+            orient=tk.VERTICAL,
+            width=40   # try 16–24 depending on touchscreen / DPI
+        )
+
+        self.available_listbox = tk.Listbox(
+            available_frame,
+            font=FONT_STYLE,
+            selectmode=tk.SINGLE,
+            height=22,
+            yscrollcommand=available_scrollbar.set
+        )
+
+        available_scrollbar.config(command=self.available_listbox.yview)
+
+        self.available_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        available_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.available_listbox.bind("<MouseWheel>", lambda e: self.available_listbox.yview_scroll(-1 * int(e.delta / 120), "units"))
+
+
         for key in PROGRAM_OPTIONS.keys():
             self.available_listbox.insert(tk.END, key)
-        self.available_listbox.grid(row=2, column=0, rowspan=4, sticky="ns", padx=5, pady=5)
+
 
         btn_frame = tk.Frame(self)
         btn_frame.grid(row=2, column=1, sticky="n", pady=5)
@@ -162,8 +192,12 @@ class AddProgramWindow(tk.Toplevel):
         self.interval_entry = tk.Entry(self.detail_frame, textvariable=self.interval_var, font=FONT_STYLE)
         self.interval_entry.grid(row=3, column=1)
         self.interval_entry.bind("<Button-1>", lambda e: self.open_keypad(self.interval_var))
+        
+        self.hz_label = tk.Label(self.detail_frame, text="HZ:", font=FONT_STYLE)
+        self.hz_var = tk.StringVar(value="20")
+        self.hz_entry = tk.Entry(self.detail_frame, textvariable=self.hz_var, font=FONT_STYLE)
 
-        tk.Button(self.detail_frame, text="Update Script Details", font=FONT_STYLE, command=self.update_script_details).grid(row=4, column=0, columnspan=2, pady=10)
+        tk.Button(self.detail_frame, text="Update Script Details", font=FONT_STYLE, command=self.update_script_details).grid(row=5, column=0, columnspan=2, pady=10)
 
         self.selected_listbox.bind("<<ListboxSelect>>", self.on_select_script)
         
@@ -241,14 +275,20 @@ class AddProgramWindow(tk.Toplevel):
         if not selection:
             return
         script_name = self.available_listbox.get(selection[0])
-        self.selected_scripts.append({
+        data = {
             "script": PROGRAM_OPTIONS[script_name],
             "name": script_name,
             "primary_low": self.primary_low_var.get(),
             "primary_high": self.primary_high_var.get(),
             "duration": self.duration_var.get(),
             "interval": self.interval_var.get()
-        })
+        }
+
+        if script_name == "Wake":
+            data["hz"] = "20"
+
+        self.selected_scripts.append(data)
+        
         self.update_selected_listbox()
         self.selected_listbox.selection_clear(0, tk.END)
         self.selected_listbox.selection_set(tk.END)
@@ -266,21 +306,41 @@ class AddProgramWindow(tk.Toplevel):
         for s in self.selected_scripts:
             self.selected_listbox.insert(tk.END, s['name'])
 
+
     def on_select_script(self, event):
         selection = self.selected_listbox.curselection()
         if not selection:
             return
+
         s = self.selected_scripts[selection[0]]
+
         self.primary_low_var.set(s.get('primary_low', '35'))
         self.primary_high_var.set(s.get('primary_high', '4400'))
         self.duration_var.set(s.get('duration', '1'))
         self.interval_var.set(s.get('interval', '1'))
 
+        # ---- Wake-specific HZ handling ----
+        if s.get("name") == "Wake":
+            self.hz_var.set(s.get("hz", "20"))
+
+            self.hz_label.grid(row=4, column=0, sticky="w")
+            self.hz_entry.grid(row=4, column=1)
+        else:
+            self.hz_label.grid_remove()
+            self.hz_entry.grid_remove()
+
     def update_script_details(self):
         selection = self.selected_listbox.curselection()
+
         if not selection:
             return
         idx = selection[0]
+
+        if self.selected_scripts[idx]['name'] == "Wake":
+            self.selected_scripts[idx]['hz'] = self.hz_var.get()
+        else:
+            self.selected_scripts[idx].pop('hz', None)
+
 
         is_valid, cleaned_interval = validate_interval(self.interval_var.get())
         if not is_valid:
@@ -430,7 +490,7 @@ class ProgramManager(tk.Tk):
         if self.running_thread and self.running_thread.is_alive():
             messagebox.showwarning("Warning", "A program is already running. Please stop it first.")
             return
-            
+
         idx = self.listbox.curselection()
         if not idx:
             return
@@ -438,8 +498,10 @@ class ProgramManager(tk.Tk):
         program = self.programs[idx[0]]
         self.stop_flag.clear()
 
-        def run():
+        # ---- Runner function ----
+        def run(prog):
             try:
+                # Start adf4351 modules
                 subprocess.Popen(["/home/pi/Desktop/testmodules/adf4351"])
                 for i in range(2, 10):
                     subprocess.Popen([f"/home/pi/Desktop/testmodules/adf4351{i}"])
@@ -447,13 +509,14 @@ class ProgramManager(tk.Tk):
                 print(f"[Runner] Error starting adf4351 processes: {e}")
 
             while not self.stop_flag.is_set():
-                for step in program['steps']:
+                for step in prog['steps']:
                     if self.stop_flag.is_set():
                         break
 
                     print(f"[Runner] Cleaning up before step: {step['name']}")
                     self.run_cleanup()
 
+                    # Remove old SG3.TXT
                     try:
                         subprocess.run(["sudo", "rm", "-f", "/tmp/ramdisk/SG3.TXT"], check=True)
                         print("[Runner] Deleted /tmp/ramdisk/SG3.TXT")
@@ -469,15 +532,24 @@ class ProgramManager(tk.Tk):
                         print(f"[Runner] SKIPPING step '{step['name']}' due to invalid interval '{interval}'.")
                         continue
 
+                    # Load primary range
                     if clean_interval != '1':
                         args = ["sudo", "/home/pi/Desktop/loadrd", low, high, clean_interval]
                         subprocess.run(args)
                     else:
                         subprocess.run(["bash", "/home/pi/Desktop/loadrd.sh", low, high])
-                    
-                    print(f"[Runner] Running script: {step['script']}")
-                    subprocess.run(step['script'], shell=True)
-                    
+
+                    # ---- Script execution ----
+                    if step.get('name') == "Wake" and 'hz' in step:
+                        hz_value = step['hz']
+                        script_path = "/home/pi/Desktop/startall6.sh"
+                        print(f"[Runner] Running Wake script with HZ={hz_value}")
+                        subprocess.run(["bash", script_path, str(hz_value)])
+                    else:
+                        print(f"[Runner] Running script: {step['script']}")
+                        subprocess.run(step['script'], shell=True)
+
+                    # ---- Duration wait ----
                     try:
                         duration_minutes = float(step.get('duration', '1'))
                     except ValueError:
@@ -486,25 +558,27 @@ class ProgramManager(tk.Tk):
 
                     total_seconds = int(duration_minutes * 60)
                     end_time = time.time() + total_seconds
-                    
+
                     while time.time() < end_time:
                         if self.stop_flag.wait(timeout=1):
-                           break
-                    
-                if not program.get('loop', False):
+                            break
+
+                if not prog.get('loop', False):
                     break
-            
+
             print("[Runner] Program finished.")
             self.run_cleanup()
 
-        self.running_thread = threading.Thread(target=run, daemon=True)
+        # ---- Start the runner thread ----
+        self.running_thread = threading.Thread(target=run, args=(program,), daemon=True)
         self.running_thread.start()
+
 
     def stop_program(self):
         print("Stop button pressed")
         self.stop_flag.set()
         if self.running_thread:
-            self.running_thread.join(timeout=2.0)
+            self.running_thread.join(timeout=0.001)
         self.run_cleanup()
         print("All running programs have been stopped.")
 

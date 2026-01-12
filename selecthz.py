@@ -13,7 +13,7 @@ def select_value():
     root.geometry("250x520")
     root.resizable(False, False)
 
-    values = [10, 15, 20, 25, 30, 40, 60, 80, 100, 200, 340, 440, 620]
+    values = [0, 10, 15, 20, 25, 30, 40, 60, 80, 100, 200, 430, 620]
 
     for v in values:
         btn = tk.Button(

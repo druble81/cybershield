@@ -1,6 +1,10 @@
 #!/bin/bash
 cd /home/pi/Desktop/testmodules
 
+python3 /home/pi/Desktop/startPTSD.py
+exit
+done
+
 FILE="/home/pi/Desktop/power.txt"
 
 if [[ -f "$FILE" ]]; then

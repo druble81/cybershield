@@ -1,6 +1,20 @@
 #!/bin/bash
+
+
+A="$1"
+B="$2"
+
+# If 2nd argument is 4200, force it to 4400
+if [[ "$B" -eq 4200 ]]; then
+    B=4400
+fi
+
+
+
+
+
     if [ -f /tmp/ramdisk/adf4351 ]; then
-        sudo /home/pi/Desktop/loadrd $1 $2 1
+	sudo /home/pi/Desktop/loadrd "$A" "$B" 1
 	#$(($RANDOM % 5 + 1))
         exit
     fi
@@ -102,19 +116,14 @@ SEED=$(od -An -N2 -i /dev/urandom)
 RANDOM=$SEED
 
 
-#!/bin/bash
-
-
-A=$1
 
 
 
     cat /dev/null > /tmp/ramdisk/SG3.TXT
     clear
     
-    
-    start=$1
-    end=$2
+    start=$A
+    end=$B
     range=$((end - start + 1))
 
     # Calculate the divisor
@@ -124,9 +133,8 @@ A=$1
 
     # Output the result 
 
-    B=$divisor
-    B=2
-    echo "$B"
+    C=$divisor
+    echo "$C"
 
     rand_num=0
 
@@ -136,17 +144,15 @@ A=$1
     segment_size=$(( (range + divisor - 1) / divisor ))
 
 
-    while [[ $A -lt $2 ]]
+    while [[ $A -le $end ]]
+
     do
 
      
 
         printf "%s\n" $A   >> /tmp/ramdisk/SG3.TXT
-        A=$(($A+$(($B))))
+        A=$(($A+$(($C))))
     
     done
 
     printf "\n"    >> /tmp/ramdisk/SG3.TXT
-    A=900
-    echo done setting primaries
-

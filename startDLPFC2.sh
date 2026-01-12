@@ -1,5 +1,8 @@
 clear
 cd /home/pi/Desktop/testmodules
+python3 /home/pi/Desktop/startDLPFC2.py
+exit
+done
 echo  **********----------Anti-PAIN RUNNING----------**********
 echo  **********----------Anti-PAIN RUNNING----------**********
 

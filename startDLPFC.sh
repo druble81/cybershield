@@ -1,3 +1,10 @@
+cd /home/pi/Desktop/testmodules
+python3 /home/pi/Desktop/startDLPFC.py
+
+
+exit 
+done
+
 clear
 cd /home/pi/Desktop/testmodules
 echo  **********----------DLPFC RUNNING----------**********
@@ -41,7 +48,7 @@ GROUP_STEP=25     # 100 MHz groups
 CURRENT_GROUP=$MIN_BB
 GROUP_DIR=1        # 1 = up, -1 = down
 
-GROUP_HOLD=25      # loops per group
+GROUP_HOLD=150     # loops per group
 GROUP_COUNT=0
 
 
@@ -138,5 +145,5 @@ BB44=$(($RANDOM%3+1))
 
 ####################10001
 #10000 - 100001 = 1hz#
-sleep 0.00000$(($RANDOM % 9))
+#sleep 0.00000$(($RANDOM % 9))
 done
