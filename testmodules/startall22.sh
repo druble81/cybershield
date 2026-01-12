@@ -114,7 +114,7 @@ while True:
     # ----------------------------
     # OPTIONAL DWELL
     # ----------------------------
-    dwell = random.uniform(0.001, 0.009)
-    #time.sleep(dwell)
+    dwell = random.uniform(0.000001, 0.000009)
+    time.sleep(dwell)
 
     print("V2k")

@@ -24,10 +24,10 @@ MIN_BB="${numbers[0]}"
 MAX_BB="${numbers[${#numbers[@]}-1]}"
 
 # --- Timing / Control ---
-GROUP_STEP=25     # Frequency group step
+GROUP_STEP=100     # Frequency group step
 CURRENT_GROUP=$MIN_BB
 GROUP_DIR=1        # 1 = up, -1 = down
-GROUP_HOLD=10
+GROUP_HOLD=25
 GROUP_COUNT=0
 
 FILE="/home/pi/Desktop/power.txt"

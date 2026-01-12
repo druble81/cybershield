@@ -41,10 +41,10 @@ JITTER = 0.000001  # optional micro jitter ±1 Hz
 # ----------------------------
 # GROUP CONTROL
 # ----------------------------
-GROUP_STEP = 10
+GROUP_STEP = 100
 CURRENT_GROUP = MIN_BB
 GROUP_DIR = 1
-GROUP_HOLD = 5
+GROUP_HOLD = 25
 GROUP_COUNT = 0
 
 # ----------------------------
@@ -109,5 +109,5 @@ while True:
         p.wait()
 
     # --- Optional jittered dwell ---
-    dwell = random.uniform(0.0001, 0.0009)
-    #time.sleep(dwell)
+    dwell = random.uniform(0.00001, 0.00009)
+    time.sleep(dwell)
