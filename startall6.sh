@@ -1,6 +1,21 @@
 #!/bin/bash
 
 cd /home/pi/Desktop/testmodules
+
+#!/bin/bash
+
+# Only pass $1 if it exists
+if [ -n "$1" ]; then
+    python3 /home/pi/Desktop/startall6.py "$1"
+else
+    python3 /home/pi/Desktop/startall6.py
+fi
+
+
+
+exit
+done
+
 echo "**********----------WAKE- RUNNING----------**********"
 
 FILE="/home/pi/Desktop/power.txt"
@@ -97,6 +112,6 @@ do
     ./adf43517  $BB.$(($offset+hz4))      25000000 $C &
     ./adf43518  $BB.$offset               25000000 $C &
 
-    sleep 0.02
+    sleep 0.05
     echo "hz1 = $hz1"
 done
