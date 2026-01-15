@@ -4,8 +4,6 @@ cd /home/pi/Desktop/testmodules
 
 python3 startallf.sh
 
-
-done
 exit
 
 echo "Starting 8-module hierarchical heterodyne cascade..."

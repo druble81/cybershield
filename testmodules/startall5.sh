@@ -1,6 +1,11 @@
 cd /home/pi/Desktop/testmodules
 #bash /home/pi/Desktop/alloffrd.sh
 
+python3 /home/pi/Desktop/testmodules/startall5.py
+
+exit
+done
+
 echo sleep 5
 
 

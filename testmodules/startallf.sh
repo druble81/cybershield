@@ -36,7 +36,7 @@ except FileNotFoundError:
 O1 = 0.000003   # Layer 1 ± offset = 3 Hz
 O2 = 0.010000   # Layer 2 ± offset = 10 kHz
 O3 = 0.000003   # Layer 3 ± offset = 3 Hz
-JITTER = 0.000001  # optional micro jitter ±1 Hz
+JITTER = 0.000001  # micro jitter ±1 Hz
 
 # ----------------------------
 # GROUP CONTROL
@@ -48,14 +48,32 @@ GROUP_HOLD = 25
 GROUP_COUNT = 0
 
 # ----------------------------
-# RANDOM SEED
+# MODULES & GOLDEN RATIO
 # ----------------------------
-random.seed()
+MODULES = [
+    "./adf4351", "./adf43512", "./adf43513", "./adf43514",
+    "./adf43515", "./adf43516", "./adf43517", "./adf43518"
+]
+
+TOTAL_MODULES = len(MODULES)
+PHI = 0.6180339887498949
+phases = [random.random() for _ in range(TOTAL_MODULES)]
+
+# ----------------------------
+# LOCK COLLAPSE SETTINGS
+# ----------------------------
+LOCK_EVERY = 10      # iterations before changing locked module
+locked_module = random.randint(0, TOTAL_MODULES-1)
+iteration_count = 0
+
+print("**********----------LAYERED HETERODYNE WITH LOCK COLLAPSE RUNNING----------**********")
 
 # ----------------------------
 # MAIN LOOP
 # ----------------------------
 while True:
+    iteration_count += 1
+
     # --- Group hold logic ---
     GROUP_COUNT += 1
     if GROUP_COUNT >= GROUP_HOLD:
@@ -68,46 +86,54 @@ while True:
             CURRENT_GROUP = MIN_BB
             GROUP_DIR = 1
 
-    # --- Base frequency within current group ---
+    # --- Base frequency ---
     BB = CURRENT_GROUP + random.randint(0, GROUP_STEP-1)
     print(f"BB Group: {CURRENT_GROUP} | BB: {BB}")
 
-    # --- Layer 1: ±O1 around BB ---
-    FREQ1 = BB + O1 + random.uniform(-JITTER, JITTER)
-    FREQ2 = BB - O1 + random.uniform(-JITTER, JITTER)
+    # --- Layer offsets ---
+    L1a = BB + O1 + random.uniform(-JITTER, JITTER)
+    L1b = BB - O1 + random.uniform(-JITTER, JITTER)
+    L2a = L1a + O2
+    L2b = L1a - O2
+    L2c = L1b + O2
+    L2d = L1b - O2
+    L3a = L2a + O3
+    L3b = L2b - O3
 
-    # --- Layer 2: ±O2 relative to Layer 1 ---
-    FREQ3 = FREQ1 + O2
-    FREQ4 = FREQ1 - O2
-    FREQ5 = FREQ2 + O2
-    FREQ6 = FREQ2 - O2
-
-    # --- Layer 3: ±O3 relative to Layer 2 ---
-    FREQ7 = FREQ3 + O3
-    FREQ8 = FREQ4 - O3
-
-    # --- Run modules in parallel ---
-    cmds = [
-        ("./adf4351", BB),
-        ("./adf43512", FREQ1),
-        ("./adf43513", FREQ2),
-        ("./adf43514", FREQ3),
-        ("./adf43515", FREQ4),
-        ("./adf43516", FREQ5),
-        ("./adf43517", FREQ6),
-        ("./adf43518", FREQ7),
-        # Optionally add FREQ8 if you want a 9th module
+    # --- Prepare roles list ---
+    roles = [
+        BB,
+        L1a, L1b,
+        L2a, L2b, L2c, L2d,
+        L3a
     ]
 
-    procs = []
-    for cmd, freq in cmds:
-        p = subprocess.Popen([cmd, f"{freq:.9f}", "25000000", str(C)])
-        procs.append(p)
-        #time.sleep(0.001)  # small spacing between module calls
+    # --- Assign frequencies using golden ratio rotation ---
+    assignments = []
+    for i, mod in enumerate(MODULES):
+        if i == locked_module:
+            # keep locked module fixed
+            freq = roles[i]
+        else:
+            phases[i] = (phases[i] + PHI) % 1.0
+            role_index = int(phases[i] * len(roles))
+            freq = roles[role_index]
+        assignments.append((mod, freq))
 
+    # --- Run all modules in parallel ---
+    procs = []
+    for mod, freq in assignments:
+        p = subprocess.Popen([mod, f"{freq:.9f}", "25000000", str(C)])
+        procs.append(p)
     for p in procs:
         p.wait()
 
+    # --- Change locked module periodically ---
+    if iteration_count >= LOCK_EVERY:
+        locked_module = random.randint(0, TOTAL_MODULES-1)
+        iteration_count = 0
+        LOCK_EVERY = random.randint(2, 15)
+        print("ROTATING LOCKS ")
+
     # --- Optional jittered dwell ---
-    dwell = random.uniform(0.00001, 0.00009)
-    time.sleep(dwell)
+    time.sleep(random.uniform(0.05, 0.000001))
