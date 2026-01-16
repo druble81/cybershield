@@ -47,6 +47,11 @@ if not numbers:
 MIN_BB = numbers[0]
 MAX_BB = numbers[-1]
 
+
+MIN_BB = 75
+MAX_BB = 1090
+
+
 # ----------------------------
 # DETERMINE gethz
 # ----------------------------
@@ -200,4 +205,4 @@ while True:
     # ----------------------------
     # Micro jitter dwell
     # ----------------------------
-    time.sleep(random.uniform(0.02, 0.06))
+    time.sleep(random.uniform(0.1, 0.005))

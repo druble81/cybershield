@@ -38,7 +38,8 @@ try:
         MIN_BB = numbers[0]
         MAX_BB = numbers[-1]
 except:
-    MIN_BB, MAX_BB = 100, 470
+    MIN_BB, MAX_BB = 110, 1120
+MIN_BB, MAX_BB = 110, 1120
 
 # ----------------------------
 # READ POWER LEVEL
@@ -63,7 +64,7 @@ iteration_counter = 0
 GROUP_STEP = 25
 CURRENT_GRP = MIN_BB
 GROUP_DIR = 1
-GROUP_HOLD = 75
+GROUP_HOLD = 15
 GROUP_CNT = 0
 
 # ----------------------------
