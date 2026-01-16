@@ -48,8 +48,8 @@ print(f"Power: {C}")
 try:
     with open(SG3_FILE, "r") as f:
         lines = [int(x) for x in f.read().split() if x.isdigit()]
-        MIN_BB = 100
-        MAX_BB = 470
+        MIN_BB = 80
+        MAX_BB = 1040
 except Exception as e:
     print(f"[Error] SG3 missing, using defaults: {e}")
     MIN_BB, MAX_BB = 90, 500
@@ -182,6 +182,6 @@ while True:
     if current_hz > TARGET_HZ:
         current_hz -= STEP_HZ
     if current_hz == TARGET_HZ:
-        DWELL_BASE = 0.05
-        DWELL_VAR = 0.000001
+        DWELL_BASE = 0.1
+        DWELL_VAR = 0.001
         

@@ -41,10 +41,10 @@ JITTER = 0.000001  # micro jitter ±1 Hz
 # ----------------------------
 # GROUP CONTROL
 # ----------------------------
-GROUP_STEP = 100
+GROUP_STEP = 25
 CURRENT_GROUP = MIN_BB
 GROUP_DIR = 1
-GROUP_HOLD = 25
+GROUP_HOLD = 15
 GROUP_COUNT = 0
 
 # ----------------------------
