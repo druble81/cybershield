@@ -17,6 +17,9 @@ LOCK_COLLAPSE_MAX  = 5       # max cycles collapsed
 
 lock_collapse_active = 0
 
+MIN_DWELL = 0.05
+MAX_DWELL = 0.3
+
 # ----------------------------
 # READ POWER
 # ----------------------------
@@ -49,7 +52,7 @@ MAX_BB = numbers[-1]
 
 
 MIN_BB = 75
-MAX_BB = 1090
+MAX_BB = 245
 
 
 # ----------------------------
@@ -107,7 +110,7 @@ def run_modules(module_cmds):
 while True:
 
     # --- Determine BB ---
-    BB = random.randint(150, 430)
+    BB = random.randint(150, 245)
     offset = random.randint(OFFSET_MIN, OFFSET_MAX)
 
     # ----------------------------
@@ -146,6 +149,9 @@ while True:
             hz3 = hz1
             hz4 = hz1
             offset_base = offset
+            MIN_DWELL = 0.5
+            MAX_DWELL = 5
+            
     else:
         # MANUAL MODE: fixed Hz, no cascade, no lock collapse changes
         if 'manual_hz' not in globals():
@@ -153,6 +159,9 @@ while True:
         # increment up to requested gethz
         if manual_hz < gethz:
             manual_hz += 1
+        if manual_hz == gethz:
+            MIN_DWELL = 0.5
+            MAX_DWELL = 5
         hz1 = hz2 = hz3 = hz4 = manual_hz
         offset_base = offset
 
@@ -205,4 +214,4 @@ while True:
     # ----------------------------
     # Micro jitter dwell
     # ----------------------------
-    time.sleep(random.uniform(0.1, 0.005))
+    time.sleep(random.uniform(MAX_DWELL, MIN_DWELL))

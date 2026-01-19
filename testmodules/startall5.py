@@ -49,10 +49,10 @@ try:
     with open(SG3_FILE, "r") as f:
         lines = [int(x) for x in f.read().split() if x.isdigit()]
         MIN_BB = 80
-        MAX_BB = 1040
+        MAX_BB = 280
 except Exception as e:
     print(f"[Error] SG3 missing, using defaults: {e}")
-    MIN_BB, MAX_BB = 90, 500
+    MIN_BB, MAX_BB = 80, 150
 
 print(f"SG3 Range: {MIN_BB} - {MAX_BB}")
 
@@ -182,6 +182,6 @@ while True:
     if current_hz > TARGET_HZ:
         current_hz -= STEP_HZ
     if current_hz == TARGET_HZ:
-        DWELL_BASE = 0.1
-        DWELL_VAR = 0.001
+        DWELL_BASE = 1
+        DWELL_VAR = 0.000001
         

@@ -41,11 +41,11 @@ MAX_BB = numbers[-1]
 # GROUP CONTROL
 # --------------------------------------------------
 
-GROUP_STEP = 25
+GROUP_STEP = 100
 CURRENT_GROUP = MIN_BB
 GROUP_DIR = 1
 
-GROUP_HOLD = 10
+GROUP_HOLD = 15
 GROUP_COUNT = 0
 
 # --------------------------------------------------
@@ -124,4 +124,4 @@ while True:
     subprocess.call(cmds[-1])
 
     # ---- RANDOM MICRO-SLEEP ----
-    time.sleep(float(f"0.0{random.randint(0,8)}"))
+    time.sleep(random.uniform(0, 0.0000001))

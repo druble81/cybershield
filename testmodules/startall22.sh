@@ -22,6 +22,15 @@ MODULES = [
     "./adf43518",
 ]
 
+GROUPS = [
+    MODULES[0:2],
+    MODULES[2:4],
+    MODULES[4:6],
+    MODULES[6:8],
+]
+
+group_locked = [random.choice([True, False]) for _ in GROUPS]
+
 # ----------------------------
 # POWER LEVEL
 # ----------------------------
@@ -35,7 +44,7 @@ except FileNotFoundError:
 # HETERODYNE OFFSETS (MHz)
 # ----------------------------
 O1 = 0.000003
-O2 = 0.010000
+O2 = 0.000004
 O3 = 0.000005
 JITTER = 0.000001
 
@@ -60,11 +69,27 @@ LOCK_MODULE_INDEX = 7  # adf43518
 # ----------------------------
 # RANGE SHUFFLE
 # ----------------------------
-random.shuffle(RANGES)
-range_index = 0
+# One independent range index per group
+range_indices = [random.randrange(len(RANGES)) for _ in GROUPS]
+
+# Controls how "random" things feel
+LOCAL_DRIFT_PROB = 0.8   # small movement
+MAX_DRIFT = 1            # ±1 index
+JUMP_SIZE = 3            # occasional hop
+
 bin_index = 0
 SUB_BINS = 8
 phase = 0
+
+# ----------------------------
+# COLLAPSE + GOLDEN RATIO STATE
+# ----------------------------
+collapse_group = 0
+collapse_counter = 0
+collapse_cycles = random.randint(LOCK_MIN, LOCK_MAX)
+
+phi_index = 0  # golden-ratio walker
+
 
 print("********** GOLDEN-RATIO HETERODYNE RUNNING **********")
 
@@ -74,75 +99,66 @@ print("********** GOLDEN-RATIO HETERODYNE RUNNING **********")
 while True:
 
     # --- Range handling ---
-    BASE, WIDTH = RANGES[range_index]
-    range_index = (range_index + 1) % len(RANGES)
-    if range_index == 0:
-        random.shuffle(RANGES)
-        phase = (phase + 1) % SUB_BINS
+    group_cmds = []
+    bbs = []  # track BBs for logging
 
-    BIN_WIDTH = WIDTH / SUB_BINS
-    BIN = (bin_index + phase) % SUB_BINS
-    BB = BASE + BIN * BIN_WIDTH + random.randint(0, int(BIN_WIDTH))
+    for gi, mods in enumerate(GROUPS):
+
+        # --- Small-random range evolution per group ---
+        if random.random() < LOCAL_DRIFT_PROB:
+            # gentle drift
+            range_indices[gi] += random.choice([-MAX_DRIFT, 0, MAX_DRIFT])
+        else:
+            # occasional hop
+            range_indices[gi] += random.randint(-JUMP_SIZE, JUMP_SIZE)
+
+        range_indices[gi] %= len(RANGES)
+
+        BASE, WIDTH = RANGES[range_indices[gi]]
+
+
+        BIN_WIDTH = WIDTH / SUB_BINS
+        BIN = (bin_index + phase + gi) % SUB_BINS
+        BB = BASE + BIN * BIN_WIDTH + random.randint(0, int(BIN_WIDTH))
+        bbs.append(BB)
+
+        is_collapsed = (gi == collapse_group)
+
+        if is_collapsed:
+            # COLLAPSE: minimal motion, tight symmetry
+            L1A = BB + O1
+            L1B = BB - O1
+        else:
+            # FREE: jittered heterodyne
+            L1A = BB + O1 + random.uniform(-JITTER, JITTER)
+            L1B = BB - O1 + random.uniform(-JITTER, JITTER)
+
+        for mod, freq in zip(mods, [L1A, L1B]):
+            group_cmds.append((mod, freq))
+
+            
     bin_index = (bin_index + 1) % SUB_BINS
-
-    # --- Heterodyne layers ---
-    L1A = BB + O1 + random.uniform(-JITTER, JITTER)
-    L1B = BB - O1 + random.uniform(-JITTER, JITTER)
-
-    L2A = L1A + O2
-    L2B = L1A - O2
-    L2C = L1B + O2
-    L2D = L1B - O2
-
-    L3 = (L2A + L2B + L2C + L2D) / 4 + random.uniform(-JITTER, JITTER)
-
+    if bin_index == 0:
+        phase = (phase + 1) % SUB_BINS
     # ----------------------------
-    # ROLE LIST (frequency roles)
+    # COLLAPSE TIMING + GOLDEN RATIO ROTATION
     # ----------------------------
-    roles = deque([
-        BB,
-        L1A,
-        L1B,
-        L2A,
-        L2B,
-        L2C,
-        L2D,
-        L3,   # collapse
-    ])
+    collapse_counter += 1
 
-    # ----------------------------
-    # LOCK-COLLAPSE LOGIC
-    # ----------------------------
-    lock_counter += 1
-    locked = lock_counter <= lock_cycles
+    if collapse_counter >= collapse_cycles:
+        collapse_counter = 0
+        collapse_cycles = random.randint(LOCK_MIN, LOCK_MAX)
 
-    if locked:
-        roles.remove(L3)
+        # golden-ratio walk across groups
+        phi_index = (phi_index + PHI) % len(GROUPS)
+        collapse_group = int(phi_index)
 
-    # ----------------------------
-    # GOLDEN-RATIO ROTATION
-    # ----------------------------
-    step = max(1, int(len(roles) * PHI))
-    roles.rotate(step)
-
-    if locked:
-        roles.insert(LOCK_MODULE_INDEX, L3)
-    else:
-        lock_counter = 0
-        lock_cycles = random.randint(LOCK_MIN, LOCK_MAX)
-
+   
     # ----------------------------
     # BUILD COMMANDS
     # ----------------------------
-    cmds = []
-    for mod, freq in zip(MODULES, roles):
-        cmds.append((mod, freq))
-
-    # ----------------------------
-    # EXECUTE MODULES
-    # ----------------------------
     procs = []
-    for mod, freq in cmds:
+    for mod, freq in group_cmds:
         p = subprocess.Popen(
             [mod, f"{freq:.9f}", REFCLK, C],
             stdout=subprocess.DEVNULL,
@@ -153,10 +169,14 @@ while True:
     for p in procs:
         p.wait()
 
+
+    state = "".join("C" if i == collapse_group else "-" for i in range(len(GROUPS)))
+
     print(
-        f"[BB {BB:.3f}]  "
-        f"Collapse {'LOCKED' if locked else 'FREE'}  "
-        f"Lock {lock_counter}/{lock_cycles}"
+        f"[Groups {state}]  "
+        f"Phase {phase}  "
+        f"Bin {bin_index}"
     )
 
-    time.sleep(random.uniform(0.05, 0.000001))
+
+    time.sleep(random.uniform(0.00001, 0.00000001))

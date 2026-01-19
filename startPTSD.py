@@ -9,10 +9,10 @@ import os
 # ----------------------------
 PHI = 0.6180339887498949
 TOTAL_MODULES = 8
-LOCK_CHANGE_INTERVAL = 20  # iterations before switching the locked module
-MICRO_DWELL_MIN = 0.0001
-MICRO_DWELL_MAX = 0.0009
-OFFSET = 700000  # fixed offset
+LOCK_CHANGE_INTERVAL = 10 # iterations before switching the locked module
+MICRO_DWELL_MIN = 0.000000001
+MICRO_DWELL_MAX = 1
+OFFSET = 500000  # fixed offset
 
 # ----------------------------
 # MODULE LIST
@@ -38,9 +38,9 @@ try:
         MIN_BB = numbers[0]
         MAX_BB = numbers[-1]
 except:
-    MIN_BB, MAX_BB = 70, 1080
+    MIN_BB, MAX_BB = 70, 250
 
-MIN_BB, MAX_BB = 70, 1080
+MIN_BB, MAX_BB = 70, 250
 # ----------------------------
 # READ POWER LEVEL
 # ----------------------------
@@ -61,10 +61,10 @@ phases = [random.random() for _ in range(TOTAL_MODULES)]
 locked_module_index = random.randint(0, TOTAL_MODULES - 1)
 iteration_counter = 0
 
-GROUP_STEP = 25
+GROUP_STEP = 100
 CURRENT_GRP = MIN_BB
 GROUP_DIR = 1
-GROUP_HOLD = 15
+GROUP_HOLD = 10
 GROUP_CNT = 0
 
 # ----------------------------
@@ -90,9 +90,9 @@ while True:
     print(f"BB Group: {CURRENT_GRP} | BB: {BB}")
 
     # ---- DERIVED BASES ----
-    BB1 = BB + 2
-    BB2 = BB + 1
-    BB3 = BB + 3
+    BB1 = BB
+    BB2 = BB
+    BB3 = BB 
 
     # ---- HZ OFFSETS (L1/L2/L3 style collapse) ----
     hz1 = 120

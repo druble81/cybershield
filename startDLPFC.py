@@ -10,9 +10,9 @@ import os
 PHI = 0.6180339887498949
 TOTAL_MODULES = 8
 LOCK_CHANGE_INTERVAL = 20  # iterations before switching the locked module
-MICRO_DWELL_MIN = 0.0001
-MICRO_DWELL_MAX = 0.0009
-OFFSET = 700000  # fixed offset
+MICRO_DWELL_MIN = 0.000001
+MICRO_DWELL_MAX = 0.5
+OFFSET = 500000  # fixed offset
 
 # ----------------------------
 # MODULE LIST
@@ -38,8 +38,8 @@ try:
         MIN_BB = numbers[0]
         MAX_BB = numbers[-1]
 except:
-    MIN_BB, MAX_BB = 110, 1120
-MIN_BB, MAX_BB = 110, 1120
+    MIN_BB, MAX_BB = 80, 275
+MIN_BB, MAX_BB = 80, 275
 
 # ----------------------------
 # READ POWER LEVEL
@@ -61,7 +61,7 @@ phases = [random.random() for _ in range(TOTAL_MODULES)]
 locked_module_index = random.randint(0, TOTAL_MODULES - 1)
 iteration_counter = 0
 
-GROUP_STEP = 25
+GROUP_STEP = 100
 CURRENT_GRP = MIN_BB
 GROUP_DIR = 1
 GROUP_HOLD = 15
