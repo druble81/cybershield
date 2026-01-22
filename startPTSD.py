@@ -11,7 +11,7 @@ PHI = 0.6180339887498949
 TOTAL_MODULES = 8
 LOCK_CHANGE_INTERVAL = 10 # iterations before switching the locked module
 MICRO_DWELL_MIN = 0.000000001
-MICRO_DWELL_MAX = 1
+MICRO_DWELL_MAX = 5
 OFFSET = 500000  # fixed offset
 
 # ----------------------------
@@ -38,9 +38,9 @@ try:
         MIN_BB = numbers[0]
         MAX_BB = numbers[-1]
 except:
-    MIN_BB, MAX_BB = 70, 250
+    MIN_BB, MAX_BB = 35, 4400
 
-MIN_BB, MAX_BB = 70, 250
+MIN_BB, MAX_BB = 35, 4400
 # ----------------------------
 # READ POWER LEVEL
 # ----------------------------
@@ -68,31 +68,45 @@ GROUP_HOLD = 10
 GROUP_CNT = 0
 
 # ----------------------------
+# FENCE SWEEP CONFIG
+# ----------------------------
+FENCE_STEPS = 16          # vertical height of your ASCII fence
+FENCE_WIDTH = MAX_BB - MIN_BB
+FENCE_STEP = FENCE_WIDTH // (FENCE_STEPS - 1)
+
+# Precompute fence positions (expand → collapse)
+fence_positions = []
+for i in range(FENCE_STEPS):
+    fence_positions.append(MIN_BB + i * FENCE_STEP)
+for i in range(FENCE_STEPS - 2, 0, -1):
+    fence_positions.append(MIN_BB + i * FENCE_STEP)
+
+fence_len = len(fence_positions)
+
+# Each module starts offset in the fence
+fence_phase = [i * (fence_len // TOTAL_MODULES) for i in range(TOTAL_MODULES)]
+fence_tick = 0
+
+
+# ----------------------------
 # MAIN LOOP
 # ----------------------------
 while True:
     iteration_counter += 1
 
-    # ---- GROUP HOLD ----
-    GROUP_CNT += 1
-    if GROUP_CNT >= GROUP_HOLD:
-        GROUP_CNT = 0
-        CURRENT_GRP += GROUP_DIR * GROUP_STEP
-        if CURRENT_GRP >= MAX_BB:
-            CURRENT_GRP = MAX_BB
-            GROUP_DIR = -1
-        elif CURRENT_GRP <= MIN_BB:
-            CURRENT_GRP = MIN_BB
-            GROUP_DIR = 1
+    # ---- FENCE SWEEP ADVANCE ----
+    fence_tick = (fence_tick + 1) % fence_len
 
-    # ---- RANDOMIZE BASE BB ----
-    BB = CURRENT_GRP + random.randint(0, GROUP_STEP - 1)
-    print(f"BB Group: {CURRENT_GRP} | BB: {BB}")
+    BB_values = []
+    for i in range(TOTAL_MODULES):
+        idx = (fence_tick + fence_phase[i]) % fence_len
+        BB_values.append(fence_positions[idx])
 
     # ---- DERIVED BASES ----
-    BB1 = BB
-    BB2 = BB
-    BB3 = BB 
+    BB1 = BB_values[0]
+    BB2 = BB_values[1]
+    BB3 = BB_values[2]
+
 
     # ---- HZ OFFSETS (L1/L2/L3 style collapse) ----
     hz1 = 120
@@ -101,16 +115,15 @@ while True:
     hz4 = 420
 
     # ---- DEFINE ROLES ----
-    roles = [
-        f"{BB}.{OFFSET:06d}",
-        f"{BB}.{OFFSET + hz1:06d}",
-        f"{BB1}.{OFFSET + hz2:06d}",
-        f"{BB1}.{OFFSET:06d}",
-        f"{BB2}.{OFFSET:06d}",
-        f"{BB2}.{OFFSET + hz3:06d}",
-        f"{BB3}.{OFFSET + hz4:06d}",
-        f"{BB3}.{OFFSET:06d}",
-    ]
+    roles = []
+    for i, BB in enumerate(BB_values):
+        if i % 2 == 0:
+            hz = OFFSET
+        else:
+            hz = OFFSET + [hz1, hz2, hz3, hz4][i % 4]
+
+        roles.append(f"{BB}.{hz:06d}")
+
 
     # ---- APPLY GOLDEN-RATIO ROTATION WITH LOCK COLLAPSE ----
     assignments = []
