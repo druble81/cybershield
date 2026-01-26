@@ -181,7 +181,7 @@ while True:
     # ----------------------------
     if current_hz > TARGET_HZ:
         current_hz -= STEP_HZ
-    if current_hz == TARGET_HZ:
-        DWELL_BASE = 1
-        DWELL_VAR = 0.000001
+    # if current_hz == TARGET_HZ:
+        # DWELL_BASE = 1
+        # DWELL_VAR = 0.000001
         
