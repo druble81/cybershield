@@ -10,8 +10,8 @@ import os
 PHI = 0.6180339887498949
 TOTAL_MODULES = 8
 LOCK_CHANGE_INTERVAL = 10 # iterations before switching the locked module
-MICRO_DWELL_MIN = 0.000000001
-MICRO_DWELL_MAX = 5
+MICRO_DWELL_MIN = 0.1
+MICRO_DWELL_MAX = 0.2
 OFFSET = 500000  # fixed offset
 
 # ----------------------------
