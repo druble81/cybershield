@@ -59,16 +59,24 @@ sudo chown pi:pi /home/pi/.matchbox/keyboard.xml
 echo "Creating directories..."
 mkdir -p ~/.config/lxsession/LXDE-pi
 
-# Insert the specified lines into the autostart file
-AUTOSTART_FILE=~/.config/lxsession/LXDE-pi/autostart
+git clone https://github.com/WiringPi/WiringPi.git
+cd WiringPi
+./build
+
+
+
+mkdir -p ~/.config/autostart
+
+AUTOSTART_FILE=~/.config/autostart/myprogram.desktop
 
 echo "Writing to $AUTOSTART_FILE..."
 cat <<EOF > $AUTOSTART_FILE
-@lxpanel --profile LXDE-pi
-@pacmanfm --desktop --profile LXDE-pi
-@sudo systemctl disable triggerhappy
-@sudo systemctl stop triggerhappy
-@lxterminal -e /home/pi/Desktop/I3/interface3
+[Desktop Entry]
+Type=Application
+Name=MyProgram
+Exec=/home/pi/Desktop/I3/interface3
+X-GNOME-Autostart-enabled=true
 EOF
+
 
 echo "Setup complete. Please reboot to apply changes."
