@@ -29,9 +29,9 @@ print(f"[DEBUG] POWER LEVEL = {C}")
 # ----------------------------
 # OFFSETS (MHz)
 # ----------------------------
-O1 = 0.000003     # 3 Hz
-O2 = 0.000010     # 10 Hz
-O3 = 0.000003     # 3 Hz
+O1 = 0.000002     # 3 Hz
+O2 = 0.000001     # 10 Hz
+O3 = 0.000002     # 3 Hz
 JITTER = 0.000001
 
 print(f"[DEBUG] OFFSETS: O1={O1}, O2={O2}, O3={O3}, JITTER={JITTER}")
@@ -157,4 +157,4 @@ while True:
     for p in procs:
         p.wait()
 
-    time.sleep(random.uniform(0.2, 0.1))
+    time.sleep(random.uniform(0.4, 0.1))
