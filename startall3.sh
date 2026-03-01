@@ -31,6 +31,13 @@ else
     C=2
 fi
 
+while :
+do
+
+
+sudo pkill -f adf4351
+
+
 /home/pi/Desktop/startall3/adf4351 200 25000000 $C $T1 $T2&
 /home/pi/Desktop/startall3/adf43512 200 25000000 $C $T1 $T2&
 /home/pi/Desktop/startall3/adf43513 200 25000000 $C $T3 $T4&
@@ -41,11 +48,6 @@ fi
 /home/pi/Desktop/startall3/adf43518 200 25000000 $C $T1 $T2&
 /home/pi/Desktop/startall3/adf43519 200 25000000 $C $T1 $T2&
 
-while :
-do
-
-
-#sudo pkill -f adf4351
 
 echo "PFC"
 
