@@ -157,4 +157,4 @@ while True:
     for p in procs:
         p.wait()
 
-    time.sleep(random.uniform(0.3, 0.1))
+    time.sleep(random.uniform(0.4, 0.05))

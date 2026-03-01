@@ -179,4 +179,4 @@ while True:
     )
 
 
-    time.sleep(random.uniform(0.3, 0.1))
+    time.sleep(random.uniform(0.4, 0.05))
