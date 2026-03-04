@@ -74,7 +74,7 @@ cat <<EOF > $AUTOSTART_FILE
 [Desktop Entry]
 Type=Application
 Name=MyProgram
-Exec=/home/pi/Desktop/I3/interface3
+Exec=bash /home/pi/Desktop/interface3.sh
 X-GNOME-Autostart-enabled=true
 EOF
 
