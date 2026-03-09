@@ -58,7 +58,7 @@ echo "Slave modules started, now waiting for Module 3 control"
 
 while :
 do
-
+sudo pkill -f "adf4351[0-9]*"
 
 # Module 3 (controller with full cascade)
 /tmp/ramdisk/adf43513 3000 25000000 $C $T3 $T4 2 &
@@ -76,7 +76,6 @@ echo "Module 3 started with full cascade control"
 /tmp/ramdisk/adf43518 3000 25000000 $C $T1 $T2 &
 /tmp/ramdisk/adf43519 3000 25000000 $C $T1 $T2 &
 
-echo "Slave modules started, now waiting for Module 3 control"
 echo "......................Full Coverage MODE......................"
 
 sleep 30
