@@ -9,9 +9,9 @@ import os
 # ----------------------------
 PHI = 0.6180339887498949
 TOTAL_MODULES = 8
-LOCK_CHANGE_INTERVAL = 10 # iterations before switching the locked module
-MICRO_DWELL_MIN = 0.05
-MICRO_DWELL_MAX = 0.4
+LOCK_CHANGE_INTERVAL = 3 # iterations before switching the locked module
+MICRO_DWELL_MIN = 0.4
+MICRO_DWELL_MAX = 0.8
 OFFSET = 500000  # fixed offset
 
 # ----------------------------
@@ -61,10 +61,10 @@ phases = [random.random() for _ in range(TOTAL_MODULES)]
 locked_module_index = random.randint(0, TOTAL_MODULES - 1)
 iteration_counter = 0
 
-GROUP_STEP = 100
+GROUP_STEP = 15
 CURRENT_GRP = MIN_BB
 GROUP_DIR = 1
-GROUP_HOLD = 10
+GROUP_HOLD = 3
 GROUP_CNT = 0
 
 # ----------------------------

@@ -54,8 +54,8 @@ print(f"[DEBUG] NUM_SPINES = {NUM_SPINES}, PHI = {PHI}")
 # ----------------------------
 # SPINE STATE
 # ----------------------------
-GROUP_STEP = 100
-GROUP_HOLD = 10
+GROUP_STEP = 500
+GROUP_HOLD = 2
 
 spine_state = []
 for si in range(NUM_SPINES):
@@ -157,4 +157,4 @@ while True:
     for p in procs:
         p.wait()
 
-    time.sleep(random.uniform(0.4, 0.05))
+    time.sleep(random.uniform(0.8, 0.3))

@@ -61,10 +61,10 @@ phases = [random.random() for _ in range(TOTAL_MODULES)]
 locked_module_index = random.randint(0, TOTAL_MODULES - 1)
 iteration_counter = 0
 
-GROUP_STEP = 100
+GROUP_STEP = 15
 CURRENT_GRP = MIN_BB
 GROUP_DIR = 1
-GROUP_HOLD = 15
+GROUP_HOLD = 2
 GROUP_CNT = 0
 
 # ----------------------------
@@ -95,10 +95,10 @@ while True:
     BB3 = BB + 3
 
     # ---- HZ OFFSETS (L1/L2/L3 style collapse) ----
-    hz1 = 5
-    hz2 = 5
+    hz1 = 4
+    hz2 = 4
     hz3 = 4
-    hz4 = 5
+    hz4 = 3
 
     # ---- DEFINE ROLES ----
     roles = [
