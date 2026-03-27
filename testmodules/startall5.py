@@ -10,8 +10,8 @@ import os
 TARGET_HZ   = 1
 START_HZ    = 12
 STEP_HZ     = 1
-DWELL_BASE  = 6
-DWELL_VAR   = 4
+DWELL_BASE  = 4
+DWELL_VAR   = 9
 PHASE_STEP  = 3
 REFCLK      = 25_000_000
 
@@ -182,6 +182,6 @@ while True:
     if current_hz > TARGET_HZ:
         current_hz -= STEP_HZ
     # if current_hz == TARGET_HZ:
-        DWELL_BASE = 0.1
-        DWELL_VAR = 0.2
+        DWELL_BASE = 1
+        DWELL_VAR = 10
         
