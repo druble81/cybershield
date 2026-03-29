@@ -78,5 +78,5 @@ echo "Module 3 started with full cascade control"
 
 echo "......................Full Coverage MODE......................"
 
-sleep 30
+sleep 60
 done

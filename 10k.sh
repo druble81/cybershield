@@ -46,7 +46,6 @@ D=$(($RANDOM % 30 + 1))
 
 
 
- 
 
 
 while :
@@ -57,6 +56,7 @@ echo "......................FULL 10K MODE......................$D"
 echo "......................FULL 10K MODE......................$D"
 echo "......................FULL 10K MODE......................$D"
 echo "......................FULL 10K MODE......................$D"
+
 sudo pkill -f "adf4351[0-9]*"
 
 /tmp/ramdisk/adf4351 3000 25000000 $C $T1 $T2 &
@@ -69,7 +69,8 @@ sudo pkill -f "adf4351[0-9]*"
 /tmp/ramdisk/adf43518 3000 25000000 $C $T1 $T2 &
 /tmp/ramdisk/adf43519 3000 25000000 $C $T1 $T2 &
 
-sleep $(($RANDOM % 30 + 30))
+
+sleep $(($RANDOM % 50 + 50))
 
 
 done

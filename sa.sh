@@ -75,5 +75,5 @@ start_if_not_running 19 "/tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2"
 while true; do
     echo "===== BURST MODE ACTIVE ====="
 
-    sleep 4
+    sleep 1
 done

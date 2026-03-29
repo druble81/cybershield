@@ -82,7 +82,7 @@ echo "......................NORMAL MODE......................$D"
 
 
 echo "C is " $C
-sleep $(($RANDOM % 15 + 15))
+sleep $(($RANDOM % 35 + 35))
 sudo pkill -f "adf4351[0-9]*"
 
 /tmp/ramdisk/adf4351 1000 25000000 $C $T1 $T2&
