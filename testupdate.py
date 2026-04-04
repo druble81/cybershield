@@ -22,7 +22,7 @@ INSTALL_DIR = "/home/pi/Desktop"
 TMP_DIR = "/tmp"
 UPDATE_LOG = "/home/pi/Desktop/updatelevel.json"
 
-API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/releases"
+API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}/releases?per_page=100"
 TOKEN = os.getenv("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")
 # ==========================================
 
