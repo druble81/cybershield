@@ -6,7 +6,7 @@ B="$2"
 
 # If 2nd argument is 4200, force it to 4400
 if [[ "$B" -eq 4200 ]]; then
-    B=4400
+    B=6400
 fi
 
 
@@ -127,7 +127,7 @@ RANDOM=$SEED
     range=$((end - start + 1))
 
     # Calculate the divisor
-    divisor=$(( (range + 4599) / 4500 ))
+    divisor=$(( (range + 6399) / 6400 ))
 
  
 

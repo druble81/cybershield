@@ -38,8 +38,8 @@ try:
         MIN_BB = numbers[0]
         MAX_BB = numbers[-1]
 except:
-    MIN_BB, MAX_BB = 120, 600
-MIN_BB, MAX_BB = 120, 600
+    MIN_BB, MAX_BB = 120, 6400
+
 
 # ----------------------------
 # READ POWER LEVEL

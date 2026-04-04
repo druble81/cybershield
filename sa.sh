@@ -1,79 +1,124 @@
 #!/bin/bash
 
-########################################
-# LOAD VALUES
-########################################
 
+cd /home/pi/Desktop
+
+RANDOM=$$
+
+
+# Path to the file
 FILE="/home/pi/Desktop/nvalues.txt"
+
+# Default values
 DEFAULT_T1=140
 DEFAULT_T2=65
 
+# Check if file exists and load values, otherwise use defaults
 if [[ -f "$FILE" ]]; then
+    # Read first two values from the file
     read T1 T2 < "$FILE"
 else
     T1=$DEFAULT_T1
     T2=$DEFAULT_T2
 fi
 
+
 T3=$((T1*2))
 T4=$((T2*2))
 
-cd /tmp/ramdisk || exit 1
 
-########################################
-# POWER
-########################################
+
+# Path to the file
+FILE="/home/pi/Desktop/10values.txt"
+
+# Default values
+DEFAULT_T5=140
+DEFAULT_T6=65
+
+# Check if file exists and load values, otherwise use defaults
+if [[ -f "$FILE" ]]; then
+    # Read first two values from the file
+    read T5 T6 < "$FILE"
+else
+    T5=$DEFAULT_T5
+    T6=$DEFAULT_T6
+fi
+
+
+T7=$((T5*2))
+T8=$((T6*2))
+
+
+
+
+
+
+/tmp/ramdisk/adf43513 1000 25000000 0 $T1 $T2&
+sudo pkill -f "adf4351[0-9]*"
 
 FILE="/home/pi/Desktop/power.txt"
+
 if [[ -f "$FILE" ]]; then
+    # Read the value from the file into C
     C=$(<"$FILE")
 else
+    # Default to 2 if file not found
     C=2
 fi
 
-########################################
-# STATE TRACKING (NO RESTARTS)
-########################################
 
-declare -A RUNNING_PID
 
-start_if_not_running() {
-    local key="$1"
-    local cmd="$2"
 
-    if [[ -n "${RUNNING_PID[$key]}" ]] && kill -0 "${RUNNING_PID[$key]}" 2>/dev/null; then
-        return
-    fi
+echo "C is " $C
 
-    eval "$cmd &"
-    RUNNING_PID[$key]=$!
-}
+echo "......................Burst MODE......................$D"
 
-########################################
-# START ALL MODULES ONCE
-########################################
 
-echo ">>> STARTING BURST MODE (PERSISTENT)"
 
-# Anchor / primary (module 13)
-start_if_not_running 13 "/tmp/ramdisk/adf43513 1000 25000000 $C $T3 $T4 1"
 
-# Remaining modules
-start_if_not_running 1  "/tmp/ramdisk/adf4351  1000 25000000 $C $T1 $T2"
-start_if_not_running 12 "/tmp/ramdisk/adf43512 1000 25000000 $C $T1 $T2"
-start_if_not_running 14 "/tmp/ramdisk/adf43514 1000 25000000 $C $T1 $T2"
-start_if_not_running 15 "/tmp/ramdisk/adf43515 1000 25000000 $C $T1 $T2"
-start_if_not_running 16 "/tmp/ramdisk/adf43516 1000 25000000 $C $T1 $T2"
-start_if_not_running 17 "/tmp/ramdisk/adf43517 1000 25000000 $C $T1 $T2"
-start_if_not_running 18 "/tmp/ramdisk/adf43518 1000 25000000 $C $T1 $T2"
-start_if_not_running 19 "/tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2"
+while :
+do
 
-########################################
-# MAIN LOOP (STATUS ONLY)
-########################################
+#sleep $(($RANDOM % 10 + 5))
+#sudo pkill -f "adf4351[0-9]*"
 
-while true; do
-    echo "===== BURST MODE ACTIVE ====="
 
-    sleep 1
+echo "......................Normal MODE......................$D"
+
+
+
+
+
+sleep 1
+sudo pkill -f "adf4351[0-9]*"
+
+/tmp/ramdisk/adf4351 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43512 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43513 1000 25000000 $C $T3 $T4&
+/tmp/ramdisk/adf43514 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43515 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43516 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43517 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43518 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2&
+
+echo "......................10k MODE......................$D"
+
+sleep 1
+sudo pkill -f "adf4351[0-9]*"
+
+/tmp/ramdisk/adf4351 1000 25000000 $C $T5 $T6&
+/tmp/ramdisk/adf43512 1000 25000000 $C $T5 $T6&
+/tmp/ramdisk/adf43513 1000 25000000 $C $T7 $T8 3&
+/tmp/ramdisk/adf43514 1000 25000000 $C $T5 $T6&
+/tmp/ramdisk/adf43515 1000 25000000 $C $T5 $T6&
+/tmp/ramdisk/adf43516 1000 25000000 $C $T5 $T6&
+/tmp/ramdisk/adf43517 1000 25000000 $C $T5 $T6&
+/tmp/ramdisk/adf43518 1000 25000000 $C $T5 $T6&
+/tmp/ramdisk/adf43519 1000 25000000 $C $T5 $T6&
+
+
+
+
 done
+
