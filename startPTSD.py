@@ -141,7 +141,7 @@ while True:
     # ---- PARALLEL EXECUTION ----
     procs = []
     for mod, freq in assignments:
-        p = subprocess.Popen([mod, freq, "25000000", C])
+        p = subprocess.Popen([mod, freq, "25000000", C, "--pd"])
         procs.append(p)
     for p in procs:
         p.wait()

@@ -64,7 +64,7 @@ while True:
         base[3], base[3] + delta_B,
     ]
 
-    print(f"[DEBUG] drift={drift*1e6:.1f} Hz | ΔA={delta_A*1e6:.1f} Hz | ΔB={delta_B*1e6:.1f} Hz")
+    #print(f"[DEBUG] drift={drift*1e6:.1f} Hz | ΔA={delta_A*1e6:.1f} Hz | ΔB={delta_B*1e6:.1f} Hz")
 
     procs = []
     for mod, freq in zip(MODULES, freqs):
@@ -79,4 +79,4 @@ while True:
         p.wait()
 
     t += DRIFT_SPEED
-    time.sleep(0.5)
+    time.sleep(0.05)

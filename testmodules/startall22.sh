@@ -43,9 +43,9 @@ except FileNotFoundError:
 # ----------------------------
 # HETERODYNE OFFSETS (MHz)
 # ----------------------------
-O1 = 0.000003
-O2 = 0.000004
-O3 = 0.000005
+O1 = 0.000000
+O2 = 0.000000
+O3 = 0.000000
 JITTER = 0.000001
 
 # ----------------------------
@@ -172,11 +172,11 @@ while True:
 
     state = "".join("C" if i == collapse_group else "-" for i in range(len(GROUPS)))
 
-    print(
-        f"[Groups {state}]  "
-        f"Phase {phase}  "
-        f"Bin {bin_index}"
-    )
+    #print(
+        #f"[Groups {state}]  "
+        #f"Phase {phase}  "
+        #f"Bin {bin_index}"
+    #)
 
 
-    time.sleep(random.uniform(0.4, 0.05))
+    time.sleep(random.uniform(0.005, 0.00005))
