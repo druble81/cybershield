@@ -38,7 +38,7 @@ try:
         MIN_BB = numbers[0]
         MAX_BB = numbers[-1]
 except:
-    MIN_BB, MAX_BB = 35, 6400
+    MIN_BB, MAX_BB = 35,8800
 
 
 # ----------------------------
@@ -61,7 +61,7 @@ phases = [random.random() for _ in range(TOTAL_MODULES)]
 locked_module_index = random.randint(0, TOTAL_MODULES - 1)
 iteration_counter = 0
 
-GROUP_STEP = 15
+GROUP_STEP = 200
 CURRENT_GRP = MIN_BB
 GROUP_DIR = 1
 GROUP_HOLD = 3

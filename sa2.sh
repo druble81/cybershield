@@ -54,16 +54,15 @@ echo "Slave modules started, now waiting for Module 3 control"
 # End script — no looping, no restarts
 
 
+echo "Module 3 started with full cascade control"
 
 
-while :
-do
 sudo pkill -f "adf4351[0-9]*"
+sleep 0.1
 
 # Module 3 (controller with full cascade)
 /tmp/ramdisk/adf43513 3000 25000000 $C $T3 $T4 2 &
 
-echo "Module 3 started with full cascade control"
 
 # Slave modules (1–2, 4–12 in your numbering)
 # Manually start them once; no restart logic needed
@@ -76,7 +75,11 @@ echo "Module 3 started with full cascade control"
 /tmp/ramdisk/adf43518 3000 25000000 $C $T1 $T2 &
 /tmp/ramdisk/adf43519 3000 25000000 $C $T1 $T2 &
 
+
+while :
+do
+
 echo "......................Full Coverage MODE......................"
 
-sleep 60
+sleep 15
 done

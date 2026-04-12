@@ -81,6 +81,22 @@ echo "......................Burst MODE......................$D"
 /tmp/ramdisk/adf43518 1000 25000000 $C $T1 $T2&
 /tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2&
 
+count=0
+
+
+
+sudo pkill -f "adf4351[0-9]*"
+
+
+/tmp/ramdisk/adf43513 1000 25000000 $C $T3 $T4 1&
+        /tmp/ramdisk/adf4351 1000 25000000 $C $T1 $T2 &
+        /tmp/ramdisk/adf43512 1000 25000000 $C $T1 $T2 &
+        /tmp/ramdisk/adf43514 1000 25000000 $C $T1 $T2 &
+        /tmp/ramdisk/adf43515 1000 25000000 $C $T1 $T2 &
+        /tmp/ramdisk/adf43516 1000 25000000 $C $T1 $T2 &
+        /tmp/ramdisk/adf43517 1000 25000000 $C $T1 $T2 &
+        /tmp/ramdisk/adf43518 1000 25000000 $C $T1 $T2 &
+        /tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2 &
 
 while :
 do
@@ -89,26 +105,15 @@ do
 #sudo pkill -f "adf4351[0-9]*"
 
 
-echo "......................Normal MODE......................$D"
-
-
+echo "......................Burst MODE......................$D"
 
 
 
 sleep 1.5
-sudo pkill -f "adf43513"
 
 
-/tmp/ramdisk/adf43513 1000 25000000 $C $T3 $T4&
 
 
-echo "......................10k MODE......................$D"
-
-sleep 1.5
-sudo pkill -f "adf43513"
-
-
-/tmp/ramdisk/adf43513 1000 25000000 $C $T7 $T8 3&
 
 
 done

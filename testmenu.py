@@ -479,12 +479,15 @@ class ProgramManager(tk.Tk):
         print("[Cleanup] Running sudo pkill commands")
         # FIX: Corrected typo "adf4is a" to "adf4351"
         targets = ["start", "sa", "10k", "adf4351", "RAND", "sleep", "1020", "dtra", "t1", "t2", "dtmenu"]
-        for name in targets:
-            try:
-                subprocess.run(["sudo", "/usr/bin/pkill", "-f", name], check=False, capture_output=True)
-                print(f"[Cleanup] Sent kill signal for processes matching: {name}")
-            except Exception as e:
-                print(f"[Cleanup] Error trying to kill process {name}: {e}")
+        subprocess.run(["/usr/bin/bash", "/home/pi/Desktop/alloffrd.sh"])
+
+        #for name in targets:
+         #   try:
+               # subprocess.run(["sudo", "/usr/bin/pkill", "-f", name], check=False, capture_output=True)
+               # print(f"[Cleanup] Sent kill signal for processes matching: {name}")
+          #  except Exception as e:
+           #     print(f"[Cleanup] Error trying to kill process {name}: {e}")
+
 
     def start_program(self):
         if self.running_thread and self.running_thread.is_alive():
@@ -515,6 +518,7 @@ class ProgramManager(tk.Tk):
 
                     print(f"[Runner] Cleaning up before step: {step['name']}")
                     self.run_cleanup()
+
 
                     # Remove old SG3.TXT
                     try:

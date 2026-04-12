@@ -59,10 +59,29 @@ fi
 
 
 
+
+
+
+
+echo "C is " $C
+sleep $(($RANDOM % 10 + 10))
+sudo pkill -f "adf4351[0-9]*"
+
+/tmp/ramdisk/adf4351 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43512 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43513 1000 25000000 $C $T3 $T4&
+/tmp/ramdisk/adf43514 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43515 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43516 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43517 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43518 1000 25000000 $C $T1 $T2&
+/tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2&
+
+
 while :
 do
 
-#sleep $(($RANDOM % 10 + 5))
+sleep $(($RANDOM % 10 + 5))
 #sudo pkill -f "adf4351[0-9]*"
 
 
@@ -78,21 +97,5 @@ echo "......................NORMAL MODE......................$D"
 echo "......................NORMAL MODE......................$D"
 echo "......................NORMAL MODE......................$D"
 
-
-
-
-echo "C is " $C
-sleep $(($RANDOM % 35 + 35))
-sudo pkill -f "adf4351[0-9]*"
-
-/tmp/ramdisk/adf4351 1000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf43512 1000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf43513 1000 25000000 $C $T3 $T4&
-/tmp/ramdisk/adf43514 1000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf43515 1000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf43516 1000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf43517 1000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf43518 1000 25000000 $C $T1 $T2&
-/tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2&
 done
 
