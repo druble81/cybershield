@@ -11,8 +11,9 @@ sg3_file = "/tmp/ramdisk/SG3.TXT"
 with open(sg3_file, "r") as f:
     numbers = [int(x) for x in f.read().split() if x.isdigit()]
 
-base = random.sample(numbers, 4)
-print(f"[DEBUG] BASE FREQUENCIES: {base}")
+# SINGLE shared base frequency
+base = random.choice(numbers)
+print(f"[DEBUG] BASE FREQUENCY: {base}")
 
 # ----------------------------
 # POWER LEVEL
@@ -57,14 +58,17 @@ while True:
     delta_A = BASE_DELTA + drift
     delta_B = delta_A + FINAL_OFFSET  # ALWAYS 5 Hz apart
 
+    # ALL modules derived from SAME base
     freqs = [
-        base[0], base[0] + delta_A,
-        base[1], base[1] + delta_B,
-        base[2], base[2] + delta_A,
-        base[3], base[3] + delta_B,
+        base,
+        base + delta_A,
+        base,
+        base + delta_B,
+        base,
+        base + delta_A,
+        base,
+        base + delta_B,
     ]
-
-    #print(f"[DEBUG] drift={drift*1e6:.1f} Hz | ΔA={delta_A*1e6:.1f} Hz | ΔB={delta_B*1e6:.1f} Hz")
 
     procs = []
     for mod, freq in zip(MODULES, freqs):

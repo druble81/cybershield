@@ -56,6 +56,15 @@ B=2325
 
 sleep $(($RANDOM % 2 + 1))
 sudo pkill -f adf4351
+/home/pi/Desktop/testmodules/adf4351 off
+/home/pi/Desktop/testmodules/adf43512 off
+/home/pi/Desktop/testmodules/adf43513 off
+/home/pi/Desktop/testmodules/adf43514 off
+/home/pi/Desktop/testmodules/adf43515 off
+/home/pi/Desktop/testmodules/adf43516 off
+/home/pi/Desktop/testmodules/adf43517 off
+/home/pi/Desktop/testmodules/adf43518 off
+/home/pi/Desktop/testmodules/adf43519 off
 sleep $(($RANDOM % 2 + 1))
 
 done
