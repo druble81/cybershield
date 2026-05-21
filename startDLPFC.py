@@ -10,7 +10,7 @@ import os
 PHI = 0.6180339887498949
 TOTAL_MODULES = 8
 LOCK_CHANGE_INTERVAL = 20  # iterations before switching the locked module
-MICRO_DWELL_MIN = 0.05
+MICRO_DWELL_MIN = 0.09
 MICRO_DWELL_MAX = 0.4
 OFFSET = 500000  # fixed offset
 
@@ -61,7 +61,7 @@ phases = [random.random() for _ in range(TOTAL_MODULES)]
 locked_module_index = random.randint(0, TOTAL_MODULES - 1)
 iteration_counter = 0
 
-GROUP_STEP = 200
+GROUP_STEP = 500
 CURRENT_GRP = MIN_BB
 GROUP_DIR = 1
 GROUP_HOLD = 3
@@ -95,8 +95,8 @@ while True:
     BB3 = BB + 3
 
     # ---- HZ OFFSETS (L1/L2/L3 style collapse) ----
-    hz1 = 4
-    hz2 = 4
+    hz1 = 2
+    hz2 = 7
     hz3 = 4
     hz4 = 3
 

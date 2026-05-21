@@ -31,7 +31,7 @@ BASE_DELTA = 0.003000      # 3000 Hz
 FINAL_OFFSET = 0.000005    # 5 Hz
 
 DRIFT_AMPLITUDE = 0.000200  # ±200 Hz
-DRIFT_SPEED = 0.2           # slower = smoother
+DRIFT_SPEED = 0.5          # slower = smoother
 
 # ----------------------------
 # MODULES
@@ -83,4 +83,4 @@ while True:
         p.wait()
 
     t += DRIFT_SPEED
-    time.sleep(0.3)
+    time.sleep(0.1)
