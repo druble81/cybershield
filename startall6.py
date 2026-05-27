@@ -17,8 +17,8 @@ LOCK_COLLAPSE_MAX  = 5       # max cycles collapsed
 
 lock_collapse_active = 0
 
-MIN_DWELL = 0.1
-MAX_DWELL = 2
+MIN_DWELL = 0.01
+MAX_DWELL = 0.03
 
 # ----------------------------
 # READ POWER
@@ -51,8 +51,8 @@ MIN_BB = numbers[0]
 MAX_BB = numbers[-1]
 
 
-MIN_BB = 75
-MAX_BB = 245
+MIN_BB = 300
+MAX_BB = 400
 
 
 # ----------------------------
@@ -149,8 +149,8 @@ while True:
             hz3 = hz1
             hz4 = hz1
             offset_base = offset
-            MIN_DWELL = 0.1
-            MAX_DWELL = 0.2
+            MIN_DWELL = 0.01
+            MAX_DWELL = 0.03
             
     else:
         # MANUAL MODE: fixed Hz, no cascade, no lock collapse changes
@@ -160,8 +160,8 @@ while True:
         if manual_hz < gethz:
             manual_hz += 1
         if manual_hz == gethz:
-            MIN_DWELL = 0.1
-            MAX_DWELL = 0.2
+            MIN_DWELL = 30
+            MAX_DWELL = 60
         hz1 = hz2 = hz3 = hz4 = manual_hz
         offset_base = offset
 

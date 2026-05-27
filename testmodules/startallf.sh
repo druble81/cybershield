@@ -83,4 +83,4 @@ while True:
         p.wait()
 
     t += DRIFT_SPEED
-    time.sleep(0.1)
+    time.sleep(0.001)
