@@ -1,50 +1,47 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import subprocess
 import random
 import time
 import os
 
-# ----------------------------
+# ----------------------------------------------------------------------
 # USER TUNABLES
-# ----------------------------
-TARGET_HZ   = 1
-START_HZ    = 12
-STEP_HZ     = 1
-DWELL_BASE  = 4
-DWELL_VAR   = 9
-PHASE_STEP  = 3
-REFCLK      = 25_000_000
+# ----------------------------------------------------------------------
+TARGET_HZ   = 1          # final carrier frequency (once we hit it we stay here)
+START_HZ    = 12         # start value for the ramp‑down
+STEP_HZ     = 1          # how many Hz to step down each loop
 
+DWELL_BASE  = 4          # dwell time while we are still ramping down (seconds)
+DWELL_VAR   = 9          # jitter on the dwell time while ramping (seconds)
+
+# ----------------------------------------------------------------------
+# FILES THAT THE ORIGINAL SCRIPT READS – they are kept because the
+# modules probably expect the values they contain.
+# ----------------------------------------------------------------------
 POWER_FILE = "/home/pi/Desktop/power.txt"
 SG3_FILE   = "/tmp/ramdisk/SG3.TXT"
 
-PHI = 0.6180339887498949
-TOTAL_MODULES = 8
+# ----------------------------------------------------------------------
+# NOT USED ANYMORE (kept only for completeness)
+# ----------------------------------------------------------------------
+PHI = 0.6180339887498949      # golden ratio – not used in the new logic
+TOTAL_MODULES = 9            # we have nine modules in the list below
 
-# ----------------------------
-# LOCK-COLLAPSE TUNABLES
-# ----------------------------
-LOCK_MIN = 2
-LOCK_MAX = 15
-LOCK_MODULE_INDEX = 5   # adf43518 (centered in your list)
-
-lock_cycles = random.randint(LOCK_MIN, LOCK_MAX)
-lock_counter = 0
-
-# ----------------------------
-# READ POWER
-# ----------------------------
+# ----------------------------------------------------------------------
+# READ POWER SETTING (the value that is passed to every module)
+# ----------------------------------------------------------------------
 if os.path.exists(POWER_FILE):
     with open(POWER_FILE, "r") as f:
         C = f.read().strip()
 else:
     C = "2"
-
 print(f"Power: {C}")
 
-# ----------------------------
-# READ SG3 RANGE
-# ----------------------------
+# ----------------------------------------------------------------------
+# READ SG3 RANGE – this is only used to pick a random “base carrier”
+# ----------------------------------------------------------------------
 try:
     with open(SG3_FILE, "r") as f:
         lines = [int(x) for x in f.read().split() if x.isdigit()]
@@ -54,134 +51,84 @@ except Exception as e:
     print(f"[Error] SG3 missing, using defaults: {e}")
     MIN_BB, MAX_BB = 80, 150
 
-print(f"SG3 Range: {MIN_BB} - {MAX_BB}")
+print(f"SG3 Range (BB): {MIN_BB} – {MAX_BB}")
 
-# ----------------------------
-# MODULE LIST (ORDER MATTERS)
-# ----------------------------
+# ----------------------------------------------------------------------
+# MODULE LIST – must stay in the same order as the frequencies we will
+# hand to them.  There are nine entries → 4 + 5 split.
+# ----------------------------------------------------------------------
 MODULES = [
     "./adf43513",
     "./adf43514",
     "./adf43515",
     "./adf43516",
     "./adf43517",
-    "./adf43518",  # LOCK TARGET
+    "./adf43518",   # centre of the list – not used for lock any more
     "./adf4351",
     "./adf43512",
+    "./adf43519"
 ]
 
-# ----------------------------
-# INITIAL VALUES
-# ----------------------------
-current_hz = START_HZ
-phase_rot  = 0
-
-# golden-ratio phase per module
-phases = [random.random() for _ in range(TOTAL_MODULES)]
-
-# ----------------------------
-# HELPER
-# ----------------------------
+# ----------------------------------------------------------------------
+# HELPER: launch all modules and wait until they finish
+# ----------------------------------------------------------------------
 def run_modules(assignments):
+    """Start every module with its frequency string and wait for them."""
     procs = []
     for mod, freq in assignments:
-        p = subprocess.Popen([mod, freq, str(REFCLK), C])
+        # each module expects: <executable> <frequency> <refclk> <power‑setting>
+        p = subprocess.Popen([mod, freq, str(25_000_000), C])
         procs.append(p)
     for p in procs:
         p.wait()
 
-# ----------------------------
+# ----------------------------------------------------------------------
 # MAIN LOOP
-# ----------------------------
+# ----------------------------------------------------------------------
+current_hz = START_HZ                     # we start at 12 Hz
+
 while True:
+    # --------------------------------------------------------------
+    # 1️⃣  RAMP‑DOWN – decrease the carrier until we hit TARGET_HZ
+    # --------------------------------------------------------------
+    if current_hz > TARGET_HZ:
+        current_hz -= STEP_HZ               # step down one Hz per iteration
 
-    # Clamp beat frequency
-    if current_hz < TARGET_HZ:
-        current_hz = TARGET_HZ
+    # --------------------------------------------------------------
+    # 2️⃣  PICK A BASE CARRIER (random within the SG3 range)
+    # --------------------------------------------------------------
+    BB = random.randint(MIN_BB, MAX_BB)   # e.g. 80 … 280 kHz
 
-    # Base carrier
-    BB = random.randint(MIN_BB, MAX_BB)
+    assignments = []                       # (module_path, frequency_string)
 
-    # Stable offset
-    OFFSET = random.randint(200_000, 700_000)
+    # --------------------------------------------------------------
+    # 3️⃣  ASSIGN FREQUENCIES
+    #     – first 4 modules get ONLY the base carrier (no hz addition)
+    #     – the remaining 5 modules get BASE + CURRENT_HZ
+    # --------------------------------------------------------------
+    for i in range(4):                       # indices 0‑3 → 4 modules
+        suffix = (i * 100_000) % 1_000_000   # a deterministic 6‑digit suffix
+        freq_str = f"{BB}.{suffix:06d}"
+        assignments.append((MODULES[i], freq_str))
 
-    # ----------------------------
-    # BASE FREQUENCY ROLES
-    # ----------------------------
-    roles = [
-        OFFSET,
-        OFFSET + current_hz,
-        OFFSET + current_hz * 2,
-        OFFSET + PHASE_STEP,
-        OFFSET + PHASE_STEP * 2,
-        OFFSET,                    # collapse candidate
-        OFFSET,
-        OFFSET + current_hz,
-    ]
+    for i in range(4, len(MODULES)):          # indices 4‑8 → 5 modules
+        suffix = ((i - 4 + 1) * 100_000) % 1_000_000
+        freq_str = f"{BB + current_hz}.{suffix:06d}"
+        assignments.append((MODULES[i], freq_str))
 
-    collapse_value = roles[5]
-
-    # ----------------------------
-    # LOCK-COLLAPSE LOGIC
-    # ----------------------------
-    lock_counter += 1
-    locked = lock_counter <= lock_cycles
-
-    if locked:
-        roles.pop(5)
-
-    # ----------------------------
-    # ROTATE ROLES (golden-ratio)
-    # ----------------------------
-    step = max(1, int(len(roles) * PHI))
-    roles = roles[step:] + roles[:step]
-
-    if locked:
-        roles.insert(LOCK_MODULE_INDEX, collapse_value)
-    else:
-        lock_counter = 0
-        lock_cycles = random.randint(LOCK_MIN, LOCK_MAX)
-
-    # ----------------------------
-    # APPLY GOLDEN-RATIO DECORRELATION
-    # ----------------------------
-    assignments = []
-    for i, mod in enumerate(MODULES):
-        phases[i] = (phases[i] + PHI) % 1.0
-        bb_offset = int(phases[i] * 7)
-
-        freq = f"{BB + bb_offset}.{roles[i]:06d}"
-        assignments.append((mod, freq))
-
-    print(
-        f"Carrier={BB}  Beat={current_hz}Hz  "
-        f"Collapse={'LOCKED' if locked else 'FREE'} "
-        f"{lock_counter}/{lock_cycles}"
-    )
-
-    # ----------------------------
-    # RUN MODULES
-    # ----------------------------
+    # --------------------------------------------------------------
+    # 4️⃣  LAUNCH THE MODULES WITH THE FREQUENCIES WE JUST BUILT
+    # --------------------------------------------------------------
     run_modules(assignments)
 
-    # ----------------------------
-    # DWELL
-    # ----------------------------
-    time.sleep(DWELL_BASE + random.uniform(0, DWELL_VAR))
-
-    # ----------------------------
-    # PHASE ROTATION
-    # ----------------------------
-    phase_rot += PHASE_STEP
-    if phase_rot > 20:
-        phase_rot = 0
-
-    # ----------------------------
-    # RAMP DOWN
-    # ----------------------------
+    # --------------------------------------------------------------
+    # 5️⃣  Dwell time
+    #     – while we are still ramping down → longer sleep with jitter
+    #     – once we have reached 1 Hz → change every 1‑2 seconds
+    # --------------------------------------------------------------
     if current_hz > TARGET_HZ:
-        current_hz -= STEP_HZ
-    # if current_hz == TARGET_HZ:
-        DWELL_BASE = 1
-        DWELL_VAR = 10
-        
+        dwell = DWELL_BASE + random.uniform(0, DWELL_VAR)   # 4 … 13 s
+    else:
+        dwell = 1.0 + random.uniform(0, 1.0)                # 1.0 … 2.0 s
+
+    time.sleep(dwell)

@@ -8,24 +8,25 @@ import os
 # CONFIG
 # ----------------------------
 PHI = 0.6180339887498949
-TOTAL_MODULES = 8
-LOCK_CHANGE_INTERVAL = 3 # iterations before switching the locked module
+TOTAL_MODULES = 9                      # now 9 modules (5 base + 4 hz)
+LOCK_CHANGE_INTERVAL = 3               # iterations before switching locked module
 MICRO_DWELL_MIN = 0.0001
 MICRO_DWELL_MAX = 0.001
-OFFSET = 500000  # fixed offset
+OFFSET = 500_000                       # fixed offset for hz calculations
 
 # ----------------------------
-# MODULE LIST
+# MODULE LIST (9 entries now)
 # ----------------------------
 MODULES = [
     "./adf4351",
     "./adf43512",
     "./adf43513",
     "./adf43514",
-    "./adf43515",
-    "./adf43516",
+    "./adf43515",      # 5th module → base only (indices 0-4)
+    "./adf43516",      # 6th module → hz offset (indices 5-8)
     "./adf43517",
     "./adf43518",
+    "./adf43519"       # 9th module added
 ]
 
 # ----------------------------
@@ -37,9 +38,8 @@ try:
         numbers = [int(x) for x in f.read().split() if x.isdigit()]
         MIN_BB = numbers[0]
         MAX_BB = numbers[-1]
-except:
-    MIN_BB, MAX_BB = 35,8800
-
+except Exception:
+    MIN_BB, MAX_BB = 35, 8800
 
 # ----------------------------
 # READ POWER LEVEL
@@ -61,20 +61,14 @@ phases = [random.random() for _ in range(TOTAL_MODULES)]
 locked_module_index = random.randint(0, TOTAL_MODULES - 1)
 iteration_counter = 0
 
-GROUP_STEP = 500
-CURRENT_GRP = MIN_BB
-GROUP_DIR = 1
-GROUP_HOLD = 3
-GROUP_CNT = 0
-
 # ----------------------------
 # FENCE SWEEP CONFIG
 # ----------------------------
-FENCE_STEPS = 16          # vertical height of your ASCII fence
+FENCE_STEPS = 16                     # vertical height of your ASCII fence
 FENCE_WIDTH = MAX_BB - MIN_BB
-FENCE_STEP = FENCE_WIDTH // (FENCE_STEPS - 1)
+FENCE_STEP = FENCE_WIDTH // (FENCE_STEPS - 1) if FENCE_STEPS > 1 else 0
 
-# Precompute fence positions (expand → collapse)
+# Precompute fence positions (expand → collapse pattern)
 fence_positions = []
 for i in range(FENCE_STEPS):
     fence_positions.append(MIN_BB + i * FENCE_STEP)
@@ -102,34 +96,28 @@ while True:
         idx = (fence_tick + fence_phase[i]) % fence_len
         BB_values.append(fence_positions[idx])
 
-    # ---- DERIVED BASES ----
-    BB1 = BB_values[0]
-    BB2 = BB_values[1]
-    BB3 = BB_values[2]
-
-
-    # ---- HZ OFFSETS (L1/L2/L3 style collapse) ----
+    # ---- HZ OFFSETS FOR THE 4 MODULES WITH HZ ----
     hz1 = 120
     hz2 = 5
-    hz3 = random.randint(19, 20)
+    hz3 = 430
     hz4 = 420
 
-    # ---- DEFINE ROLES ----
+    # ---- DEFINE ROLES (5 base-only + 4 with hz offset) ----
     roles = []
     for i, BB in enumerate(BB_values):
-        if i % 2 == 0:
-            hz = OFFSET
-        else:
-            hz = OFFSET + [hz1, hz2, hz3, hz4][i % 4]
+        if i < 5:                      # first 5 modules → base only
+            freq_str = f"{BB}.000000"  # no hz offset (decimal format)
+        else:                          # last 4 modules → base + hz offset
+            hz_val = [hz1, hz2, hz3, hz4][i - 5]
+            freq_str = f"{BB}.{OFFSET + hz_val:06d}"
 
-        roles.append(f"{BB}.{hz:06d}")
-
+        roles.append(freq_str)
 
     # ---- APPLY GOLDEN-RATIO ROTATION WITH LOCK COLLAPSE ----
     assignments = []
     for i, mod in enumerate(MODULES):
         if i == locked_module_index:
-            # Locked module stays on its first role
+            # Locked module stays on its first role (no rotation)
             freq = roles[i]
         else:
             # Golden ratio decorrelation for other modules
