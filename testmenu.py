@@ -17,7 +17,7 @@ PROGRAM_OPTIONS = {
     "DLPFC": "bash /home/pi/Desktop/startDLPFC.sh &",
     "Anti-PTSD": "bash /home/pi/Desktop/startPTSD.sh &",
     "Sleep": "bash /home/pi/Desktop/startall5.sh &",
-    "Wake": "bash /home/pi/Desktop/startall6.sh ",
+    "Wake": "python3 /home/pi/Desktop/startall6.py ",
     "PFC": "bash /home/pi/Desktop/startall3.sh &",
     "Quad H": "bash /home/pi/Desktop/testmodules/startall.sh &",
     "V2K": "bash /home/pi/Desktop/testmodules/startall2.sh &",
@@ -546,9 +546,9 @@ class ProgramManager(tk.Tk):
                     # ---- Script execution ----
                     if step.get('name') == "Wake" and 'hz' in step:
                         hz_value = step['hz']
-                        script_path = "/home/pi/Desktop/startall6.sh"
+                        script_path = "/home/pi/Desktop/startall6.py"
                         print(f"[Runner] Running Wake script with HZ={hz_value}")
-                        subprocess.run(["bash", script_path, str(hz_value)])
+                        subprocess.run(["python3", script_path, str(hz_value)], shell=True)
                     else:
                         print(f"[Runner] Running script: {step['script']}")
                         subprocess.run(step['script'], shell=True)
