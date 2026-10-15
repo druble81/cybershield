@@ -98,13 +98,34 @@ sudo pkill -f "adf4351[0-9]*"
         /tmp/ramdisk/adf43518 1000 25000000 $C $T1 $T2 &
         /tmp/ramdisk/adf43519 1000 25000000 $C $T1 $T2 &
 
+FILE="/tmp/ramdisk/SG3.TXT"
+
+
+
+SG1=$(grep -oE '[0-9]+([.][0-9]+)?' "$FILE" | head -n 1)
+SG2=$(grep -oE '[0-9]+([.][0-9]+)?' "$FILE" | tail -n 1)
+
+echo "SG1=$SG1"
+echo "SG2=$SG2"
+ITER=0
+ITER2=0
+
 while :
 do
 
 #sleep $(($RANDOM % 10 + 5))
 #sudo pkill -f "adf4351[0-9]*"
 
+  ITER=$((ITER + 1))
+    ITER2=$((ITER + 1))
+    
 
+    # Every 20 iterations, trigger the loadrd command with a random parameter (15-50)
+    if (( ITER % 3 == 0 )); then
+        RAND_PARAM=$(( (RANDOM % 50) + 1 ))
+        echo ">>> [ITERATION $ITER] Triggering loadrd command with random parameter: $RAND_PARAM"
+        sudo /home/pi/Desktop/loadrd $SG1 $SG2 "$RAND_PARAM"&
+    fi
 echo "......................Burst MODE......................$D"
 
 

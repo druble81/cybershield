@@ -153,4 +153,4 @@ RANDOM=$SEED
     
     done
 
-    printf "\n"    >> /tmp/ramdisk/SG3.TXT
+
