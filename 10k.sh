@@ -45,17 +45,18 @@ D=$(($RANDOM % 30 + 1))
 #C=$(($RANDOM % 4 + 1))
 
 
+FILE="/tmp/ramdisk/SG3.TXT"
 
 
 
-while :
-do
+SG1=$(grep -oE '[0-9]+([.][0-9]+)?' "$FILE" | head -n 1)
+SG2=$(grep -oE '[0-9]+([.][0-9]+)?' "$FILE" | tail -n 1)
 
+echo "SG1=$SG1"
+echo "SG2=$SG2"
 
-echo "......................FULL 10K MODE......................$D"
-echo "......................FULL 10K MODE......................$D"
-echo "......................FULL 10K MODE......................$D"
-echo "......................FULL 10K MODE......................$D"
+ITER=0
+ITER2=0
 
 sudo pkill -f "adf4351[0-9]*"
 
@@ -70,8 +71,53 @@ sudo pkill -f "adf4351[0-9]*"
 /tmp/ramdisk/adf43519 3000 25000000 $C $T1 $T2 &
 
 
-sleep $(($RANDOM % 50 + 50))
+while :
+do
 
+
+echo "......................FULL 10K MODE......................$D"
+echo "......................FULL 10K MODE......................$D"
+echo "......................FULL 10K MODE......................$D"
+echo "......................FULL 10K MODE......................$D"
+
+
+
+
+    ITER=$((ITER + 1))
+    ITER2=$((ITER + 1))
+    
+# Every 8 iterations, trigger loadrd
+if (( ITER % 8 == 0 )); then
+
+    SG_COUNT=$((SG2 - SG1 + 1))
+
+    # Do not trigger loadrd if range contains fewer than 10 values
+    if (( SG_COUNT >= 10 )); then
+
+        if (( SG_COUNT < 400 )); then
+            # Small ranges: minimum 30%, maximum 50%
+            MIN_PARAM=1
+            MAX_PARAM=6
+        else
+            # Larger ranges: minimum 25%, maximum 50
+            MIN_PARAM=2
+            MAX_PARAM=8
+        fi
+        # Ensure valid random range
+        (( MIN_PARAM < 1 )) && MIN_PARAM=1
+
+        RAND_PARAM=$(( (RANDOM % (MAX_PARAM - MIN_PARAM + 1)) + MIN_PARAM ))
+
+        echo ">>> [ITERATION $ITER] Triggering loadrd: SG1=$SG1 SG2=$SG2 RAND_PARAM=$RAND_PARAM"
+
+        sudo /home/pi/Desktop/loadrd "$SG1" "$SG2" "$RAND_PARAM" &
+    else
+        echo ">>> [ITERATION $ITER] Skipping loadrd: SG range count ($SG_COUNT) is below 10"
+    fi
+fi
+
+
+sleep 1
 
 done
 

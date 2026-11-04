@@ -91,12 +91,35 @@ do
     ITER2=$((ITER + 1))
     sleep 1
 
-    # Every 20 iterations, trigger the loadrd command with a random parameter (15-50)
-    if (( ITER % 4 == 0 )); then
-        RAND_PARAM=$(( (RANDOM % 50) + 1 ))
-        echo ">>> [ITERATION $ITER] Triggering loadrd command with random parameter: $RAND_PARAM"
-        sudo /home/pi/Desktop/loadrd $SG1 $SG2 "$RAND_PARAM"&
+# Every 8 iterations, trigger loadrd
+if (( ITER % 8 == 0 )); then
+
+    SG_COUNT=$((SG2 - SG1 + 1))
+
+    # Do not trigger loadrd if range contains fewer than 10 values
+    if (( SG_COUNT >= 10 )); then
+
+        if (( SG_COUNT < 400 )); then
+            # Small ranges: minimum 30%, maximum 50%
+            MIN_PARAM=1
+            MAX_PARAM=6
+        else
+            # Larger ranges: minimum 25%, maximum 50
+            MIN_PARAM=2
+            MAX_PARAM=8
+        fi
+        # Ensure valid random range
+        (( MIN_PARAM < 1 )) && MIN_PARAM=1
+
+        RAND_PARAM=$(( (RANDOM % (MAX_PARAM - MIN_PARAM + 1)) + MIN_PARAM ))
+
+        echo ">>> [ITERATION $ITER] Triggering loadrd: SG1=$SG1 SG2=$SG2 RAND_PARAM=$RAND_PARAM"
+
+        sudo /home/pi/Desktop/loadrd "$SG1" "$SG2" "$RAND_PARAM" &
+    else
+        echo ">>> [ITERATION $ITER] Skipping loadrd: SG range count ($SG_COUNT) is below 10"
     fi
+fi
 
     if (( ITER2 % 2 == 0 )); then
   
