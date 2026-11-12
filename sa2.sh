@@ -101,7 +101,8 @@ if (( ITER % 8 == 0 )); then
     SG_COUNT=$((SG2 - SG1 + 1))
 
     # Do not trigger loadrd if range contains fewer than 10 values
-    if (( SG_COUNT >= 10 )); the5
+    if (( SG_COUNT >= 10 )); then
+
         if (( SG_COUNT < 400 )); then
             # Small ranges: minimum 30%, maximum 50%
             MIN_PARAM=1
@@ -111,7 +112,6 @@ if (( ITER % 8 == 0 )); then
             MIN_PARAM=2
             MAX_PARAM=8
         fi
-
         # Ensure valid random range
         (( MIN_PARAM < 1 )) && MIN_PARAM=1
 
@@ -127,6 +127,50 @@ fi
 
 
 echo "......................Full Coverage MODE......................"
+# --- PROCESS MONITORING BLOCK ---
+    CURRENT_TIME=$(date +%s)
+    
+    for mod in "${MODULES[@]}"; do
+        HEARTBEAT_FILE="/tmp/ramdisk/heartbeat_${mod}.txt"
+        RESTART_NEEDED=0
+
+        # 1. Check if the process has completely disappeared (crashed/killed)
+        if ! pgrep -x "$mod" > /dev/null; then
+            echo ">>> [ALERT] Module $mod is completely offline!"
+            RESTART_NEEDED=1
+            
+        # 2. Process is running, but check if it's frozen
+        elif [[ -f "$HEARTBEAT_FILE" ]]; then
+            FILE_TIME=$(stat -c %Y "$HEARTBEAT_FILE")
+            AGE=$((CURRENT_TIME - FILE_TIME))
+            
+            # If the file hasn't been updated in more than 5 seconds, it's deadlocked
+            if (( AGE > 5 )); then
+                echo ">>> [ALERT] Module $mod is FROZEN! (Heartbeat $AGE secs old)"
+                
+                # Force kill the stalled process
+                sudo pkill -x "$mod"
+                RESTART_NEEDED=1
+            fi
+        fi
+
+        # 3. Handle the restart if flagged
+        if (( RESTART_NEEDED == 1 )); then
+            echo ">>> Restarting $mod..."
+            
+            # Delete the old heartbeat file so we don't get trapped in a restart loop 
+            # while waiting for the new process to boot up and create a fresh one
+            rm -f "$HEARTBEAT_FILE"
+            
+            # Restart with correct arguments
+            if [[ "$mod" == "adf43513" ]]; then
+                /tmp/ramdisk/"$mod" 1000 25000000 "$C" "$T3" "$T4" 2&
+            else
+                /tmp/ramdisk/"$mod" 1000 25000000 "$C" "$T1" "$T2" &
+            fi
+        fi
+    done
+    # --------------------------------
 
 sleep 1
 done
